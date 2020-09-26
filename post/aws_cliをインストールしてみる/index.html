@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>AWS_CLIをインストールしてみる - hachi&#39;s blog</title>
-  <meta name="description" content="AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにデプロイするためにAWS CLIが必要みたいなのでインストール〜設定作業をまとめてみた。">
+  <meta name="description" content="AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにコードをデプロイするためにAWS CLIがあると便利みたいなのでインストール〜設定作業をまとめてみた。">
   <meta name="author" content="hachi"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -57,9 +57,9 @@
     "name" : "hachi"
   },
   "headline": "AWS_CLIをインストールしてみる",
-  "description" : "AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにデプロイするためにAWS CLIが必要みたいなのでインストール〜設定作業をまとめてみた。\n",
+  "description" : "AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにコードをデプロイするためにAWS CLIがあると便利みたいなのでインストール〜設定作業をまとめてみた。\n",
   "inLanguage" : "en",
-  "wordCount":  117 ,
+  "wordCount":  118 ,
   "datePublished" : "2020-09-26T22:01:43",
   "dateModified" : "2020-09-26T22:01:43",
   "image" : "https:\/\/m-88888888.github.io\/images\/zac.png",
@@ -79,14 +79,14 @@
 </script>
 
 <meta property="og:title" content="AWS_CLIをインストールしてみる" />
-<meta property="og:description" content="AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにデプロイするためにAWS CLIが必要みたいなのでインストール〜設定作業をまとめてみた。">
+<meta property="og:description" content="AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにコードをデプロイするためにAWS CLIがあると便利みたいなのでインストール〜設定作業をまとめてみた。">
 <meta property="og:image" content="https://m-88888888.github.io/images/zac.png" />
 <meta property="og:url" content="https://m-88888888.github.io/post/aws_cli%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="hachi&#39;s blog" />
 
   <meta name="twitter:title" content="AWS_CLIをインストールしてみる" />
-  <meta name="twitter:description" content="AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにデプロイするためにAWS CLIが必要みたいなのでインストール〜設定作業をまとめてみた。">
+  <meta name="twitter:description" content="AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにコードをデプロイするためにAWS CLIがあると便利みたいなのでインストール〜設定作業をまとめてみた。">
   <meta name="twitter:image" content="https://m-88888888.github.io/images/zac.png" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@hachi_m88888888" />
@@ -263,7 +263,7 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにデプロイするためにAWS CLIが必要みたいなのでインストール〜設定作業をまとめてみた。</p>
+        <p>AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにコードをデプロイするためにAWS CLIがあると便利みたいなのでインストール〜設定作業をまとめてみた。</p>
 <h2 id="そもそもaws-cliって何">そもそもAWS CLIって何？</h2>
 <p>公式より
 <a href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-chap-welcome.html">AWS Command Line Interface とは - AWS Command Line Interface</a></p>
@@ -292,7 +292,8 @@ Default output format <span class="o">[</span>None<span class="o">]</span>: 出�
 </code></pre></div><p>この認証設定を切り替えたりするために<code>プロファイル</code>ってものがあるらしい。
 複数アカウント使用するときに使いそう。今回は割愛。</p>
 <h2 id="cliでlambdaにコードをデプロイしてみる">CLIでLambdaにコードをデプロイしてみる</h2>
-<p>デプロイ自体は圧縮してアップロードするだけなので単純。</p>
+<p>Lambda関数自体は既に作成済みなので関数を更新するコマンドを叩けばいい。
+コード自体は圧縮してアップロードするだけなので単純。</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ zip -r lambda zip main.go
 $ aws lambda update-function-code --function-name hogehoge --zip-file fileb://lambda.zip
 <span class="o">{</span>
@@ -304,7 +305,7 @@ $ aws lambda update-function-code --function-name hogehoge --zip-file fileb://la
 </code></pre></div><p>コマンドの結果がJSON形式で返って、更新結果が<code>Successful</code>となっているのでデプロイに成功。</p>
 <h2 id="まとめ">まとめ</h2>
 <ul>
-<li>いちいちマネジメントコンソール開く手間がなくなるのはかなり大きい。楽ちんだ</li>
+<li>いちいちマネジメントコンソール開く手間がなくなるのはかなり大きい。</li>
 <li>CLIを使用する上での最低限の設定はかなり単純なので使用する上での敷居は低い</li>
 <li>けど初見のサービスをCLIで操作するのは大変そう</li>
 <li>ある程度操作になれたらCLIでも操作してみる、って手順を踏んだほうが良さそう</li>
