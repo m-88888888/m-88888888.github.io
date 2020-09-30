@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>aws on hachi&#39;s blog</title>
+    <link>https://m-88888888.github.io/tags/aws/</link>
+    <description>Recent content in aws on hachi&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 30 Sep 2020 22:20:19 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Go言語】AWS Lambdaを使ってオウム返しするLINE Botを作ってみた</title>
+      <link>https://m-88888888.github.io/post/aws-lambda%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%AA%E3%82%A6%E3%83%A0%E8%BF%94%E3%81%97%E3%81%99%E3%82%8Bline-bot%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</link>
+      <pubDate>Wed, 30 Sep 2020 22:20:19 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/aws-lambda%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%AA%E3%82%A6%E3%83%A0%E8%BF%94%E3%81%97%E3%81%99%E3%82%8Bline-bot%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</guid>
+      <description>&lt;p&gt;最近学習中のGo言語とLambdaで何か作ってみたかったので、Lambdaを使ったLINE　Botに挑戦してみた。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

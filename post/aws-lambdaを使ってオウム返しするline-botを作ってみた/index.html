@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>【Go言語】AWS Lambdaを使ってオウム返しするLINE Botを作ってみた - hachi&#39;s blog</title>
+  <meta name="description" content="最近学習中のGo言語とLambdaで何か作ってみたかったので、Lambdaを使ったLINE　Botに挑戦してみた。">
+  <meta name="author" content="hachi"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "hachi\u0027s blog",
+    
+    "url": "https:\/\/m-88888888.github.io"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/m-88888888.github.io"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/m-88888888.github.io",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/m-88888888.github.io\/post\/aws-lambda%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%AA%E3%82%A6%E3%83%A0%E8%BF%94%E3%81%97%E3%81%99%E3%82%8Bline-bot%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F\/",
+          "name": "【 go言語】 a w s lambdaを使ってオウム返しする l i n e botを作ってみた"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "hachi"
+  },
+  "headline": "【Go言語】AWS Lambdaを使ってオウム返しするLINE Botを作ってみた",
+  "description" : "最近学習中のGo言語とLambdaで何か作ってみたかったので、Lambdaを使ったLINE　Botに挑戦してみた。\n",
+  "inLanguage" : "en",
+  "wordCount":  219 ,
+  "datePublished" : "2020-09-30T22:20:19",
+  "dateModified" : "2020-09-30T22:20:19",
+  "image" : "https:\/\/m-88888888.github.io\/images\/zac.png",
+  "keywords" : [ "golang, aws, linebot" ],
+  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/aws-lambda%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%AA%E3%82%A6%E3%83%A0%E8%BF%94%E3%81%97%E3%81%99%E3%82%8Bline-bot%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/m-88888888.github.io",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/m-88888888.github.io\/images\/zac.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="【Go言語】AWS Lambdaを使ってオウム返しするLINE Botを作ってみた" />
+<meta property="og:description" content="最近学習中のGo言語とLambdaで何か作ってみたかったので、Lambdaを使ったLINE　Botに挑戦してみた。">
+<meta property="og:image" content="https://m-88888888.github.io/images/zac.png" />
+<meta property="og:url" content="https://m-88888888.github.io/post/aws-lambda%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%AA%E3%82%A6%E3%83%A0%E8%BF%94%E3%81%97%E3%81%99%E3%82%8Bline-bot%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="hachi&#39;s blog" />
+
+  <meta name="twitter:title" content="【Go言語】AWS Lambdaを使ってオウム返しするLINE Botを作ってみた" />
+  <meta name="twitter:description" content="最近学習中のGo言語とLambdaで何か作ってみたかったので、Lambdaを使ったLINE　Botに挑戦してみた。">
+  <meta name="twitter:image" content="https://m-88888888.github.io/images/zac.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@hachi_m88888888" />
+  <meta name="twitter:creator" content="@hachi_m88888888" />
+  <link href='https://m-88888888.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.75.1" />
+  <link rel="alternate" href="https://m-88888888.github.io/index.xml" type="application/rss+xml" title="hachi&#39;s blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://m-88888888.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://m-88888888.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://m-88888888.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://m-88888888.github.io">hachi&#39;s blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="hachi&#39;s blog" href="https://m-88888888.github.io">
+            <img class="avatar-img" src="https://m-88888888.github.io/images/zac.png" alt="hachi&#39;s blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>【Go言語】AWS Lambdaを使ってオウム返しするLINE Botを作ってみた</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on September 30, 2020
+  
+  
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;hachi
+    
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>最近学習中のGo言語とLambdaで何か作ってみたかったので、Lambdaを使ったLINE　Botに挑戦してみた。</p>
+<h2 id="bot概要">Bot概要</h2>
+<ul>
+<li>LINEでメッセージをオウムがえしして返答するチャットボット</li>
+</ul>
+<h2 id="構成図">構成図</h2>
+<p><img src="https://user-images.githubusercontent.com/51853475/94694865-3f690600-0370-11eb-988f-f182d42f6ff0.png" alt="AWS Icons"></p>
+<h2 id="aws設定">AWS設定</h2>
+<p>Lambdaの設定についてはぐぐれば出てくるので省略。</p>
+<h2 id="処理の流れ">処理の流れ</h2>
+<ol>
+<li>API Gatewayからイベントリクエストを受け取る</li>
+<li>リクエスト内のBody部にあるJSON文字列をデコードする</li>
+<li>LINE SDKを用いてBotを定義する（トークンなどの情報は環境変数として保持）</li>
+<li>応答メッセージを生成、ここではオウム返しするため送信されたメッセージをそのまま応答メッセージとして設定する</li>
+<li>ステータスコードを返却して処理を終了</li>
+</ol>
+<h2 id="コード">コード</h2>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;encoding/json&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;github.com/aws/aws-lambda-go/events&#34;</span>
+	<span class="s">&#34;github.com/aws/aws-lambda-go/lambda&#34;</span>
+	<span class="s">&#34;github.com/line/line-bot-sdk-go/linebot&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// Lambda関数のエントリポイント
+</span><span class="c1"></span>	<span class="nx">lambda</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">HandleRequest</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">HandleRequest</span><span class="p">(</span><span class="nx">request</span> <span class="nx">events</span><span class="p">.</span><span class="nx">APIGatewayProxyRequest</span><span class="p">)</span> <span class="p">(</span><span class="nx">events</span><span class="p">.</span><span class="nx">APIGatewayProxyResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+
+	<span class="c1">// LINEプラットフォームで生成されたWebhookオブジェクト
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;=== Body ===&#34;</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+
+	<span class="c1">// JSONをデコード
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;=== JSON decode ===&#34;</span><span class="p">)</span>
+	<span class="nx">myLineRequest</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">UnmarshalLineRequest</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">Body</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// ボットの定義
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;=== linebot new ===&#34;</span><span class="p">)</span>
+	<span class="nx">bot</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">linebot</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span>
+		<span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;LINE_CHANNEL_SECRET&#34;</span><span class="p">),</span>
+		<span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;LINE_CHANNEL_TOKEN&#34;</span><span class="p">),</span>
+	<span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 応答メッセージの生成
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;=== reply ===&#34;</span><span class="p">)</span>
+	<span class="nx">replyMessage</span> <span class="o">:=</span> <span class="nx">myLineRequest</span><span class="p">.</span><span class="nx">Events</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Message</span><span class="p">.</span><span class="nx">Text</span>
+	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">bot</span><span class="p">.</span><span class="nf">ReplyMessage</span><span class="p">(</span><span class="nx">myLineRequest</span><span class="p">.</span><span class="nx">Events</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">ReplyToken</span><span class="p">,</span> <span class="nx">linebot</span><span class="p">.</span><span class="nf">NewTextMessage</span><span class="p">(</span><span class="nx">replyMessage</span><span class="p">)).</span><span class="nf">Do</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 終了
+</span><span class="c1"></span>	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;=== end ===&#34;</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">events</span><span class="p">.</span><span class="nx">APIGatewayProxyResponse</span><span class="p">{</span><span class="nx">Body</span><span class="p">:</span> <span class="nx">request</span><span class="p">.</span><span class="nx">Body</span><span class="p">,</span> <span class="nx">StatusCode</span><span class="p">:</span> <span class="mi">200</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// API Gatewayから受け取ったevents.APIGatewayProxyResponseのBody（JSON）をParseする
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">UnmarshalLineRequest</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">LineRequest</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">r</span> <span class="nx">LineRequest</span>
+	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">r</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">err</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">LineRequest</span><span class="p">)</span> <span class="nf">Marshal</span><span class="p">()</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">json</span><span class="p">.</span><span class="nf">Marshal</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">LineRequest</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Destination</span> <span class="kt">string</span>  <span class="s">`json:&#34;destination&#34;`</span>
+	<span class="nx">Events</span>      <span class="p">[]</span><span class="nx">Event</span> <span class="s">`json:&#34;events&#34;`</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Event</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ReplyToken</span> <span class="kt">string</span>   <span class="s">`json:&#34;replyToken&#34;`</span>
+	<span class="nx">Type</span>       <span class="kt">string</span>   <span class="s">`json:&#34;type&#34;`</span>
+	<span class="nx">Mode</span>       <span class="kt">string</span>   <span class="s">`json:&#34;mode&#34;`</span>
+	<span class="nx">Timestamp</span>  <span class="kt">int64</span>    <span class="s">`json:&#34;timestamp&#34;`</span>
+	<span class="nx">Source</span>     <span class="nx">Source</span>   <span class="s">`json:&#34;source&#34;`</span>
+	<span class="nx">Message</span>    <span class="o">*</span><span class="nx">Message</span> <span class="s">`json:&#34;message,omitempty&#34;`</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Message</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ID</span>   <span class="kt">string</span> <span class="s">`json:&#34;id&#34;`</span>
+	<span class="nx">Type</span> <span class="kt">string</span> <span class="s">`json:&#34;type&#34;`</span>
+	<span class="nx">Text</span> <span class="kt">string</span> <span class="s">`json:&#34;text&#34;`</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Source</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Type</span>   <span class="kt">string</span> <span class="s">`json:&#34;type&#34;`</span>
+	<span class="nx">UserID</span> <span class="kt">string</span> <span class="s">`json:&#34;userId&#34;`</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="ポイント">ポイント</h3>
+<ul>
+<li>API GatewayのイベントリクエストをLINE SDKを使用せずに自分でパースしてる。
+<ul>
+<li>LINE SDKで用意しているパースメソッド<code>ParseRequest()</code>は<code>*http.Request</code>を引数に渡す必要があるけど、lambdaがAPI Gatewayから受け取るイベントの型が対応していないから。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ハマった点">ハマった点</h2>
+<ul>
+<li>ポイントでも紹介した通り、リクエストをパースする処理で詰まってた。<code>ParseRequest()</code>をオーバーライドするか、自分でパース処理を書くか。今回は初めてだったので自分でパース処理を書いた。</li>
+</ul>
+<h2 id="今後の課題">今後の課題</h2>
+<ul>
+<li>チャット以外送信したときの処理がないｌ
+<ul>
+<li>スタンプや画像、動画などを送信された時にも応答メッセージを送る</li>
+</ul>
+</li>
+<li>lambdaから他のAWSサービスを利用する処理を追加したい。
+<ul>
+<li>例&gt;画像が送信されたらS3に保存する</li>
+</ul>
+</li>
+</ul>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://m-88888888.github.io/tags/golang/">golang</a>&nbsp;
+            
+              <a href="https://m-88888888.github.io/tags/aws/">aws</a>&nbsp;
+            
+              <a href="https://m-88888888.github.io/tags/linebot/">linebot</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2faws-lambda%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%25AA%25E3%2582%25A6%25E3%2583%25A0%25E8%25BF%2594%25E3%2581%2597%25E3%2581%2599%25E3%2582%258Bline-bot%25E3%2582%2592%25E4%25BD%259C%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%259F%2f&amp;text=%e3%80%90Go%e8%a8%80%e8%aa%9e%e3%80%91AWS%20Lambda%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%82%aa%e3%82%a6%e3%83%a0%e8%bf%94%e3%81%97%e3%81%99%e3%82%8bLINE%20Bot%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%81%9f&amp;via=hachi_m88888888" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2faws-lambda%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%25AA%25E3%2582%25A6%25E3%2583%25A0%25E8%25BF%2594%25E3%2581%2597%25E3%2581%2599%25E3%2582%258Bline-bot%25E3%2582%2592%25E4%25BD%259C%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%259F%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2faws-lambda%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%25AA%25E3%2582%25A6%25E3%2583%25A0%25E8%25BF%2594%25E3%2581%2597%25E3%2581%2599%25E3%2582%258Bline-bot%25E3%2582%2592%25E4%25BD%259C%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%259F%2f&amp;title=%e3%80%90Go%e8%a8%80%e8%aa%9e%e3%80%91AWS%20Lambda%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%82%aa%e3%82%a6%e3%83%a0%e8%bf%94%e3%81%97%e3%81%99%e3%82%8bLINE%20Bot%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%81%9f" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2faws-lambda%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%25AA%25E3%2582%25A6%25E3%2583%25A0%25E8%25BF%2594%25E3%2581%2597%25E3%2581%2599%25E3%2582%258Bline-bot%25E3%2582%2592%25E4%25BD%259C%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%259F%2f&amp;title=%e3%80%90Go%e8%a8%80%e8%aa%9e%e3%80%91AWS%20Lambda%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%82%aa%e3%82%a6%e3%83%a0%e8%bf%94%e3%81%97%e3%81%99%e3%82%8bLINE%20Bot%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%81%9f" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2faws-lambda%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%25AA%25E3%2582%25A6%25E3%2583%25A0%25E8%25BF%2594%25E3%2581%2597%25E3%2581%2599%25E3%2582%258Bline-bot%25E3%2582%2592%25E4%25BD%259C%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%259F%2f&amp;title=%e3%80%90Go%e8%a8%80%e8%aa%9e%e3%80%91AWS%20Lambda%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%82%aa%e3%82%a6%e3%83%a0%e8%bf%94%e3%81%97%e3%81%99%e3%82%8bLINE%20Bot%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%81%9f" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2faws-lambda%25E3%2582%2592%25E4%25BD%25BF%25E3%2581%25A3%25E3%2581%25A6%25E3%2582%25AA%25E3%2582%25A6%25E3%2583%25A0%25E8%25BF%2594%25E3%2581%2597%25E3%2581%2599%25E3%2582%258Bline-bot%25E3%2582%2592%25E4%25BD%259C%25E3%2581%25A3%25E3%2581%25A6%25E3%2581%25BF%25E3%2581%259F%2f&amp;description=%e3%80%90Go%e8%a8%80%e8%aa%9e%e3%80%91AWS%20Lambda%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6%e3%82%aa%e3%82%a6%e3%83%a0%e8%bf%94%e3%81%97%e3%81%99%e3%82%8bLINE%20Bot%e3%82%92%e4%bd%9c%e3%81%a3%e3%81%a6%e3%81%bf%e3%81%9f" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://m-88888888.github.io/post/aws_cli%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/" data-toggle="tooltip" data-placement="top" title="AWS_CLIをインストールしてみる">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/m-88888888" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/hachi_m88888888" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              hachi
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2020
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://m-88888888.github.io">hachi&#39;s blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.75.1</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://m-88888888.github.io/js/main.js"></script>
+<script src="https://m-88888888.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://m-88888888.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
