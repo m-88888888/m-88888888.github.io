@@ -265,12 +265,12 @@
       <article role="main" class="blog-post">
         <p>AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにコードをデプロイするためにAWS CLIがあると便利みたいなのでインストール〜設定作業をまとめてみた。</p>
 <h2 id="そもそもaws-cliって何">そもそもAWS CLIって何？</h2>
-<p>公式より
+<p>公式より<br>
 <a href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-chap-welcome.html">AWS Command Line Interface とは - AWS Command Line Interface</a></p>
 <blockquote>
 <p>AWS Command Line Interface (AWS CLI) は、コマンドラインシェルでコマンドを使用して AWS サービスとやり取りするためのオープンソースツールです。AWS CLI は、最小限の設定で、任意のターミナルプログラムのコマンドプロンプトから、ブラウザベースの AWS マネジメントコンソール で提供される機能と同等の機能を実装するコマンドの実行を開始できます。</p>
 </blockquote>
-<p>AWSをコマンドラインで設定、操作するためのツールみたい。
+<p>AWSをコマンドラインで設定、操作するためのツールみたい。<br>
 ソースをLambdaにデプロイするときに毎回圧縮したソースをマネジメントコンソールでアップロードするという作業が要らなくなる！</p>
 <h2 id="インストール">インストール</h2>
 <p>とりあえず最新バージョンをインストール</p>
@@ -282,17 +282,17 @@ sudo installer -pkg AWSCLIV2.pkg -target /
 $ aws --version
 aws-cli/2.0.52 Python/3.7.4 Darwin/18.7.0 exe/x86_64
 </code></pre></div><h2 id="認証設定">認証設定</h2>
-<p>AWSのアカウント情報とかの設定をする。
+<p>AWSのアカウント情報とかの設定をする。<br>
 <code>aws configure</code>で基本設定ができるっぽい。</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ aws configure
 AWS Access Key ID <span class="o">[</span>None<span class="o">]</span>: アクセスキー
 AWS Secret Access Key <span class="o">[</span>None<span class="o">]</span>: シークレットアクセスキー
 Default region name <span class="o">[</span>None<span class="o">]</span>: リージョン
 Default output format <span class="o">[</span>None<span class="o">]</span>: 出力形式
-</code></pre></div><p>この認証設定を切り替えたりするために<code>プロファイル</code>ってものがあるらしい。
+</code></pre></div><p>この認証設定を切り替えたりするために<code>プロファイル</code>ってものがあるらしい。<br>
 複数アカウント使用するときに使いそう。今回は割愛。</p>
 <h2 id="cliでlambdaにコードをデプロイしてみる">CLIでLambdaにコードをデプロイしてみる</h2>
-<p>Lambda関数自体は既に作成済みなので関数を更新するコマンドを叩けばいい。
+<p>Lambda関数自体は既に作成済みなので関数を更新するコマンドを叩けばいい。<br>
 コード自体は圧縮してアップロードするだけなので単純。</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ zip -r lambda zip main.go
 $ aws lambda update-function-code --function-name hogehoge --zip-file fileb://lambda.zip

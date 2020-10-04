@@ -5,7 +5,18 @@
     <link>https://m-88888888.github.io/</link>
     <description>Recent content on hachi&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 30 Sep 2020 22:20:19 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Oct 2020 16:01:46 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【Go言語】新規プロジェクトの始め方について整理してみる</title>
+      <link>https://m-88888888.github.io/post/go_mod%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E6%95%B4%E7%90%86%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</link>
+      <pubDate>Sat, 03 Oct 2020 16:01:46 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/go_mod%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E6%95%B4%E7%90%86%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/</guid>
+      <description>&lt;p&gt;今まで適当な場所でコード書いていたけど、本来は&lt;code&gt;$GOPATH/src/github.com/username&lt;/code&gt;配下に置くのが正しいらしい。&lt;/p&gt;
+&lt;p&gt;ただ、&lt;code&gt;Go Modules&lt;/code&gt;を使えば上記の場所に置かなくてもいいとか？&lt;br&gt;
+そこらへんが曖昧なのでちょっと整理して、新規プロジェクトの始め方をまとめてみた。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>【Go言語】AWS Lambdaを使ってオウム返しするLINE Botを作ってみた</title>
       <link>https://m-88888888.github.io/post/aws-lambda%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%AA%E3%82%A6%E3%83%A0%E8%BF%94%E3%81%97%E3%81%99%E3%82%8Bline-bot%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</link>
@@ -49,7 +60,8 @@
       
       <guid>https://m-88888888.github.io/page/about/</guid>
       <description>hachi 都内でプログラム書くお仕事してます
-つよつよなプログラマーになるべく色々と勉強中 最近興味があるもの：Golang, AWS, Docker
+つよつよなプログラマーになるべく色々と勉強中
+最近興味があるもの：Golang, AWS, Docker
 愛車 </description>
     </item>
     
