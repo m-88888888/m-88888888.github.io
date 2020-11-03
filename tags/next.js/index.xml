@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>next.js on hachi&#39;s blog</title>
+    <link>https://m-88888888.github.io/tags/next.js/</link>
+    <description>Recent content in next.js on hachi&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 04 Nov 2020 00:54:53 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/tags/next.js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Next.jsに入門してみた</title>
+      <link>https://m-88888888.github.io/post/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/</link>
+      <pubDate>Wed, 04 Nov 2020 00:54:53 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/</guid>
+      <description>&lt;p&gt;最近入った現場でReact扱っているんですけど、フロントエンドを担当するのは初めてということもあって苦労してます。。。まあ楽しいのでいいんですが&lt;/p&gt;
+&lt;p&gt;そのReactでNext.jsっていうフレームワーク使ってるんだけどこれまたよくわからない所がちょくちょく出てきて何度か詰まったりした点があったので、一度体系的に調べてみようと思い、公式のチュートリアルやってみることにしました。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
