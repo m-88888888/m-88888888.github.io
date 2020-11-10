@@ -7,11 +7,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>About me - hachi&#39;s blog</title>
-  <meta name="description" content="hachi 都内でSEやってます。
-つよつよなプログラマーになるべく色々と勉強中。
-最近興味があるもの：Golang, AWS, Docker, React&#43;TypeScript
-愛車 ">
+  <title>React&#43;Typescriptいろいろメモ - hachi&#39;s blog</title>
+  <meta name="description" content="React&#43;Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。
+
+11/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。
+">
   <meta name="author" content="hachi"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -47,8 +47,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/m-88888888.github.io\/page\/about\/",
-          "name": "About me"
+          "@id": "https:\/\/m-88888888.github.io\/post\/react%E3%83%A1%E3%83%A2\/",
+          "name": "React\u002b typescriptいろいろメモ"
         }
     }]
 }
@@ -59,15 +59,15 @@
   "author": {
     "name" : "hachi"
   },
-  "headline": "About me",
-  "description" : "hachi 都内でSEやってます。\nつよつよなプログラマーになるべく色々と勉強中。\n最近興味があるもの：Golang, AWS, Docker, React\u002bTypeScript\n愛車 ",
+  "headline": "React\u002bTypescriptいろいろメモ",
+  "description" : "React\u002bTypescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。\n 11\/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。\n",
   "inLanguage" : "en",
-  "wordCount":  8 ,
-  "datePublished" : "0001-01-01T00:00:00",
-  "dateModified" : "0001-01-01T00:00:00",
+  "wordCount":  85 ,
+  "datePublished" : "2020-11-08T23:01:22",
+  "dateModified" : "2020-11-08T23:01:22",
   "image" : "https:\/\/m-88888888.github.io\/images\/zac.png",
-  "keywords" : [ "" ],
-  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/page\/about\/",
+  "keywords" : [ "React, Typescript" ],
+  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/react%E3%83%A1%E3%83%A2\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/m-88888888.github.io",
@@ -81,21 +81,21 @@
 }
 </script>
 
-<meta property="og:title" content="About me" />
-<meta property="og:description" content="hachi 都内でSEやってます。
-つよつよなプログラマーになるべく色々と勉強中。
-最近興味があるもの：Golang, AWS, Docker, React&#43;TypeScript
-愛車 ">
+<meta property="og:title" content="React&#43;Typescriptいろいろメモ" />
+<meta property="og:description" content="React&#43;Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。
+
+11/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。
+">
 <meta property="og:image" content="https://m-88888888.github.io/images/zac.png" />
-<meta property="og:url" content="https://m-88888888.github.io/page/about/" />
+<meta property="og:url" content="https://m-88888888.github.io/post/react%E3%83%A1%E3%83%A2/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="hachi&#39;s blog" />
 
-  <meta name="twitter:title" content="About me" />
-  <meta name="twitter:description" content="hachi 都内でSEやってます。
-つよつよなプログラマーになるべく色々と勉強中。
-最近興味があるもの：Golang, AWS, Docker, React&#43;TypeScript
-愛車 ">
+  <meta name="twitter:title" content="React&#43;Typescriptいろいろメモ" />
+  <meta name="twitter:description" content="React&#43;Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。
+
+11/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。
+">
   <meta name="twitter:image" content="https://m-88888888.github.io/images/zac.png" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@hachi_m88888888" />
@@ -235,14 +235,29 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
+            <div class="post-heading">
               
-                <h1>About me</h1>
-              
-              
-                <hr class="small">
+                <h1>React&#43;Typescriptいろいろメモ</h1>
               
               
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on November 8, 2020
+  
+  
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;hachi
+    
+  
+  
+</span>
+
+
               
             </div>
           </div>
@@ -257,14 +272,76 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <h2 id="hachi">hachi</h2>
-<p>都内でSEやってます。<br>
-つよつよなプログラマーになるべく色々と勉強中。<br>
-最近興味があるもの：Golang, AWS, Docker, React+TypeScript</p>
-<h2 id="愛車">愛車</h2>
-<p><img src="https://user-images.githubusercontent.com/51853475/93910678-673ae700-fd3c-11ea-9ec9-2015f2957278.jpg" alt="IMG_8444"></p>
+        <p>React+Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。</p>
+<blockquote>
+<p>11/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。</p>
+</blockquote>
+<h1 id="react--typescriptの始め方">React + Typescriptの始め方</h1>
+<ul>
+<li>Reactアプリの作成には<code>create-react-app</code>を使う。（ゼロから構築するスキルがまだない)</li>
+<li>パッケージ管理には<code>npm</code>ではなく<code>yarn</code>を使うほうがベターっぽい
+<ul>
+<li>パッケージのインストール速度やコマンドの簡潔さで<code>yarn</code>が優れている</li>
+<li><code>yarn.lock</code>ファイルのおかげで依存パッケージをケアしてくれる</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">yarn create react-app &lt;アプリ名&gt; --template typescript
+</code></pre></div><p>まだまだ本格的に設定からカスタマイズできるレベルに達していないので<code>create-react-app</code>を使っているが、<code>lint</code>の独自ルールがデフォルトで組み込まれているので、今後いろいろとカスタマイズする必要性が出てきたら<code>create-react-app</code>に頼らずにゼロからreact-appを構築できるようになりたい。</p>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://qiita.com/Hai-dozo/items/90b852ac29b79a7ea02b">https://qiita.com/Hai-dozo/items/90b852ac29b79a7ea02b</a></li>
+<li><a href="https://qiita.com/jonakp/items/7d9f47c613c16cbf95aa">https://qiita.com/jonakp/items/7d9f47c613c16cbf95aa</a></li>
+</ul>
+<h1 id="コンポーネントの定義">コンポーネントの定義</h1>
+<h2 id="関数コンポーネント">関数コンポーネント</h2>
+<p><code>React.FC&lt;Props&gt;</code>で定義する。FC=FunctionComponent</p>
+<div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">type</span> <span class="nx">AppProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">hoge</span>: <span class="kt">String</span><span class="p">;</span>
+<span class="p">};</span>
 
+<span class="kr">const</span> <span class="nx">App</span>: <span class="kt">React.FC</span><span class="p">&lt;</span><span class="nt">AppProps</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">hoge</span><span class="p">}&lt;/</span><span class="nt">h1</span><span class="p">&gt;;</span>
+<span class="p">};</span>
 
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></div><h2 id="クラスコンポーネント">クラスコンポーネント</h2>
+<div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">type</span> <span class="nx">AppProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">hoge</span>: <span class="kt">String</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">&lt;</span><span class="nt">AppProps</span><span class="err">,</span> <span class="p">{}&gt;</span> <span class="p">{</span>
+  <span class="nx">render() {</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">hoge</span><span class="p">}&lt;/</span><span class="nt">h1</span><span class="p">&gt;;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</code></pre></div><h2 id="両者の違い">両者の違い</h2>
+<p><code>hooks</code>導入前までは、状態管理やライフサイクルイベントの機能を使うことができるのはクラスコンポーネントのみだった。<br>
+しかし、<code>hooks</code>の登場で関数コンポーネントでもそれらの機能を使うことができるようになったため、クラスコンポーネントよりも簡潔に書くことができるようになった。</p>
+<h1 id="propsとstate">propsとstate</h1>
+<p>Reactのコンポーネント間でデータをやり取りするための仕組みには2種類ある。</p>
+<h2 id="props">props</h2>
+<p>親コンポーネントから子コンポーネントに値を渡すための仕組み。<br>
+propsは読み取り専用で、値を更新してはいけない。また、子から親のコンポーネントに渡すことはできない。<br>
+更新したかったり、子から親へ値を渡したいときはもう一つの仕組みのstateを利用すること。</p>
+<p>propsとして渡せるものに制限はなくて、何でも渡せる。<br>
+コンポーネントの再利用性を上げてくれるすごいやつ。</p>
+<h2 id="state">state</h2>
+<p>コンポーネントの状態(state)を管理するための仕組み。<br>
+値とその値を更新するための関数を持つ。</p>
+<p>データは下方向に伝わる。<br>
+propsが下方向へ流れる滝だとすると、stateは任意の場所で合流する水源。</p>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://m-88888888.github.io/tags/react/">React</a>&nbsp;
+            
+              <a href="https://m-88888888.github.io/tags/typescript/">Typescript</a>&nbsp;
+            
+          </div>
         
 
         
@@ -277,42 +354,42 @@
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpage%2fabout%2f&amp;text=About%20me&amp;via=hachi_m88888888" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;text=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2&amp;via=hachi_m88888888" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpage%2fabout%2f" target="_blank" title="Share on Facebook">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f" target="_blank" title="Share on Facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpage%2fabout%2f&amp;title=About%20me" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;title=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpage%2fabout%2f&amp;title=About%20me" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;title=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpage%2fabout%2f&amp;title=About%20me" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;title=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpage%2fabout%2f&amp;description=About%20me" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;description=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -332,8 +409,20 @@
       </article>
 
       
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://m-88888888.github.io/post/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/" data-toggle="tooltip" data-placement="top" title="Next.jsに入門してみた">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
 
 
+      
+        
+        
       
 
     </div>
@@ -341,14 +430,6 @@
 </div>
 
       
-    <div class="page-meta">
-  
-  
-  
-</div>
-
-
-  
 <footer>
   <div class="container">
     <div class="row">

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>React on hachi&#39;s blog</title>
+    <link>https://m-88888888.github.io/tags/react/</link>
+    <description>Recent content in React on hachi&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 08 Nov 2020 23:01:22 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>React&#43;Typescriptいろいろメモ</title>
+      <link>https://m-88888888.github.io/post/react%E3%83%A1%E3%83%A2/</link>
+      <pubDate>Sun, 08 Nov 2020 23:01:22 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/react%E3%83%A1%E3%83%A2/</guid>
+      <description>&lt;p&gt;React+Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;11/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
