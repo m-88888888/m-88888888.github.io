@@ -5,7 +5,17 @@
     <link>https://m-88888888.github.io/post/</link>
     <description>Recent content in Posts on hachi&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 08 Nov 2020 23:01:22 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Feb 2021 00:00:10 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GraphQLの超基礎の整理</title>
+      <link>https://m-88888888.github.io/post/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sun, 07 Feb 2021 00:00:10 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86/</guid>
+      <description>&lt;p&gt;マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので&lt;br&gt;
+キャッチアップしやすかったGraphQLから整理していこうと思う。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>React&#43;Typescriptいろいろメモ</title>
       <link>https://m-88888888.github.io/post/react%E3%83%A1%E3%83%A2/</link>

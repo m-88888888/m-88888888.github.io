@@ -7,11 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>React&#43;Typescriptいろいろメモ - hachi&#39;s blog</title>
-  <meta name="description" content="React&#43;Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。
-
-11/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。
-">
+  <title>GraphQLの超基礎の整理 - hachi&#39;s blog</title>
+  <meta name="description" content="マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので
+キャッチアップしやすかったGraphQLから整理していこうと思う。">
   <meta name="author" content="hachi"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -47,8 +45,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/m-88888888.github.io\/post\/react%E3%83%A1%E3%83%A2\/",
-          "name": "React\u002b typescriptいろいろメモ"
+          "@id": "https:\/\/m-88888888.github.io\/post\/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86\/",
+          "name": "Graph q lの超基礎の整理"
         }
     }]
 }
@@ -59,15 +57,15 @@
   "author": {
     "name" : "hachi"
   },
-  "headline": "React\u002bTypescriptいろいろメモ",
-  "description" : "React\u002bTypescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。\n 11\/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。\n",
+  "headline": "GraphQLの超基礎の整理",
+  "description" : "マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので\nキャッチアップしやすかったGraphQLから整理していこうと思う。\n",
   "inLanguage" : "en",
-  "wordCount":  85 ,
-  "datePublished" : "2020-11-08T23:01:22",
-  "dateModified" : "2020-11-08T23:01:22",
+  "wordCount":  99 ,
+  "datePublished" : "2021-02-07T00:00:10",
+  "dateModified" : "2021-02-07T00:00:10",
   "image" : "https:\/\/m-88888888.github.io\/images\/dog.png",
-  "keywords" : [ "React, Typescript" ],
-  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/react%E3%83%A1%E3%83%A2\/",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/m-88888888.github.io",
@@ -81,21 +79,17 @@
 }
 </script>
 
-<meta property="og:title" content="React&#43;Typescriptいろいろメモ" />
-<meta property="og:description" content="React&#43;Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。
-
-11/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。
-">
+<meta property="og:title" content="GraphQLの超基礎の整理" />
+<meta property="og:description" content="マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので
+キャッチアップしやすかったGraphQLから整理していこうと思う。">
 <meta property="og:image" content="https://m-88888888.github.io/images/dog.png" />
-<meta property="og:url" content="https://m-88888888.github.io/post/react%E3%83%A1%E3%83%A2/" />
+<meta property="og:url" content="https://m-88888888.github.io/post/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="hachi&#39;s blog" />
 
-  <meta name="twitter:title" content="React&#43;Typescriptいろいろメモ" />
-  <meta name="twitter:description" content="React&#43;Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。
-
-11/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。
-">
+  <meta name="twitter:title" content="GraphQLの超基礎の整理" />
+  <meta name="twitter:description" content="マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので
+キャッチアップしやすかったGraphQLから整理していこうと思う。">
   <meta name="twitter:image" content="https://m-88888888.github.io/images/dog.png" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@hachi_m88888888" />
@@ -237,7 +231,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>React&#43;Typescriptいろいろメモ</h1>
+                <h1>GraphQLの超基礎の整理</h1>
               
               
               
@@ -245,7 +239,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 8, 2020
+  <i class="fas fa-calendar"></i>&nbsp;Posted on February 7, 2021
   
   
   
@@ -272,76 +266,66 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>React+Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。</p>
+        <p>マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので<br>
+キャッチアップしやすかったGraphQLから整理していこうと思う。</p>
+<h1 id="graphqlって何">GraphQLって何？</h1>
+<p>公式によると</p>
 <blockquote>
-<p>11/10 Reactのステップアップに良さげな書籍があったので、それを読んでからまたアウトプットしたいと思います。</p>
+<p>GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.</p>
 </blockquote>
-<h1 id="react--typescriptの始め方">React + Typescriptの始め方</h1>
+<p>Google翻訳すると</p>
+<blockquote>
+<p>GraphQLは、APIのクエリ言語であり、既存のデータでこれらのクエリを実行するためのランタイムです。 GraphQLは、API内のデータの完全で理解しやすい説明を提供し、クライアントが必要なものだけを正確に要求できるようにし、時間の経過とともにAPIを進化させやすくし、強力な開発者ツールを有効にします。</p>
+</blockquote>
+<p>自分なりにまとめると</p>
 <ul>
-<li>Reactアプリの作成には<code>create-react-app</code>を使う。（ゼロから構築するスキルがまだない)</li>
-<li>パッケージ管理には<code>npm</code>ではなく<code>yarn</code>を使うほうがベターっぽい
+<li>クエリ言語
 <ul>
-<li>パッケージのインストール速度やコマンドの簡潔さで<code>yarn</code>が優れている</li>
-<li><code>yarn.lock</code>ファイルのおかげで依存パッケージをケアしてくれる</li>
+<li>SQLはデータベースに対するクエリ言語</li>
+<li>GraphQLはAPIに対するクエリ言語</li>
 </ul>
 </li>
+<li>クライアントアプリケーションが、自分にとって必要な情報だけを要求することができる</li>
+<li>エンドポイントが1つだけ</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">yarn create react-app &lt;アプリ名&gt; --template typescript
-</code></pre></div><p>まだまだ本格的に設定からカスタマイズできるレベルに達していないので<code>create-react-app</code>を使っているが、<code>lint</code>の独自ルールがデフォルトで組み込まれているので、今後いろいろとカスタマイズする必要性が出てきたら<code>create-react-app</code>に頼らずにゼロからreact-appを構築できるようになりたい。</p>
-<h1 id="参考">参考</h1>
-<ul>
-<li><a href="https://qiita.com/Hai-dozo/items/90b852ac29b79a7ea02b">https://qiita.com/Hai-dozo/items/90b852ac29b79a7ea02b</a></li>
-<li><a href="https://qiita.com/jonakp/items/7d9f47c613c16cbf95aa">https://qiita.com/jonakp/items/7d9f47c613c16cbf95aa</a></li>
-</ul>
-<h1 id="コンポーネントの定義">コンポーネントの定義</h1>
-<h2 id="関数コンポーネント">関数コンポーネント</h2>
-<p><code>React.FC&lt;Props&gt;</code>で定義する。FC=FunctionComponent</p>
-<div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">type</span> <span class="nx">AppProps</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">hoge</span>: <span class="kt">String</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kr">const</span> <span class="nx">App</span>: <span class="kt">React.FC</span><span class="p">&lt;</span><span class="nt">AppProps</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">hoge</span><span class="p">}&lt;/</span><span class="nt">h1</span><span class="p">&gt;;</span>
-<span class="p">};</span>
-
-<span class="kr">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
-</code></pre></div><h2 id="クラスコンポーネント">クラスコンポーネント</h2>
-<div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">type</span> <span class="nx">AppProps</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">hoge</span>: <span class="kt">String</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">&lt;</span><span class="nt">AppProps</span><span class="err">,</span> <span class="p">{}&gt;</span> <span class="p">{</span>
-  <span class="nx">render() {</span>
-    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">hoge</span><span class="p">}&lt;/</span><span class="nt">h1</span><span class="p">&gt;;</span>
-  <span class="p">}</span>
+<h1 id="graphqlのクエリの定義">GraphQLのクエリの定義</h1>
+<p>GraphQLはエンティティを次のような型で定義できる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-graphql" data-lang="graphql"><span class="kd">type</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="py">id</span><span class="w"> </span><span class="py">Int</span><span class="p">!</span><span class="w">
+</span><span class="w">    </span><span class="py">name</span><span class="w"> </span><span class="py">String</span><span class="p">!</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>この定義された型を<code>Query型</code>を使って参照することができる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-graphql" data-lang="graphql"><span class="kd">type</span><span class="w"> </span><span class="nc">Query</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="py">users</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="nc">User</span><span class="p">!]!</span><span class="w">
+</span><span class="w">    </span><span class="py">user</span><span class="p">(</span><span class="py">id</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="p">!):</span><span class="w"> </span><span class="nc">User</span><span class="p">!</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>これで参照するポイントは定義されたので、次は実際にDBからデータを取得する処理がまだ実装する。<br>
+GraphQLが提供する<code>resolvers</code>と呼ばれる関数を定義することで実現することができる。<br>
+クライアントがリクエストしたプロパティだけを返す処理についてはGraphQLがよしなにしてくれる。すごい。</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 実際はもっと色々な情報が必要。
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">users</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">usersArray</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kr">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
-</code></pre></div><h2 id="両者の違い">両者の違い</h2>
-<p><code>hooks</code>導入前までは、状態管理やライフサイクルイベントの機能を使うことができるのはクラスコンポーネントのみだった。<br>
-しかし、<code>hooks</code>の登場で関数コンポーネントでもそれらの機能を使うことができるようになったため、クラスコンポーネントよりも簡潔に書くことができるようになった。</p>
-<h1 id="propsとstate">propsとstate</h1>
-<p>Reactのコンポーネント間でデータをやり取りするための仕組みには2種類ある。</p>
-<h2 id="props">props</h2>
-<p>親コンポーネントから子コンポーネントに値を渡すための仕組み。<br>
-propsは読み取り専用で、値を更新してはいけない。また、子から親のコンポーネントに渡すことはできない。<br>
-更新したかったり、子から親へ値を渡したいときはもう一つの仕組みのstateを利用すること。</p>
-<p>propsとして渡せるものに制限はなくて、何でも渡せる。<br>
-コンポーネントの再利用性を上げてくれるすごいやつ。</p>
-<h2 id="state">state</h2>
-<p>コンポーネントの状態(state)を管理するための仕組み。<br>
-値とその値を更新するための関数を持つ。</p>
-<p>データは下方向に伝わる。<br>
-propsが下方向へ流れる滝だとすると、stateは任意の場所で合流する水源。</p>
+<span class="kd">function</span> <span class="nx">user</span><span class="p">({</span><span class="nx">id</span><span class="p">})</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">usersArray</span><span class="p">.</span><span class="nx">find</span><span class="p">((</span><span class="nx">user</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">id</span><span class="p">)</span>
+<span class="p">}</span>
 
-        
-          <div class="blog-tags">
-            
-              <a href="https://m-88888888.github.io/tags/react/">React</a>&nbsp;
-            
-              <a href="https://m-88888888.github.io/tags/typescript/">Typescript</a>&nbsp;
-            
-          </div>
+</code></pre></div><p>こうすることによって、次のようなQueryを実行できるようになる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-graphql" data-lang="graphql"><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c"># userのコレクションを取得</span><span class="w">
+</span><span class="w">    </span><span class="py">users</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="py">id</span><span class="w">
+</span><span class="w">        </span><span class="py">name</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c"># id=001のユーザーのnameを取得</span><span class="w">
+</span><span class="w">    </span><span class="py">user</span><span class="p">(</span><span class="py">id</span><span class="p">:</span><span class="w"> </span><span class="nc">001</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="py">name</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>その他の詳細なQueryやMutation、他の機能については追々まとめるつもり&hellip;</p>
+
         
 
         
@@ -354,42 +338,42 @@ propsが下方向へ流れる滝だとすると、stateは任意の場所で合�
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;text=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2&amp;via=hachi_m88888888" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;text=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86&amp;via=hachi_m88888888" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f" target="_blank" title="Share on Facebook">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f" target="_blank" title="Share on Facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;title=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;title=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;title=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;title=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;title=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;title=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2freact%25E3%2583%25A1%25E3%2583%25A2%2f&amp;description=React%2bTypescript%e3%81%84%e3%82%8d%e3%81%84%e3%82%8d%e3%83%a1%e3%83%a2" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;description=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -412,13 +396,9 @@ propsが下方向へ流れる滝だとすると、stateは任意の場所で合�
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://m-88888888.github.io/post/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/" data-toggle="tooltip" data-placement="top" title="Next.jsに入門してみた">&larr; Previous Post</a>
+              <a href="https://m-88888888.github.io/post/react%E3%83%A1%E3%83%A2/" data-toggle="tooltip" data-placement="top" title="React&#43;Typescriptいろいろメモ">&larr; Previous Post</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://m-88888888.github.io/post/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86/" data-toggle="tooltip" data-placement="top" title="GraphQLの超基礎の整理">Next Post &rarr;</a>
-            </li>
           
         </ul>
       
