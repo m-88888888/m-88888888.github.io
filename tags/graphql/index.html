@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>next.js - hachi&#39;s blog</title>
+  <title>graphql - hachi&#39;s blog</title>
   <meta name="author" content="hachi"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -29,13 +29,13 @@
 }
 </script>
 
-<meta property="og:title" content="next.js" />
+<meta property="og:title" content="graphql" />
 <meta property="og:image" content="https://m-88888888.github.io/images/dog.png" />
-<meta property="og:url" content="https://m-88888888.github.io/tags/next.js/" />
+<meta property="og:url" content="https://m-88888888.github.io/tags/graphql/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="hachi&#39;s blog" />
 
-  <meta name="twitter:title" content="next.js" />
+  <meta name="twitter:title" content="graphql" />
   <meta name="twitter:image" content="https://m-88888888.github.io/images/dog.png" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@hachi_m88888888" />
@@ -177,7 +177,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="tags-heading">
               
-                <h1>next.js</h1>
+                <h1>graphql</h1>
               
               
                 <hr class="small">
@@ -200,8 +200,8 @@
         <div class="posts-list">
           
             <article class="post-preview">
-    <a href="https://m-88888888.github.io/post/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">
-        <h2 class="post-title">Next.js9.3で追加されたAPIについて</h2>
+    <a href="https://m-88888888.github.io/post/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86/">
+        <h2 class="post-title">GraphQLの超基礎の整理</h2>
         
         
         
@@ -211,7 +211,7 @@
         <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on February 27, 2021
+  <i class="fas fa-calendar"></i>&nbsp;Posted on February 7, 2021
   
   
   
@@ -227,62 +227,16 @@
     </p>
     <div class="post-entry">
         
-        <h1 id="はじめに">はじめに</h1>
-<p>現在の案件ではNext.js9.6を使用しているのですが、ページのAPIに<code>getInitialProps</code>を使用しており<br>
-これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので<br>
-ページのAPIに関して少し整理してみました。</p>
-        <a href="https://m-88888888.github.io/post/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="post-read-more">[Read More]</a>
+        <p>マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので<br>
+キャッチアップしやすかったGraphQLから整理していこうと思う。</p>
+        <a href="https://m-88888888.github.io/post/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86/" class="post-read-more">[Read More]</a>
         
     </div>
 
     
     <div class="blog-tags">
         
-        <a href="https://m-88888888.github.io/tags/next.js/">next.js</a>&nbsp;
-        
-    </div>
-    
-
-</article>
-          
-            <article class="post-preview">
-    <a href="https://m-88888888.github.io/post/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/">
-        <h2 class="post-title">Next.jsに入門してみた</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on November 4, 2020
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;hachi
-    
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p>最近入った現場でReact扱っているんですけど、フロントエンドを担当するのは初めてということもあって苦労してます。。。まあ楽しいのでいいんですが</p>
-<p>そのReactでNext.jsっていうフレームワーク使ってるんだけどこれまたよくわからない所がちょくちょく出てきて何度か詰まったりした点があったので、一度体系的に調べてみようと思い、公式のチュートリアルやってみることにしました。</p>
-        <a href="https://m-88888888.github.io/post/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/" class="post-read-more">[Read More]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://m-88888888.github.io/tags/next.js/">next.js</a>&nbsp;
+        <a href="https://m-88888888.github.io/tags/graphql/">graphql</a>&nbsp;
         
     </div>
     

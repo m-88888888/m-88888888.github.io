@@ -7,9 +7,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>GraphQLの超基礎の整理 - hachi&#39;s blog</title>
-  <meta name="description" content="マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので
-キャッチアップしやすかったGraphQLから整理していこうと思う。">
+  <title>Next.js9.3で追加されたAPIについて - hachi&#39;s blog</title>
+  <meta name="description" content="はじめに
+現在の案件ではNext.js9.6を使用しているのですが、ページのAPIにgetInitialPropsを使用しており
+これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので
+ページのAPIに関して少し整理してみました。">
   <meta name="author" content="hachi"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -45,8 +47,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/m-88888888.github.io\/post\/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86\/",
-          "name": "Graph q lの超基礎の整理"
+          "@id": "https:\/\/m-88888888.github.io\/post\/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6\/",
+          "name": "Next.js9.3で追加された a p iについて"
         }
     }]
 }
@@ -57,15 +59,15 @@
   "author": {
     "name" : "hachi"
   },
-  "headline": "GraphQLの超基礎の整理",
-  "description" : "マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので\nキャッチアップしやすかったGraphQLから整理していこうと思う。\n",
+  "headline": "Next.js9.3で追加されたAPIについて",
+  "description" : "はじめに 現在の案件ではNext.js9.6を使用しているのですが、ページのAPIにgetInitialPropsを使用しており\nこれを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので\nページのAPIに関して少し整理してみました。\n",
   "inLanguage" : "en",
-  "wordCount":  99 ,
-  "datePublished" : "2021-02-07T00:00:10",
-  "dateModified" : "2021-02-07T00:00:10",
+  "wordCount":  28 ,
+  "datePublished" : "2021-02-27T23:11:26",
+  "dateModified" : "2021-02-27T23:11:26",
   "image" : "https:\/\/m-88888888.github.io\/images\/dog.png",
-  "keywords" : [ "graphql" ],
-  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86\/",
+  "keywords" : [ "next.js" ],
+  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/m-88888888.github.io",
@@ -79,17 +81,21 @@
 }
 </script>
 
-<meta property="og:title" content="GraphQLの超基礎の整理" />
-<meta property="og:description" content="マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので
-キャッチアップしやすかったGraphQLから整理していこうと思う。">
+<meta property="og:title" content="Next.js9.3で追加されたAPIについて" />
+<meta property="og:description" content="はじめに
+現在の案件ではNext.js9.6を使用しているのですが、ページのAPIにgetInitialPropsを使用しており
+これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので
+ページのAPIに関して少し整理してみました。">
 <meta property="og:image" content="https://m-88888888.github.io/images/dog.png" />
-<meta property="og:url" content="https://m-88888888.github.io/post/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86/" />
+<meta property="og:url" content="https://m-88888888.github.io/post/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="hachi&#39;s blog" />
 
-  <meta name="twitter:title" content="GraphQLの超基礎の整理" />
-  <meta name="twitter:description" content="マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので
-キャッチアップしやすかったGraphQLから整理していこうと思う。">
+  <meta name="twitter:title" content="Next.js9.3で追加されたAPIについて" />
+  <meta name="twitter:description" content="はじめに
+現在の案件ではNext.js9.6を使用しているのですが、ページのAPIにgetInitialPropsを使用しており
+これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので
+ページのAPIに関して少し整理してみました。">
   <meta name="twitter:image" content="https://m-88888888.github.io/images/dog.png" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@hachi_m88888888" />
@@ -231,7 +237,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>GraphQLの超基礎の整理</h1>
+                <h1>Next.js9.3で追加されたAPIについて</h1>
               
               
               
@@ -239,7 +245,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on February 7, 2021
+  <i class="fas fa-calendar"></i>&nbsp;Posted on February 27, 2021
   
   
   
@@ -266,70 +272,42 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>マイクロサービス案件に参画して4ヶ月が経過したので、いい加減に身につけたことを整理したくなってきたので<br>
-キャッチアップしやすかったGraphQLから整理していこうと思う。</p>
-<h1 id="graphqlって何">GraphQLって何？</h1>
-<p>公式によると</p>
-<blockquote>
-<p>GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.</p>
-</blockquote>
-<p>Google翻訳すると</p>
-<blockquote>
-<p>GraphQLは、APIのクエリ言語であり、既存のデータでこれらのクエリを実行するためのランタイムです。 GraphQLは、API内のデータの完全で理解しやすい説明を提供し、クライアントが必要なものだけを正確に要求できるようにし、時間の経過とともにAPIを進化させやすくし、強力な開発者ツールを有効にします。</p>
-</blockquote>
-<p>自分なりにまとめると</p>
+        <h1 id="はじめに">はじめに</h1>
+<p>現在の案件ではNext.js9.6を使用しているのですが、ページのAPIに<code>getInitialProps</code>を使用しており<br>
+これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので<br>
+ページのAPIに関して少し整理してみました。</p>
+<h1 id="getinitialpropsとは">getInitialPropsとは</h1>
+<p>ページがレンダリングされる前に実行されるAPI。<br>
+該当ページへのパスにリクエストが送られると実行されて、ページに必要なデータをpropsとして渡す。</p>
+<p><img src="https://user-images.githubusercontent.com/51853475/109381342-3da26f00-791d-11eb-9d23-7b8be32a965b.png" alt="とりあえず整理する用 P1"></p>
+<p>このページが「外部のデータをビルド時に取得する静的なページ」の場合、<code>next export</code>というコマンドを使うことで、静的なページを生成することができた。<br>
+しかし、このページに<code>next/link</code>を使用してアクセスした場合、静的なページではなく<code>getInitialProps</code>が実行されてしまうという問題があった。</p>
+<h1 id="getstaticprops">getStaticProps</h1>
+<p>この問題を解決するために、<code>getStaticProps</code>が導入された。<br>
+このAPIを使用したページは、必ず静的ファイルを使用することになる。<br>
+つまり、再ビルドしない限り、必ず同じ結果のページが表示されるということ。</p>
+<h1 id="getstaticpaths">getStaticPaths</h1>
+<p>Dynamic Routes使用時にも静的ファイルを使用するためにAPI。<code>getStaticProps</code>とセットで使用される。</p>
+<h1 id="getserversideprops">getServerSideProps</h1>
+<p><code>next/link</code>でルーティングしても必ずサーバ側でgetInitialPropsと同じ処理が実行されるというAPI。</p>
+<h1 id="まとめ">まとめ</h1>
+<p>今後作成するページは</p>
 <ul>
-<li>クエリ言語
+<li>getStaticProps</li>
+<li>getServerSideProps</li>
+</ul>
+<p>いずれかのAPIを使用すること<br>
+使い分けとしては、静的なファイルかどうか<br>
+つまりSSRではなく、SSGでも実現できるかどうかを考慮する必要がある</p>
+<h1 id="参考">参考</h1>
 <ul>
-<li>SQLはデータベースに対するクエリ言語</li>
-<li>GraphQLはAPIに対するクエリ言語</li>
+<li><a href="https://nextjs.org/docs/api-reference/data-fetching/getInitialProps">https://nextjs.org/docs/api-reference/data-fetching/getInitialProps</a></li>
 </ul>
-</li>
-<li>クライアントアプリケーションが、自分にとって必要な情報だけを要求することができる</li>
-<li>エンドポイントが1つだけ</li>
-</ul>
-<h1 id="graphqlのクエリの定義">GraphQLのクエリの定義</h1>
-<p>GraphQLはエンティティを次のような型で定義できる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-graphql" data-lang="graphql"><span class="kd">type</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="py">id</span><span class="w"> </span><span class="py">Int</span><span class="p">!</span><span class="w">
-</span><span class="w">    </span><span class="py">name</span><span class="w"> </span><span class="py">String</span><span class="p">!</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>この定義された型を<code>Query型</code>を使って参照することができる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-graphql" data-lang="graphql"><span class="kd">type</span><span class="w"> </span><span class="nc">Query</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="py">users</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="nc">User</span><span class="p">!]!</span><span class="w">
-</span><span class="w">    </span><span class="py">user</span><span class="p">(</span><span class="py">id</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="p">!):</span><span class="w"> </span><span class="nc">User</span><span class="p">!</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>これで参照するポイントは定義されたので、次は実際にDBからデータを取得する処理がまだ実装する。<br>
-GraphQLが提供する<code>resolvers</code>と呼ばれる関数を定義することで実現することができる。<br>
-クライアントがリクエストしたプロパティだけを返す処理についてはGraphQLがよしなにしてくれる。すごい。</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 実際はもっと色々な情報が必要。
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">users</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">usersArray</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nx">user</span><span class="p">({</span><span class="nx">id</span><span class="p">})</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">usersArray</span><span class="p">.</span><span class="nx">find</span><span class="p">((</span><span class="nx">user</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">id</span><span class="p">)</span>
-<span class="p">}</span>
-
-</code></pre></div><p>こうすることによって、次のようなQueryを実行できるようになる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-graphql" data-lang="graphql"><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="c"># userのコレクションを取得</span><span class="w">
-</span><span class="w">    </span><span class="py">users</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="py">id</span><span class="w">
-</span><span class="w">        </span><span class="py">name</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="c"># id=001のユーザーのnameを取得</span><span class="w">
-</span><span class="w">    </span><span class="py">user</span><span class="p">(</span><span class="py">id</span><span class="p">:</span><span class="w"> </span><span class="nc">001</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="py">name</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>その他の詳細なQueryやMutation、他の機能については追々まとめるつもり&hellip;</p>
 
         
           <div class="blog-tags">
             
-              <a href="https://m-88888888.github.io/tags/graphql/">graphql</a>&nbsp;
+              <a href="https://m-88888888.github.io/tags/next.js/">next.js</a>&nbsp;
             
           </div>
         
@@ -344,42 +322,42 @@ GraphQLが提供する<code>resolvers</code>と呼ばれる関数を定義する
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;text=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86&amp;via=hachi_m88888888" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fnext.js9.3%25E3%2581%25A7%25E8%25BF%25BD%25E5%258A%25A0%25E3%2581%2595%25E3%2582%258C%25E3%2581%259Fapi%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6%2f&amp;text=Next.js9.3%e3%81%a7%e8%bf%bd%e5%8a%a0%e3%81%95%e3%82%8c%e3%81%9fAPI%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6&amp;via=hachi_m88888888" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f" target="_blank" title="Share on Facebook">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2fnext.js9.3%25E3%2581%25A7%25E8%25BF%25BD%25E5%258A%25A0%25E3%2581%2595%25E3%2582%258C%25E3%2581%259Fapi%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6%2f" target="_blank" title="Share on Facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;title=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fnext.js9.3%25E3%2581%25A7%25E8%25BF%25BD%25E5%258A%25A0%25E3%2581%2595%25E3%2582%258C%25E3%2581%259Fapi%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6%2f&amp;title=Next.js9.3%e3%81%a7%e8%bf%bd%e5%8a%a0%e3%81%95%e3%82%8c%e3%81%9fAPI%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;title=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fnext.js9.3%25E3%2581%25A7%25E8%25BF%25BD%25E5%258A%25A0%25E3%2581%2595%25E3%2582%258C%25E3%2581%259Fapi%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6%2f&amp;title=Next.js9.3%e3%81%a7%e8%bf%bd%e5%8a%a0%e3%81%95%e3%82%8c%e3%81%9fAPI%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;title=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fnext.js9.3%25E3%2581%25A7%25E8%25BF%25BD%25E5%258A%25A0%25E3%2581%2595%25E3%2582%258C%25E3%2581%259Fapi%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6%2f&amp;title=Next.js9.3%e3%81%a7%e8%bf%bd%e5%8a%a0%e3%81%95%e3%82%8c%e3%81%9fAPI%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fgraphql%25E3%2581%25AE%25E8%25B6%2585%25E5%259F%25BA%25E7%25A4%258E%25E3%2581%25AE%25E6%2595%25B4%25E7%2590%2586%2f&amp;description=GraphQL%e3%81%ae%e8%b6%85%e5%9f%ba%e7%a4%8e%e3%81%ae%e6%95%b4%e7%90%86" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fnext.js9.3%25E3%2581%25A7%25E8%25BF%25BD%25E5%258A%25A0%25E3%2581%2595%25E3%2582%258C%25E3%2581%259Fapi%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6%2f&amp;description=Next.js9.3%e3%81%a7%e8%bf%bd%e5%8a%a0%e3%81%95%e3%82%8c%e3%81%9fAPI%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -393,6 +371,17 @@ GraphQLが提供する<code>resolvers</code>と呼ばれる関数を定義する
 
         
           
+            
+          
+
+          
+                  <h4 class="see-also">See also</h4>
+                  <ul>
+                
+                
+                    <li><a href="/post/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/">Next.jsに入門してみた</a></li>
+                
+              </ul>
 
           
         
@@ -402,13 +391,9 @@ GraphQLが提供する<code>resolvers</code>と呼ばれる関数を定義する
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://m-88888888.github.io/post/react%E3%83%A1%E3%83%A2/" data-toggle="tooltip" data-placement="top" title="React&#43;Typescriptいろいろメモ">&larr; Previous Post</a>
+              <a href="https://m-88888888.github.io/post/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%81%99%E3%82%8Bcli%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/" data-toggle="tooltip" data-placement="top" title="ディレクトリをブックマークするCLI作ってみた">&larr; Previous Post</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://m-88888888.github.io/post/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%81%99%E3%82%8Bcli%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/" data-toggle="tooltip" data-placement="top" title="ディレクトリをブックマークするCLI作ってみた">Next Post &rarr;</a>
-            </li>
           
         </ul>
       
