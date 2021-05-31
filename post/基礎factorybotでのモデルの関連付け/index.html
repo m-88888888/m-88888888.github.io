@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>【基礎】factorybotでのモデルの関連付け - hachi&#39;s blog</title>
+  <meta name="description" content="factorybotでのモデルの関連付け メモ代わりにもならないけど&hellip;一応アウトプット
+簡素だけど以下のモデルのような1対Nの関係の場合
+class Article &lt; ApplicationRecord belong_to :user end class User &lt; ApplicationRecord has_many :articles end 1のモデルは特に関連付けを宣言する必要なし">
+  <meta name="author" content="hachi"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "hachi\u0027s blog",
+    
+    "url": "https:\/\/m-88888888.github.io"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/m-88888888.github.io"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/m-88888888.github.io",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/m-88888888.github.io\/post\/%E5%9F%BA%E7%A4%8Efactorybot%E3%81%A7%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91\/",
+          "name": "【基礎】factorybotでのモデルの関連付け"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "hachi"
+  },
+  "headline": "【基礎】factorybotでのモデルの関連付け",
+  "description" : "factorybotでのモデルの関連付け メモ代わりにもならないけど\u0026hellip;一応アウトプット\n簡素だけど以下のモデルのような1対Nの関係の場合\nclass Article \u0026lt; ApplicationRecord belong_to :user end class User \u0026lt; ApplicationRecord has_many :articles end 1のモデルは特に関連付けを宣言する必要なし",
+  "inLanguage" : "ja",
+  "wordCount":  102 ,
+  "datePublished" : "2019-12-17T00:39:06",
+  "dateModified" : "2019-12-17T00:39:06",
+  "image" : "https:\/\/m-88888888.github.io\/images\/dog.png",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/%E5%9F%BA%E7%A4%8Efactorybot%E3%81%A7%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/m-88888888.github.io",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/m-88888888.github.io\/images\/dog.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="【基礎】factorybotでのモデルの関連付け" />
+<meta property="og:description" content="factorybotでのモデルの関連付け メモ代わりにもならないけど&hellip;一応アウトプット
+簡素だけど以下のモデルのような1対Nの関係の場合
+class Article &lt; ApplicationRecord belong_to :user end class User &lt; ApplicationRecord has_many :articles end 1のモデルは特に関連付けを宣言する必要なし">
+<meta property="og:image" content="https://m-88888888.github.io/images/dog.png" />
+<meta property="og:url" content="https://m-88888888.github.io/post/%E5%9F%BA%E7%A4%8Efactorybot%E3%81%A7%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="hachi&#39;s blog" />
+
+  <meta name="twitter:title" content="【基礎】factorybotでのモデルの関連付け" />
+  <meta name="twitter:description" content="factorybotでのモデルの関連付け メモ代わりにもならないけど&hellip;一応アウトプット
+簡素だけど以下のモデルのような1対Nの関係の場合
+class Article &lt; ApplicationRecord belong_to :user end class User &lt; ApplicationRecord has_many :articles end 1のモデルは特に関連 …">
+  <meta name="twitter:image" content="https://m-88888888.github.io/images/dog.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@hachi88_10" />
+  <meta name="twitter:creator" content="@hachi88_10" />
+  <link href='https://m-88888888.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.83.1" />
+  <link rel="alternate" href="https://m-88888888.github.io/index.xml" type="application/rss+xml" title="hachi&#39;s blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://m-88888888.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://m-88888888.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://m-88888888.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">メニューを切り替え</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://m-88888888.github.io">hachi&#39;s blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="hachi&#39;s blog" href="https://m-88888888.github.io">
+            <img class="avatar-img" src="https://m-88888888.github.io/images/dog.png" alt="hachi&#39;s blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>【基礎】factorybotでのモデルの関連付け</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2019-12-17に投稿
+  
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1 id="factorybotでのモデルの関連付け">factorybotでのモデルの関連付け</h1>
+<p>メモ代わりにもならないけど&hellip;一応アウトプット</p>
+<p>簡素だけど以下のモデルのような1対Nの関係の場合</p>
+<div class="highlight"><pre class="chroma"><code class="language-ruby:article.rb" data-lang="ruby:article.rb"><span class="k">class</span> <span class="nc">Article</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">belong_to</span> <span class="ss">:user</span>
+<span class="k">end</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-ruby:user.rb" data-lang="ruby:user.rb"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">has_many</span> <span class="ss">:articles</span>
+<span class="k">end</span>
+
+</code></pre></div><p>1のモデルは特に関連付けを宣言する必要なし</p>
+<div class="highlight"><pre class="chroma"><code class="language-ruby:users.rb" data-lang="ruby:users.rb"><span class="n">factory</span> <span class="ss">:user</span> <span class="k">do</span>
+  <span class="n">email</span> <span class="p">{</span> <span class="s1">&#39;test@test.com&#39;</span><span class="p">}</span>
+  <span class="n">password</span> <span class="p">{</span> <span class="s1">&#39;password&#39;</span> <span class="p">}</span>
+  <span class="n">password_confirmation</span> <span class="p">{</span> <span class="s1">&#39;password&#39;</span><span class="p">}</span>
+  <span class="nb">name</span> <span class="p">{</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Name</span><span class="o">.</span><span class="n">unique</span><span class="o">.</span><span class="n">name</span> <span class="p">}</span>
+  <span class="n">gender</span> <span class="p">{</span> <span class="mi">1</span> <span class="p">}</span>
+  <span class="n">height</span> <span class="p">{</span> <span class="mi">170</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div><p>Nのモデルはassociationを宣言する必要あり</p>
+<div class="highlight"><pre class="chroma"><code class="language-ruby:articles.rb" data-lang="ruby:articles.rb"><span class="no">FactoryBot</span><span class="o">.</span><span class="n">define</span> <span class="k">do</span>
+  <span class="n">factory</span> <span class="ss">:article</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="no">Article</span> <span class="k">do</span>
+    <span class="n">photo</span> <span class="p">{</span> <span class="no">File</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="s2">/spec/fixtures/nofile.jpg&#34;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">comment</span> <span class="p">{</span> <span class="s2">&#34;テストコメント&#34;</span> <span class="p">}</span>
+    <span class="n">association</span> <span class="ss">:user</span> <span class="c1">#Userモデルと関連があることを宣言</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><p>あとはSystem SpecなりModel Specで使用するarticleのfactoryを使用するときに、引数にUserモデルを渡してやるだけ</p>
+<div class="highlight"><pre class="chroma"><code class="language-ruby:article_spec.rb" data-lang="ruby:article_spec.rb"><span class="nb">require</span> <span class="s1">&#39;rails_helper&#39;</span>
+
+<span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span> <span class="no">Article</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="ss">:model</span> <span class="k">do</span>
+
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="vi">@user</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">describe</span> <span class="s2">&#34;#create&#34;</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">&#39;コーディネート画像、コーディネート紹介文があれば有効な状態であること&#39;</span> <span class="k">do</span>
+      <span class="n">article</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="ss">user</span><span class="p">:</span> <span class="vi">@user</span><span class="p">)</span>　<span class="c1">#ここでUserモデルを渡さないとnilだって怒られる</span>
+      <span class="n">article</span><span class="o">.</span><span class="n">valid?</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_valid</span>
+    <span class="k">end</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="k">end</span>
+</code></pre></div><p>超簡単</p>
+
+
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2f%25E5%259F%25BA%25E7%25A4%258Efactorybot%25E3%2581%25A7%25E3%2581%25AE%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%25E3%2581%25AE%25E9%2596%25A2%25E9%2580%25A3%25E4%25BB%2598%25E3%2581%2591%2f&amp;text=%e3%80%90%e5%9f%ba%e7%a4%8e%e3%80%91factorybot%e3%81%a7%e3%81%ae%e3%83%a2%e3%83%87%e3%83%ab%e3%81%ae%e9%96%a2%e9%80%a3%e4%bb%98%e3%81%91&amp;via=hachi88_10" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2f%25E5%259F%25BA%25E7%25A4%258Efactorybot%25E3%2581%25A7%25E3%2581%25AE%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%25E3%2581%25AE%25E9%2596%25A2%25E9%2580%25A3%25E4%25BB%2598%25E3%2581%2591%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2f%25E5%259F%25BA%25E7%25A4%258Efactorybot%25E3%2581%25A7%25E3%2581%25AE%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%25E3%2581%25AE%25E9%2596%25A2%25E9%2580%25A3%25E4%25BB%2598%25E3%2581%2591%2f&amp;title=%e3%80%90%e5%9f%ba%e7%a4%8e%e3%80%91factorybot%e3%81%a7%e3%81%ae%e3%83%a2%e3%83%87%e3%83%ab%e3%81%ae%e9%96%a2%e9%80%a3%e4%bb%98%e3%81%91" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2f%25E5%259F%25BA%25E7%25A4%258Efactorybot%25E3%2581%25A7%25E3%2581%25AE%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%25E3%2581%25AE%25E9%2596%25A2%25E9%2580%25A3%25E4%25BB%2598%25E3%2581%2591%2f&amp;title=%e3%80%90%e5%9f%ba%e7%a4%8e%e3%80%91factorybot%e3%81%a7%e3%81%ae%e3%83%a2%e3%83%87%e3%83%ab%e3%81%ae%e9%96%a2%e9%80%a3%e4%bb%98%e3%81%91" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2f%25E5%259F%25BA%25E7%25A4%258Efactorybot%25E3%2581%25A7%25E3%2581%25AE%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%25E3%2581%25AE%25E9%2596%25A2%25E9%2580%25A3%25E4%25BB%2598%25E3%2581%2591%2f&amp;title=%e3%80%90%e5%9f%ba%e7%a4%8e%e3%80%91factorybot%e3%81%a7%e3%81%ae%e3%83%a2%e3%83%87%e3%83%ab%e3%81%ae%e9%96%a2%e9%80%a3%e4%bb%98%e3%81%91" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2f%25E5%259F%25BA%25E7%25A4%258Efactorybot%25E3%2581%25A7%25E3%2581%25AE%25E3%2583%25A2%25E3%2583%2587%25E3%2583%25AB%25E3%2581%25AE%25E9%2596%25A2%25E9%2580%25A3%25E4%25BB%2598%25E3%2581%2591%2f&amp;description=%e3%80%90%e5%9f%ba%e7%a4%8e%e3%80%91factorybot%e3%81%a7%e3%81%ae%e3%83%a2%e3%83%87%e3%83%ab%e3%81%ae%e9%96%a2%e9%80%a3%e4%bb%98%e3%81%91" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://m-88888888.github.io/post/nested_form_field%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E4%BD%9C%E3%82%8B%E6%99%82%E3%81%AB%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F/" data-toggle="tooltip" data-placement="top" title="nested form fieldを使ったフォームを作る時に詰まった">&larr; 前ページ</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://m-88888888.github.io/post/_rspec%E3%81%A7let%E3%82%92%E4%BD%BF%E3%81%86%E7%90%86%E7%94%B1/" data-toggle="tooltip" data-placement="top" title=" RSpecでletを使う理由">次ページ &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/m-88888888" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/hachi88_10" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              hachi
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://m-88888888.github.io">hachi&#39;s blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          起動力に<a href="https://gohugo.io">Hugo v0.83.1</a> &nbsp;&bull;&nbsp; テーマに<a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>に基づいている<a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://m-88888888.github.io/js/main.js"></script>
+<script src="https://m-88888888.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://m-88888888.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

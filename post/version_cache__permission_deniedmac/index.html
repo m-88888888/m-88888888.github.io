@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】 - hachi&#39;s blog</title>
+  <meta name="description" content="はじめに Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます
+エラー $ rails s mkdir: /usr/local/bin/../version_cache: Permission denied /usr/local/bin/rbenv-communal-gem-home: line 21: /usr/local/bin/.">
+  <meta name="author" content="hachi"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "hachi\u0027s blog",
+    
+    "url": "https:\/\/m-88888888.github.io"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/m-88888888.github.io"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/m-88888888.github.io",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/m-88888888.github.io\/post\/version_cache__permission_deniedmac\/",
+          "name": "【rbenv】mkdir usr local bin .. version cache permission denied【 mac】"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "hachi"
+  },
+  "headline": "【rbenv】mkdir: \/usr\/local\/bin\/..\/version_cache: Permission denied【Mac】",
+  "description" : "はじめに Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます\nエラー $ rails s mkdir: \/usr\/local\/bin\/..\/version_cache: Permission denied \/usr\/local\/bin\/rbenv-communal-gem-home: line 21: \/usr\/local\/bin\/.",
+  "inLanguage" : "ja",
+  "wordCount":  211 ,
+  "datePublished" : "2020-02-22T23:24:09",
+  "dateModified" : "2020-02-22T23:24:09",
+  "image" : "https:\/\/m-88888888.github.io\/images\/dog.png",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/version_cache__permission_deniedmac\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/m-88888888.github.io",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/m-88888888.github.io\/images\/dog.png",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】" />
+<meta property="og:description" content="はじめに Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます
+エラー $ rails s mkdir: /usr/local/bin/../version_cache: Permission denied /usr/local/bin/rbenv-communal-gem-home: line 21: /usr/local/bin/.">
+<meta property="og:image" content="https://m-88888888.github.io/images/dog.png" />
+<meta property="og:url" content="https://m-88888888.github.io/post/version_cache__permission_deniedmac/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="hachi&#39;s blog" />
+
+  <meta name="twitter:title" content="【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】" />
+  <meta name="twitter:description" content="はじめに Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます
+エラー $ rails s mkdir: /usr/local/bin/../version_cache: Permission denied /usr/local/bin/rbenv-communal-gem-home: line 21: /usr/local/bin/.">
+  <meta name="twitter:image" content="https://m-88888888.github.io/images/dog.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@hachi88_10" />
+  <meta name="twitter:creator" content="@hachi88_10" />
+  <link href='https://m-88888888.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.83.1" />
+  <link rel="alternate" href="https://m-88888888.github.io/index.xml" type="application/rss+xml" title="hachi&#39;s blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://m-88888888.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://m-88888888.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://m-88888888.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">メニューを切り替え</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://m-88888888.github.io">hachi&#39;s blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/page/about/">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="hachi&#39;s blog" href="https://m-88888888.github.io">
+            <img class="avatar-img" src="https://m-88888888.github.io/images/dog.png" alt="hachi&#39;s blog" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2020-02-22に投稿
+  
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <h1 id="はじめに">はじめに</h1>
+<p>Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます</p>
+<h1 id="エラー">エラー</h1>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"> $ rails s
+mkdir: /usr/local/bin/../version_cache: Permission denied
+/usr/local/bin/rbenv-communal-gem-home: line 21: /usr/local/bin/../version_cache/2.7.0: No such file or directory
+=&gt; Booting Puma
+=&gt; Rails 6.0.2.1 application starting in development
+=&gt; Run `rails server --help` for more startup options
+..
+</code></pre></div><p><code>rbenv-communal-gem-home</code>というファイルのキャッシュPATHが間違っているとか怒られているみたいですね</p>
+<h1 id="対応">対応</h1>
+<p><code>rbenv-communal-gem-home</code>を開く</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/usr/bin/env bash
+</span><span class="cp"></span><span class="c1">#</span>
+<span class="c1"># Summary: Show the communal gem home if communal gems are enabled</span>
+<span class="c1">#</span>
+<span class="c1"># Usage: rbenv communal-gem-home [&lt;version&gt;]</span>
+
+<span class="c1"># Provide rbenv completions</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="s2">&#34;--complete&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">exec</span> rbenv-versions --bare
+<span class="k">fi</span>
+
+<span class="nv">rbenv_version</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-$(</span>rbenv-version-name<span class="k">)</span><span class="si">}</span><span class="s2">&#34;</span>
+<span class="k">if</span> <span class="o">[</span> -L <span class="s2">&#34;</span><span class="nv">$RBENV_ROOT</span><span class="s2">/versions/</span><span class="nv">$rbenv_version</span><span class="s2">/lib/ruby/gems&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nv">cachedir</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">%/*</span><span class="si">}</span><span class="s2">/../version_cache&#34;</span>
+  <span class="nv">cachefile</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$cachedir</span><span class="s2">/</span><span class="nv">$rbenv_version</span><span class="s2">&#34;</span>
+  <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;</span><span class="nv">$cachefile</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nv">communal_version</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>cat <span class="nv">$cachefile</span><span class="k">)</span><span class="s2">&#34;</span>
+  <span class="k">else</span>
+    mkdir -p <span class="s2">&#34;</span><span class="nv">$cachedir</span><span class="s2">&#34;</span>
+    <span class="nv">communal_version</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="s2">&#34;</span><span class="nv">$RBENV_ROOT</span><span class="s2">/versions/</span><span class="nv">$rbenv_version</span><span class="s2">/bin/ruby&#34;</span> -rrbconfig -e <span class="s1">&#39;puts RbConfig::CONFIG[&#34;ruby_version&#34;]&#39;</span><span class="k">)</span><span class="s2">&#34;</span>
+    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$communal_version</span><span class="s2">&#34;</span> &gt; <span class="s2">&#34;</span><span class="nv">$cachefile</span><span class="s2">&#34;</span>
+  <span class="k">fi</span>
+
+  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$RBENV_ROOT</span><span class="s2">/gems/</span><span class="nv">$communal_version</span><span class="s2">&#34;</span>
+<span class="k">else</span>
+  <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+</code></pre></div><p>14~15行目あたりのPATHを変更します</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">- cachedir=&#34;${BASH_SOURCE%/*}/../version_cache&#34;
++ cachedir=&#34;$RBENV_ROOT/.communal-gem-version-cache&#34;
+</code></pre></div><h1 id="結果">結果</h1>
+<p>Railsコマンド叩いてエラーが発生しなくなったかを確認してみる</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ rails s
+=&gt; Booting Puma
+=&gt; Rails 6.0.2.1 application starting in development
+=&gt; Run `rails server --help` for more startup options
+..
+</code></pre></div><p>でなくなったっぽい！</p>
+<p>念の為<code>rbenv doctor</code>コマンドでも確認しておく</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+Checking for `rbenv&#39; in PATH: /usr/local/bin/rbenv
+Checking for rbenv shims in PATH: OK
+Checking `rbenv install&#39; support: /usr/local/bin/rbenv-install (ruby-build 20200214)
+Counting installed Ruby versions: 3 versions
+Checking RubyGems settings: OK
+Auditing installed plugins: OK
+</code></pre></div><p>気持ち悪いログがでなくなってスッキリ！</p>
+<p>今日はここまで</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://qiita.com/sachiotomita/items/3a298bae37835b55ae40">[Mac]Rails コマンドでエラー /usr/local/bin/rbenv-communal-gem-home Permission denied - Qiita</a></li>
+<li><a href="https://github.com/tpope/rbenv-communal-gems/issues/12">Installing via homebrew breaks communal-gem-home command · Issue #12 · tpope/rbenv-communal-gems · GitHub</a></li>
+</ul>
+
+
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <div class="list-inline footer-links">
+                
+
+<div class="share-box" aria-hidden="true">
+    <ul class="share">
+      
+      <li>
+        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fversion_cache__permission_deniedmac%2f&amp;text=%e3%80%90rbenv%e3%80%91mkdir%3a%20%2fusr%2flocal%2fbin%2f..%2fversion_cache%3a%20Permission%20denied%e3%80%90Mac%e3%80%91&amp;via=hachi88_10" target="_blank" title="Share on Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2fversion_cache__permission_deniedmac%2f" target="_blank" title="Share on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fversion_cache__permission_deniedmac%2f&amp;title=%e3%80%90rbenv%e3%80%91mkdir%3a%20%2fusr%2flocal%2fbin%2f..%2fversion_cache%3a%20Permission%20denied%e3%80%90Mac%e3%80%91" target="_blank" title="Share on Reddit">
+          <i class="fab fa-reddit"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fversion_cache__permission_deniedmac%2f&amp;title=%e3%80%90rbenv%e3%80%91mkdir%3a%20%2fusr%2flocal%2fbin%2f..%2fversion_cache%3a%20Permission%20denied%e3%80%90Mac%e3%80%91" target="_blank" title="Share on LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fversion_cache__permission_deniedmac%2f&amp;title=%e3%80%90rbenv%e3%80%91mkdir%3a%20%2fusr%2flocal%2fbin%2f..%2fversion_cache%3a%20Permission%20denied%e3%80%90Mac%e3%80%91" target="_blank" title="Share on StumbleUpon">
+          <i class="fab fa-stumbleupon"></i>
+        </a>
+      </li>
+  
+      
+      <li>
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fversion_cache__permission_deniedmac%2f&amp;description=%e3%80%90rbenv%e3%80%91mkdir%3a%20%2fusr%2flocal%2fbin%2f..%2fversion_cache%3a%20Permission%20denied%e3%80%90Mac%e3%80%91" target="_blank" title="Share on Pinterest">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+
+              </div>
+            </section>
+        
+
+        
+          
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://m-88888888.github.io/post/bashfish%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/" data-toggle="tooltip" data-placement="top" title="bash→fishへの移行">&larr; 前ページ</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://m-88888888.github.io/post/railsurl%E3%83%98%E3%83%AB%E3%83%91%E3%83%BC%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84url%E3%81%AE%E7%94%9F%E6%88%90%E6%96%B9%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="【Rails】URLヘルパーメソッドを使わないURLの生成方法について">次ページ &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+        
+        
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://github.com/m-88888888" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/hachi88_10" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              hachi
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://m-88888888.github.io">hachi&#39;s blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          起動力に<a href="https://gohugo.io">Hugo v0.83.1</a> &nbsp;&bull;&nbsp; テーマに<a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>に基づいている<a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://m-88888888.github.io/js/main.js"></script>
+<script src="https://m-88888888.github.io/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://m-88888888.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

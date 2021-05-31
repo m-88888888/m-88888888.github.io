@@ -101,12 +101,166 @@
     </item>
     
     <item>
-      <title>ブログ移転</title>
-      <link>https://m-88888888.github.io/post/%E3%83%96%E3%83%AD%E3%82%B0%E7%A7%BB%E8%BB%A2/</link>
-      <pubDate>Wed, 23 Sep 2020 01:11:03 +0900</pubDate>
+      <title>【Rails】URLヘルパーメソッドを使わないURLの生成方法について</title>
+      <link>https://m-88888888.github.io/post/railsurl%E3%83%98%E3%83%AB%E3%83%91%E3%83%BC%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84url%E3%81%AE%E7%94%9F%E6%88%90%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Sat, 18 Apr 2020 10:57:59 +0900</pubDate>
       
-      <guid>https://m-88888888.github.io/post/%E3%83%96%E3%83%AD%E3%82%B0%E7%A7%BB%E8%BB%A2/</guid>
-      <description>&lt;p&gt;はてなブログから移転。&lt;/p&gt;</description>
+      <guid>https://m-88888888.github.io/post/railsurl%E3%83%98%E3%83%AB%E3%83%91%E3%83%BC%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84url%E3%81%AE%E7%94%9F%E6%88%90%E6%96%B9%E6%B3%95/</guid>
+      <description>URLを得る方法 RailsでルーティングのURLを得る方法はURLヘルパーメソッドを使うしかないと思っていたんだけど
+他にも方法があったみたいなので、サンプルとして下記のルーティングを使って、その方法を試してみた。
+# routes.rb namespace :admin do resources :users end # rails routes Prefix Verb URI Pattern Controller#Action admin_user GET /admin/users(.</description>
+    </item>
+    
+    <item>
+      <title>【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】</title>
+      <link>https://m-88888888.github.io/post/version_cache__permission_deniedmac/</link>
+      <pubDate>Sat, 22 Feb 2020 23:24:09 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/version_cache__permission_deniedmac/</guid>
+      <description>はじめに Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます
+エラー $ rails s mkdir: /usr/local/bin/../version_cache: Permission denied /usr/local/bin/rbenv-communal-gem-home: line 21: /usr/local/bin/.</description>
+    </item>
+    
+    <item>
+      <title>bash→fishへの移行</title>
+      <link>https://m-88888888.github.io/post/bashfish%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/</link>
+      <pubDate>Sat, 01 Feb 2020 23:26:53 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/bashfish%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C/</guid>
+      <description>はじめに ターミナルの画面が味気なくて物足りなさを感じる。
+テーマの導入がてら、ログインシェルをbashからfishに乗り換えてみる！
+Homebrewでfishのインストール brew update brew install fish fishをshellに追加する シェルファイルにfishの情報を書き込む</description>
+    </item>
+    
+    <item>
+      <title>HerokuのDBをMySQLに設定する</title>
+      <link>https://m-88888888.github.io/post/heroku%E3%81%AEdb%E3%82%92mysql%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B/</link>
+      <pubDate>Wed, 15 Jan 2020 23:12:59 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/heroku%E3%81%AEdb%E3%82%92mysql%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B/</guid>
+      <description>はじめに Herokuに設定するデータベース情報について、勘違いしていて詰まったので備忘録として残します。
+以下の項目について設定する必要があるのですが
+heroku config:add DB_NAME=&amp;#39;&amp;lt;データベース名&amp;gt;&amp;#39; heroku config:add DB_USERNAME=&amp;#39;&amp;lt;ユーザー名&amp;gt;&amp;#39; heroku config:add DB_PASSWORD=&amp;#39;&amp;lt;パスワード&amp;gt;&amp;#39; heroku config:add DB_HOSTNAME=&amp;#39;&amp;lt;ホスト名&amp;gt;&amp;#39; heroku config:add DB_PORT=&amp;#39;3306&amp;#39; heroku config:add DATABASE_URL=&amp;#39;mysql2://&amp;lt;ユーザー名&amp;gt;:&amp;lt;パスワード&amp;gt;@&amp;lt;ホスト名&amp;gt;/&amp;lt;データベース名&amp;gt;?</description>
+    </item>
+    
+    <item>
+      <title>【Rails】scopeの引数がtrueならば、scopeを有効化する</title>
+      <link>https://m-88888888.github.io/post/railsscope%E3%81%AE%E5%BC%95%E6%95%B0%E3%81%8Ctrue%E3%81%AA%E3%82%89%E3%81%B0scope%E3%82%92%E6%9C%89%E5%8A%B9%E5%8C%96%E3%81%99%E3%82%8B/</link>
+      <pubDate>Sun, 12 Jan 2020 19:44:20 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/railsscope%E3%81%AE%E5%BC%95%E6%95%B0%E3%81%8Ctrue%E3%81%AA%E3%82%89%E3%81%B0scope%E3%82%92%E6%9C%89%E5%8A%B9%E5%8C%96%E3%81%99%E3%82%8B/</guid>
+      <description>はじめに 検索条件を複数選択することができる絞り込み検索の機能で、選択された条件のみで検索させたい。
+最初はcase文かなにかでパターンを網羅しようと思ってたけど検索条件が増えるほど記述が増えてしまうので、なにか他にやり方がないか調べてみた。
+結論 結論から述べると、scopeに渡した引数に値が有効であれば、scopeが有効化させればいい。
+そのために後置きif文を使用する。
+次のようなscope narrow_down_nameにnameパラメータが渡されていたならばscopeを有効にしたい。
+scope :narrow_down_name, -&amp;gt; (name) { where(&amp;#34;name LIKE ?</description>
+    </item>
+    
+    <item>
+      <title>Railsで表示中のページを判定する</title>
+      <link>https://m-88888888.github.io/post/rails%E3%81%A7%E8%A1%A8%E7%A4%BA%E4%B8%AD%E3%81%AE%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E5%88%A4%E5%AE%9A%E3%81%99%E3%82%8B/</link>
+      <pubDate>Fri, 27 Dec 2019 15:44:24 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/rails%E3%81%A7%E8%A1%A8%E7%A4%BA%E4%B8%AD%E3%81%AE%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E5%88%A4%E5%AE%9A%E3%81%99%E3%82%8B/</guid>
+      <description>はじめに タブ表示を実現するために、どのタブがactiveかどうかを判定する方法に少し手間取ったので備忘録として残します。
+結論 おあつらえ向きのヘルパーメソッドがありました
+current_page(&amp;#39;指定のpath&amp;#39;) 実際の使い方としてはこんな感じ
+ul.nav.nav-tabs.nav-fill li.nav-item = link_to &amp;#34;ALL&amp;#34;, root_path, class: &amp;#34;nav-link #{(&amp;#39;active&amp;#39; if current_page?</description>
+    </item>
+    
+    <item>
+      <title>describeとcontextの使い分け？</title>
+      <link>https://m-88888888.github.io/post/describe%E3%81%A8context%E3%81%AE%E4%BD%BF%E3%81%84%E5%88%86%E3%81%91/</link>
+      <pubDate>Thu, 19 Dec 2019 01:27:26 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/describe%E3%81%A8context%E3%81%AE%E4%BD%BF%E3%81%84%E5%88%86%E3%81%91/</guid>
+      <description>はじめに RSpecのdescribeとcontextの使い分けについてイマイチ理解していなかったので備忘録として残します。
+結論から言うと、describeが機能についての説明、contextがその機能を実行中の状況をそれぞれ表してます。
+単語そのままの意味でしたね。深く考えすぎでした
+具体例 次のようなdescribeとcontextがない場合のRSpecの実行結果を見てみましょう
+before
+$ bin/rspec Running via Spring preloader in process 2242 Note return notes that match the search term returns an empry collection when no results are dound Finished in 0.</description>
+    </item>
+    
+    <item>
+      <title> RSpecでletを使う理由</title>
+      <link>https://m-88888888.github.io/post/_rspec%E3%81%A7let%E3%82%92%E4%BD%BF%E3%81%86%E7%90%86%E7%94%B1/</link>
+      <pubDate>Tue, 17 Dec 2019 23:25:21 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/_rspec%E3%81%A7let%E3%82%92%E4%BD%BF%E3%81%86%E7%90%86%E7%94%B1/</guid>
+      <description>はじめに RSpecのexampleでデータのcreateをDRYにするためにbeforeメソッドでデータ作成の処理をしていたんだけど
+そういえばletとかいうメソッドあったよな〜と思い出して
+beforeと役割被ってね？letってなんのために使うの？と疑問に思ったので調べてみました。
+たとえば、次のようなModel Specはletを使ってリファクタリングできる
+RSpec.describe Article, type: :model do before do @user = create(:user) end describe &amp;#39;validationのテスト&amp;#39; do it &amp;#39;コーディネート画像、コーディネート紹介文があれば有効な状態であること&amp;#39; do article = create(:article, user: @user) article.</description>
+    </item>
+    
+    <item>
+      <title>【基礎】factorybotでのモデルの関連付け</title>
+      <link>https://m-88888888.github.io/post/%E5%9F%BA%E7%A4%8Efactorybot%E3%81%A7%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91/</link>
+      <pubDate>Tue, 17 Dec 2019 00:39:06 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/%E5%9F%BA%E7%A4%8Efactorybot%E3%81%A7%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91/</guid>
+      <description>factorybotでのモデルの関連付け メモ代わりにもならないけど&amp;hellip;一応アウトプット
+簡素だけど以下のモデルのような1対Nの関係の場合
+class Article &amp;lt; ApplicationRecord belong_to :user end class User &amp;lt; ApplicationRecord has_many :articles end 1のモデルは特に関連付けを宣言する必要なし</description>
+    </item>
+    
+    <item>
+      <title>nested form fieldを使ったフォームを作る時に詰まった</title>
+      <link>https://m-88888888.github.io/post/nested_form_field%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E4%BD%9C%E3%82%8B%E6%99%82%E3%81%AB%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F/</link>
+      <pubDate>Sun, 01 Dec 2019 17:02:02 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/nested_form_field%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E4%BD%9C%E3%82%8B%E6%99%82%E3%81%AB%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F/</guid>
+      <description>前回の投稿から2ヶ月も空きましたが、再度アウトプットしていきます。
+[https://github.com/ncri/nested_form_fields:embed:cite]
+nested field formとは親子関係にあるモデルの子モデルのフォームを動的に追加・削除することができるgemです。
+githubのスター数から見てあまりメジャーなgemとは言えないのかなと。
+今回はこのgemで追加したフォームにcarrierwaveを用いた画像アップローダーを複製し、その画像プレビューを表示させる時に詰まった点を紹介したいと思います。
+詰まった点その１ READMEを見るとわかる通り、導入は至ってシンプルです。
+1対多にある関係の親モデルにaccepts_nested_attributes_for :子モデルという宣言を加えます。</description>
+    </item>
+    
+    <item>
+      <title>MySQL8→MySQL5.7にダウングレード</title>
+      <link>https://m-88888888.github.io/post/mysql8mysql5.7%E3%81%AB%E3%83%80%E3%82%A6%E3%83%B3%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</link>
+      <pubDate>Sat, 12 Oct 2019 23:15:26 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/mysql8mysql5.7%E3%81%AB%E3%83%80%E3%82%A6%E3%83%B3%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/</guid>
+      <description>MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。
+HomebrewでMySQLをインストールしていたのでbrewコマンド使ってMySQL本体をアンインストール
+brew uninstall mysql MySQLに関連するファイルをすべて削除
+この削除するべきファイルを探し出すのに時間がかかった…
+sudo rm -rf /usr/local/mysql sudo rm -rf /Library/StartupItems/MYSQL sudo rm -rf /Library/PreferencePanes/MySQL.</description>
+    </item>
+    
+    <item>
+      <title>1つのformで複数のモデルをDBに登録する</title>
+      <link>https://m-88888888.github.io/post/1%E3%81%A4%E3%81%AEform%E3%81%A7%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92db%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B/</link>
+      <pubDate>Fri, 11 Oct 2019 00:26:34 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/1%E3%81%A4%E3%81%AEform%E3%81%A7%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92db%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B/</guid>
+      <description>今まで色々な教材で取り組んできましたけど、大半は一つの画面でフォームに入力されたパラメータを一つのモデルに登録する、というケースでした。
+ポートフォリオを作成中に複数のモデルにパラメータを登録させたい場面が出たので、そのときにやったことを備忘録代わりに書き連ねていきます。
+関連付けがされているモデルをDBに保存するためには何が必要か？ 結論から言うと、accepts_nested_attributes_forというメソッドを使用しました。
+このメソッドを使うと、関連付けられているモデルをネストさせて一纏めにしてまとめてDBに更新することができるみたいですね。
+では実際にその実装を見ていきます。
+ まず、前提としてモデルは関連付けされていることですね。
+今回はarticleという親モデルとgearという子モデルの１：Nの関係のモデルのケースで使用します。
+1.親モデルにネストされた子モデルの更新させることを許可させる。 class Article &amp;lt; ApplicationRecord has_many :gears accepts_nested_attributes_for :gears, allow_destroy: true end allow_destroy: trueはarticleモデルを削除したときにgearモデルも一緒に削除することを許可するというオプションですね。</description>
+    </item>
+    
+    <item>
+      <title>deviseを使わないでログイン機能を実装する</title>
+      <link>https://m-88888888.github.io/post/devise%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E6%A9%9F%E8%83%BD%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B/</link>
+      <pubDate>Tue, 01 Oct 2019 00:03:15 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/post/devise%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E6%A9%9F%E8%83%BD%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B/</guid>
+      <description>ポートフォリオの作成時にログイン機能を簡単に実装できるdeviseというgemを利用してみました。
+コマンドを叩くだけで簡単なログイン機能を実装できるという、scaffoldに近い部分があるので、裏の動きを理解するためにRailsチュートリアルの内容を参考に、deviseが担っている処理を学習し直しました。
+やること 1. サインアップ機能 ユーザー登録時に最低限必要な情報は次の３つ。
+ ユーザー名 メールアドレス パスワード  サインアップ機能で重要なのは、パスワードを平文の状態で触れないこと。</description>
     </item>
     
   </channel>
