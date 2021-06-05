@@ -62,7 +62,7 @@ useStateやuseEffectの基本的な使い方は大凡わかってきましたが
   "headline": "【React】メモ化をして無駄なレンダリングを減らしてみた",
   "description" : "はじめに Reactの知識の定着のため、ポモドーロタイマーとタスクの作業時間の予実管理を組み合わせたオリジナルのアプリを作ってみました。\nuseStateやuseEffectの基本的な使い方は大凡わかってきましたが、useCallbackやuseMemoなどメモ化をまったく意識していない実装となってしまいました。\nそこで、今回はこの実装をメモ化を使って無駄なレンダリングを抑えられるようにリファクタリングしていきたいと思います。\n",
   "inLanguage" : "ja",
-  "wordCount":  586 ,
+  "wordCount":  587 ,
   "datePublished" : "2021-05-31T16:41:50",
   "dateModified" : "2021-05-31T16:41:50",
   "image" : "https:\/\/m-88888888.github.io\/images\/dog.png",
@@ -549,10 +549,13 @@ const PomodoroTimer: React.FC&lt;PomodoroTimerProps&gt; = (
 
 <span class="gi">+ export default React.memo(PomodoroTimer);
 </span><span class="gi"></span><span class="gd">- export default PomodoroTimer;
-</span></code></pre></div><h1 id="まとめ">まとめ</h1>
-<p>React.memoはpropsが同じだったら。<br>
-useCallbackは関数インスタンスが同じだったら。<br>
-基本はReact.memoとuseCallbackとを組み合わせて使用する。</p>
+</span></code></pre></div><h1 id="usememo">useMemo</h1>
+<p>後日対応予定</p>
+<h1 id="まとめ">まとめ</h1>
+<ul>
+<li>React.memoは再レンダリングされる頻度が高かったり、レンダリングコストが高いものに対して利用する。通常のコンポーネントに対しては不要。</li>
+<li>useCallbackはReact.memoしたコンポーネントに対して、propsとして関数インスタンスを渡している場合に使用する。</li>
+</ul>
 
         
 
