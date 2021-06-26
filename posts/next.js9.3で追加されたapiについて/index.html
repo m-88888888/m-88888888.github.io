@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Next.js9.3で追加されたAPIについて - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Next.js9.3で追加されたAPIについて" />
+<meta property="og:description" content="現在の案件ではNext.js9.6を使用しているのですが、ページのAPIにgetInitialPropsを使用しており これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので ページのAPIに関して少し整理してみました。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/posts/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-27T23:11:26&#43;09:00" />
+<meta property="article:modified_time" content="2021-02-27T23:11:26&#43;09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Next.js9.3で追加されたAPIについて"/>
+<meta name="twitter:description" content="現在の案件ではNext.js9.6を使用しているのですが、ページのAPIにgetInitialPropsを使用しており これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので ページのAPIに関して少し整理してみました。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/dark.css"  />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom-dark.css"  />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://m-88888888.github.iojs/main.js"></script>
+	<script src="https://m-88888888.github.iojs/abc.js"></script>
+	<script src="https://m-88888888.github.iojs/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io">
+	<h1 class="site-title"><a href="https://m-88888888.github.io">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Next.js9.3で追加されたAPIについて</h1>
+			<div class="meta">Posted at &mdash; Feb 27, 2021</div>
+		</div>
+
+		<div class="markdown">
+			<p>現在の案件ではNext.js9.6を使用しているのですが、ページのAPIに<code>getInitialProps</code>を使用しており
+これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので
+ページのAPIに関して少し整理してみました。</p>
+<h1 id="getinitialpropsとは">getInitialPropsとは</h1>
+<p>ページがレンダリングされる前に実行されるAPI。
+該当ページへのパスにリクエストが送られると実行されて、ページに必要なデータをpropsとして渡す。</p>
+<p><img src="https://user-images.githubusercontent.com/51853475/109381342-3da26f00-791d-11eb-9d23-7b8be32a965b.png" alt="とりあえず整理する用 P1"></p>
+<p>このページが「外部のデータをビルド時に取得する静的なページ」の場合、<code>next export</code>というコマンドを使うことで、静的なページを生成することができた。
+しかし、このページに<code>next/link</code>を使用してアクセスした場合、静的なページではなく<code>getInitialProps</code>が実行されてしまうという問題があった。</p>
+<h1 id="getstaticprops">getStaticProps</h1>
+<p>この問題を解決するために、<code>getStaticProps</code>が導入された。
+このAPIを使用したページは、必ず静的ファイルを使用することになる。
+つまり、再ビルドしない限り、必ず同じ結果のページが表示されるということ。</p>
+<h1 id="getstaticpaths">getStaticPaths</h1>
+<p>Dynamic Routes使用時にも静的ファイルを使用するためにAPI。<code>getStaticProps</code>とセットで使用される。</p>
+<h1 id="getserversideprops">getServerSideProps</h1>
+<p><code>next/link</code>でルーティングしても必ずサーバ側でgetInitialPropsと同じ処理が実行されるというAPI。</p>
+<h1 id="まとめ">まとめ</h1>
+<p>今後作成するページは</p>
+<ul>
+<li>getStaticProps</li>
+<li>getServerSideProps</li>
+</ul>
+<p>いずれかのAPIを使用すること
+使い分けとしては、静的なファイルかどうか
+つまりSSRではなく、SSGでも実現できるかどうかを考慮する必要がある</p>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://nextjs.org/docs/api-reference/data-fetching/getInitialProps">https://nextjs.org/docs/api-reference/data-fetching/getInitialProps</a></li>
+</ul>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/next.js">next.js</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

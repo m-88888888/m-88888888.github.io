@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>nested form fieldを使ったフォームを作る時に詰まった - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="nested form fieldを使ったフォームを作る時に詰まった" />
+<meta property="og:description" content="前回の投稿から2ヶ月も空きましたが、再度アウトプットしていきます。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/posts/nested_form_field%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E4%BD%9C%E3%82%8B%E6%99%82%E3%81%AB%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-12-01T17:02:02&#43;09:00" />
+<meta property="article:modified_time" content="2019-12-01T17:02:02&#43;09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="nested form fieldを使ったフォームを作る時に詰まった"/>
+<meta name="twitter:description" content="前回の投稿から2ヶ月も空きましたが、再度アウトプットしていきます。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/dark.css"  />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom-dark.css"  />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://m-88888888.github.iojs/main.js"></script>
+	<script src="https://m-88888888.github.iojs/abc.js"></script>
+	<script src="https://m-88888888.github.iojs/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io">
+	<h1 class="site-title"><a href="https://m-88888888.github.io">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">nested form fieldを使ったフォームを作る時に詰まった</h1>
+			<div class="meta">Posted at &mdash; Dec 1, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<p>前回の投稿から2ヶ月も空きましたが、再度アウトプットしていきます。</p>
+<p>[https://github.com/ncri/nested_form_fields:embed:cite]</p>
+<p>nested field formとは親子関係にあるモデルの子モデルのフォームを動的に追加・削除することができるgemです。<br>
+githubのスター数から見てあまりメジャーなgemとは言えないのかなと。</p>
+<p>今回はこのgemで追加したフォームにcarrierwaveを用いた画像アップローダーを複製し、その画像プレビューを表示させる時に詰まった点を紹介したいと思います。</p>
+<h1 id="詰まった点その１">詰まった点その１</h1>
+<p>READMEを見るとわかる通り、導入は至ってシンプルです。</p>
+<p>1対多にある関係の親モデルに<code>accepts_nested_attributes_for :子モデル</code>という宣言を加えます。</p>
+<p><code>allow_destroy: true</code>とはフォームを削除した時にモデルも共に削除させることを許可するための宣言です。<br>
+これが抜けているとPOSTした時にフォームは削除していても複製されたモデルが削除されずにPOSTされてしまい、エラーの原因となります。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">Article</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+  mount_uploader <span style="color:#2aa198">:photo</span>, <span style="color:#cb4b16">PhotoUploader</span>
+  has_many <span style="color:#2aa198">:gears</span>
+  accepts_nested_attributes_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">allow_destroy</span>: <span style="color:#719e07">true</span>
+<span style="color:#719e07">.</span>
+<span style="color:#719e07">.</span>
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">Gear</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+  mount_uploader <span style="color:#2aa198">:gear_image</span>, <span style="color:#cb4b16">GearImageUploader</span>
+  belongs_to <span style="color:#2aa198">:article</span>, <span style="color:#2aa198">optional</span>: <span style="color:#719e07">true</span>
+<span style="color:#719e07">.</span>
+<span style="color:#719e07">.</span>
+</code></pre></div><p>この時に、必ずStrong Parameterに<code>:_destroy</code>というパラメータを追加させることです。</p>
+<p>私はこれを追加しそびれたせいでフォームを追加しても削除することができず、詰まりました。
+公式にはちゃんと書いてあるのに見逃してましたね。公式ちゃんと読みましょう</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">.</span>
+<span style="color:#719e07">.</span>
+  <span style="color:#719e07">private</span>
+
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">article_params</span>
+      params<span style="color:#719e07">.</span>require(<span style="color:#2aa198">:article</span>)<span style="color:#719e07">.</span>permit(
+                                      <span style="color:#2aa198">:photo</span>,
+                                      <span style="color:#2aa198">:comment</span>,
+                                        <span style="color:#2aa198">gears_attributes</span>:<span style="color:#719e07">[</span>
+                                                          <span style="color:#2aa198">:id</span>,
+                                                          <span style="color:#2aa198">:gear_image</span>,
+                                                          <span style="color:#2aa198">:name</span>,
+                                                          <span style="color:#2aa198">:brand</span>,
+                                                          <span style="color:#2aa198">:kind</span>,
+                                                          <span style="color:#2aa198">:model_year</span>,
+                                                          <span style="color:#2aa198">:_destroy</span><span style="color:#719e07">]</span>
+                                      )
+        <span style="color:#719e07">end</span>
+
+<span style="color:#719e07">.</span>
+<span style="color:#719e07">.</span>
+</code></pre></div><h1 id="詰まった点その２">詰まった点その２</h1>
+<p>次にViewです。<br>
+追加するformについてはREADMEを参照してください。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">.</span>
+<span style="color:#719e07">.</span>
+<span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>nested_fields_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">wrapper_tag</span>: <span style="color:#2aa198">:div</span> <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>g<span style="color:#719e07">|</span>
+  <span style="color:#719e07">.</span>row
+    <span style="color:#719e07">.</span>col<span style="color:#719e07">-</span><span style="color:#2aa198">6</span>
+      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:gear_image</span>
+        <span style="color:#719e07">-</span> <span style="color:#719e07">if</span> g<span style="color:#719e07">.</span>object<span style="color:#719e07">.</span>gear_image?
+          <span style="color:#719e07">=</span> image_tag(g<span style="color:#719e07">.</span>object<span style="color:#719e07">.</span>gear_image<span style="color:#719e07">.</span>url, <span style="color:#b58900">id</span>: <span style="color:#2aa198">&#39;preview__nested_field_for_replace_with_index__&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;gear_image&#39;</span>)
+        <span style="color:#719e07">-</span> <span style="color:#719e07">else</span>
+          <span style="color:#719e07">=</span> image_tag(<span style="color:#2aa198">&#39;nofile.jpg&#39;</span>, <span style="color:#b58900">id</span>: <span style="color:#2aa198">&#39;preview__nested_field_for_replace_with_index__&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;gear_image&#39;</span>)
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>file_field <span style="color:#2aa198">:gear_image</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-contro-file&#34;</span>, <span style="color:#2aa198">onChange</span>: <span style="color:#2aa198">&#34;imgPreView(event, &#39;pre__nested_field_for_replace_with_index__&#39;)&#34;</span>
+    <span style="color:#719e07">.</span>col<span style="color:#719e07">-</span><span style="color:#2aa198">6</span>
+      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:name</span>
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:name</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
+      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:brand</span>
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:brand</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
+      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:kind</span>
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>select <span style="color:#2aa198">:kind</span>, gear_type_list, { <span style="color:#2aa198">include_blank</span>: <span style="color:#719e07">true</span> }, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
+      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:model_year</span>
+        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:model_year</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
+      <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>remove_nested_fields_link <span style="color:#2aa198">&#39;削除&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;btn btn-danger&#39;</span>, <span style="color:#2aa198">role</span>: <span style="color:#2aa198">&#39;button&#39;</span>
+<span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>add_nested_fields_link <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">&#39;＋&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;btn btn-primary&#39;</span>, <span style="color:#2aa198">role</span>: <span style="color:#2aa198">&#39;button&#39;</span>, <span style="color:#b58900">id</span>: <span style="color:#2aa198">&#39;add-form&#39;</span>
+<span style="color:#719e07">.</span>
+<span style="color:#719e07">.</span>
+</code></pre></div><p>ここで詰まった事が、editアクションの時に画像を表示させるためのimage_tagにnested objectのattributeにアクセスする方法です。</p>
+<p>単純に<code>g.gear_image.url</code>&lsquo;でアクセスできるかと思いきや、<code>undefined method </code>gear_image&rsquo; for&hellip;`というエラーに。</p>
+<p>そこでissueを覗いてみたら答え載ってました。（もう↑に正解のコードのせていますが）
+<code>g.object.gear_image.url</code>という風にobjectを噛ませてあげればいいだけでした。</p>
+<hr>
+<p>この記事書くのに40分ぐらい掛かってしまった。10分ぐらいで1記事書けるようにしたいですね</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

@@ -1,113 +1,248 @@
 <!DOCTYPE html>
-<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>deviseを使わないでログイン機能を実装する - hachi&#39;s blog</title>
-  <meta name="description" content="ポートフォリオの作成時にログイン機能を簡単に実装できるdeviseというgemを利用してみました。
-コマンドを叩くだけで簡単なログイン機能を実装できるという、scaffoldに近い部分があるので、裏の動きを理解するためにRailsチュートリアルの内容を参考に、deviseが担っている処理を学習し直しました。
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>deviseを使わないでログイン機能を実装する - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="deviseを使わないでログイン機能を実装する" />
+<meta property="og:description" content="ポートフォリオの作成時にログイン機能を簡単に実装できるdeviseというgemを利用してみました。 コマンドを叩くだけで簡単なログイン機能を実装できるという、scaffoldに近い部分があるので、裏の動きを理解するためにRailsチュートリアルの内容を参考に、deviseが担っている処理を学習し直しました。
 やること 1. サインアップ機能 ユーザー登録時に最低限必要な情報は次の３つ。
- ユーザー名 メールアドレス パスワード  サインアップ機能で重要なのは、パスワードを平文の状態で触れないこと。">
-  <meta name="author" content="hachi"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "hachi\u0027s blog",
-    
-    "url": "https:\/\/m-88888888.github.io"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/m-88888888.github.io"
-  
-  
-  
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/m-88888888.github.io",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/m-88888888.github.io\/post\/devise%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E6%A9%9F%E8%83%BD%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B\/",
-          "name": "Deviseを使わないでログイン機能を実装する"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "hachi"
-  },
-  "headline": "deviseを使わないでログイン機能を実装する",
-  "description" : "ポートフォリオの作成時にログイン機能を簡単に実装できるdeviseというgemを利用してみました。\nコマンドを叩くだけで簡単なログイン機能を実装できるという、scaffoldに近い部分があるので、裏の動きを理解するためにRailsチュートリアルの内容を参考に、deviseが担っている処理を学習し直しました。\nやること 1. サインアップ機能 ユーザー登録時に最低限必要な情報は次の３つ。\n ユーザー名 メールアドレス パスワード  サインアップ機能で重要なのは、パスワードを平文の状態で触れないこと。",
-  "inLanguage" : "ja",
-  "wordCount":  263 ,
-  "datePublished" : "2019-10-01T00:03:15",
-  "dateModified" : "2019-10-01T00:03:15",
-  "image" : "https:\/\/m-88888888.github.io\/images\/dog.png",
-  "keywords" : [ "" ],
-  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/devise%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E6%A9%9F%E8%83%BD%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/m-88888888.github.io",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/m-88888888.github.io\/images\/dog.png",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
+ ユーザー名 メールアドレス パスワード  サインアップ機能で重要なのは、パスワードを平文の状態で触れないこと。 そこでパスワードをハッシュ化（規則性のない文字列）に変換してからDBに保存させるようにする。
+BCryptというgemを使ってパスワードのハッシュ化に関する処理を行う。 主に以下の２つのメソッドが使える様になる。
+  has_secure_password セキュアにハッシュ化した不可逆なパスワードをDBのpassword_digestカラムに保存することができる。 また、passwordとpassword_confirmationを使える様になる" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/post/devise%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E6%A9%9F%E8%83%BD%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-10-01T00:03:15&#43;09:00" />
+<meta property="article:modified_time" content="2019-10-01T00:03:15&#43;09:00" />
 
-<meta property="og:title" content="deviseを使わないでログイン機能を実装する" />
-<meta property="og:description" content="ポートフォリオの作成時にログイン機能を簡単に実装できるdeviseというgemを利用してみました。
-コマンドを叩くだけで簡単なログイン機能を実装できるという、scaffoldに近い部分があるので、裏の動きを理解するためにRailsチュートリアルの内容を参考に、deviseが担っている処理を学習し直しました。
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="deviseを使わないでログイン機能を実装する"/>
+<meta name="twitter:description" content="ポートフォリオの作成時にログイン機能を簡単に実装できるdeviseというgemを利用してみました。 コマンドを叩くだけで簡単なログイン機能を実装できるという、scaffoldに近い部分があるので、裏の動きを理解するためにRailsチュートリアルの内容を参考に、deviseが担っている処理を学習し直しました。
 やること 1. サインアップ機能 ユーザー登録時に最低限必要な情報は次の３つ。
- ユーザー名 メールアドレス パスワード  サインアップ機能で重要なのは、パスワードを平文の状態で触れないこと。">
-<meta property="og:image" content="https://m-88888888.github.io/images/dog.png" />
-<meta property="og:url" content="https://m-88888888.github.io/post/devise%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E6%A9%9F%E8%83%BD%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="hachi&#39;s blog" />
+ ユーザー名 メールアドレス パスワード  サインアップ機能で重要なのは、パスワードを平文の状態で触れないこと。 そこでパスワードをハッシュ化（規則性のない文字列）に変換してからDBに保存させるようにする。
+BCryptというgemを使ってパスワードのハッシュ化に関する処理を行う。 主に以下の２つのメソッドが使える様になる。
+  has_secure_password セキュアにハッシュ化した不可逆なパスワードをDBのpassword_digestカラムに保存することができる。 また、passwordとpassword_confirmationを使える様になる"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
 
-  <meta name="twitter:title" content="deviseを使わないでログイン機能を実装する" />
-  <meta name="twitter:description" content="ポートフォリオの作成時にログイン機能を簡単に実装できるdeviseというgemを利用してみました。
-コマンドを叩くだけで簡単なログイン機能を実装できるという、scaffoldに近い部分があるので、裏の動きを理解するためにRailsチュートリアルの内容を参考に、deviseが担っている処理を学習し直しました。
-やること 1. サインアップ機能 ユーザー登録時に最低限必要な情報は次の３つ。
- ユーザー …">
-  <meta name="twitter:image" content="https://m-88888888.github.io/images/dog.png" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@hachi88_10" />
-  <meta name="twitter:creator" content="@hachi88_10" />
-  <link href='https://m-88888888.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.83.1" />
-  <link rel="alternate" href="https://m-88888888.github.io/index.xml" type="application/rss+xml" title="hachi&#39;s blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://m-88888888.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://m-88888888.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://m-88888888.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://m-88888888.github.iojs/main.js"></script>
+	<script src="https://m-88888888.github.iojs/abc.js"></script>
+	<script src="https://m-88888888.github.iojs/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io">
+	<h1 class="site-title"><a href="https://m-88888888.github.io">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">deviseを使わないでログイン機能を実装する</h1>
+			<div class="meta">Posted at &mdash; Oct 1, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<p>ポートフォリオの作成時にログイン機能を簡単に実装できる<code>devise</code>というgemを利用してみました。
+コマンドを叩くだけで簡単なログイン機能を実装できるという、scaffoldに近い部分があるので、裏の動きを理解するためにRailsチュートリアルの内容を参考に、deviseが担っている処理を学習し直しました。</p>
+<h1 id="やること">やること</h1>
+<h2 id="1-サインアップ機能">1. サインアップ機能</h2>
+<p>ユーザー登録時に最低限必要な情報は次の３つ。</p>
+<ul>
+<li>ユーザー名</li>
+<li>メールアドレス</li>
+<li>パスワード</li>
+</ul>
+<p>サインアップ機能で重要なのは、パスワードを平文の状態で触れないこと。
+そこでパスワードをハッシュ化（規則性のない文字列）に変換してからDBに保存させるようにする。</p>
+<p><code>BCrypt</code>というgemを使ってパスワードのハッシュ化に関する処理を行う。
+主に以下の２つのメソッドが使える様になる。</p>
+<ol>
+<li>
+<p>has_secure_password
+セキュアにハッシュ化した不可逆なパスワードをDBのpassword_digestカラムに保存することができる。
+また、passwordとpassword_confirmationを使える様になる</p>
+</li>
+<li>
+<p>authenticate
+引数の文字列が保存したパスワードと一致するとそれに紐づくUserオブジェクトを、一致しなければfalseを返す</p>
+</li>
+</ol>
+<h3 id="userモデルとテーブルの作成">Userモデルとテーブルの作成</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># create_table.rb</span>
+<span style="color:#719e07">class</span> <span style="color:#268bd2">CreateUsers</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ActiveRecord</span><span style="color:#719e07">::</span><span style="color:#cb4b16">Migration</span><span style="color:#719e07">[</span><span style="color:#2aa198">5</span><span style="color:#719e07">.</span><span style="color:#2aa198">2</span><span style="color:#719e07">]</span>
+　　<span style="color:#719e07">def</span> <span style="color:#268bd2">change</span>
+　　　　create_table <span style="color:#2aa198">:users</span> <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>t<span style="color:#719e07">|</span>
+　　　　　　t<span style="color:#719e07">.</span>string <span style="color:#2aa198">:username</span>, <span style="color:#2aa198">null</span>: <span style="color:#719e07">false</span>
+　　　　　　t<span style="color:#719e07">.</span>string <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">null</span>: <span style="color:#719e07">false</span>
+　　　　　　t<span style="color:#719e07">.</span>string <span style="color:#2aa198">:password_digest</span>
+ 
+　　　　　　t<span style="color:#719e07">.</span>timestamps
+　　　　<span style="color:#719e07">end</span>
+　　<span style="color:#719e07">end</span>
+<span style="color:#719e07">end</span>
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># User.rb</span>
+<span style="color:#719e07">class</span> <span style="color:#268bd2">User</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+　　before_save { <span style="color:#b58900">self</span><span style="color:#719e07">.</span>email <span style="color:#719e07">=</span> email<span style="color:#719e07">.</span>downcase }　<span style="color:#586e75">#DB保存前に小文字に変換</span>
+ 
+　　validates <span style="color:#2aa198">:username</span>,<span style="color:#2aa198">presence</span>: <span style="color:#719e07">true</span>
+　　validates <span style="color:#2aa198">:email</span>,
+　　　  　　　　 <span style="color:#2aa198">presence</span>: <span style="color:#719e07">true</span>,
+  　  　　　    <span style="color:#2aa198">uniqueness</span>: { <span style="color:#2aa198">case_sensitive</span>: <span style="color:#719e07">false</span> },　<span style="color:#586e75">#大文字・小文字の区別なし</span>
+ 　　　　       <span style="color:#b58900">format</span>: { <span style="color:#2aa198">with</span>: <span style="color:#dc322f">/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i</span> } <span style="color:#586e75">#「/i」は大文字・小文字を区別せずにマッチングさせる正規表現</span>
+ 
+ 　　has_secure_password
+<span style="color:#719e07">end</span>
+</code></pre></div><p>メールアドレスの大文字・小文字の区別は、メールサーバーによって変わるので小文字でフォーマットを統一させる。</p>
+<h3 id="userコントローラーの作成">Userコントローラーの作成</h3>
+<p>ひとまずはサインアップとサインインの画面を作るだけなのでnewとcreateアクションを作成する</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">UsersController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
+　　<span style="color:#719e07">def</span> <span style="color:#268bd2">new</span>
+　　  @user <span style="color:#719e07">=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>new
+　  <span style="color:#719e07">end</span>
+ 
+  <span style="color:#719e07">def</span> <span style="color:#268bd2">create</span>
+    @user <span style="color:#719e07">=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>new(user_params)
+    <span style="color:#719e07">if</span> @user<span style="color:#719e07">.</span>save
+      redirect_to root_path
+　　 <span style="color:#719e07">else</span>
+      render <span style="color:#2aa198">action</span>: <span style="color:#2aa198">&#34;new&#34;</span>
+　　 <span style="color:#719e07">end</span>
+ 　<span style="color:#719e07">end</span>
+ 
+　　privatef
+ 
+　　<span style="color:#719e07">def</span> <span style="color:#268bd2">user_params</span>
+　　  params<span style="color:#719e07">.</span>require(<span style="color:#2aa198">:user</span>)<span style="color:#719e07">.</span>permit(<span style="color:#2aa198">:username</span>, <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">:password</span>, <span style="color:#2aa198">:password_confirmation</span>)
+ 　 <span style="color:#719e07">end</span>
+<span style="color:#719e07">end</span>
+</code></pre></div><h3 id="サインアップ画面の作成">サインアップ画面の作成</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">h1 <span style="color:#cb4b16">Login</span>
+
+<span style="color:#719e07">=</span> form_with <span style="color:#2aa198">model</span>: @user <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>f<span style="color:#719e07">|</span>
+  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:name</span>, <span style="color:#2aa198">&#39;Name&#39;</span>
+    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:name</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
+  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">&#39;Email&#39;</span>
+    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
+  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:password</span>, <span style="color:#2aa198">&#39;Password&#39;</span>
+    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>password_field <span style="color:#2aa198">:password</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
+  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:password_confirmation</span>, <span style="color:#2aa198">&#39;Password_Confirmation&#39;</span>
+    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>password_field <span style="color:#2aa198">:password_confirmation</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
+  <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>submit
+
+</code></pre></div><p>サインアップの機能完了！</p>
+<h2 id="2ログイン機能">2.ログイン機能</h2>
+<p>sessionコントローラーを作成</p>
+<ul>
+<li>new・・・ログインフォームの作成</li>
+<li>create・・・ログイン処理</li>
+<li>destroy・・・ログアウト処理</li>
+</ul>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># sessions_controller.rb</span>
+<span style="color:#719e07">class</span> <span style="color:#268bd2">SessionsController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
+  <span style="color:#719e07">def</span> <span style="color:#268bd2">new</span>
+  <span style="color:#719e07">end</span>
+
+  <span style="color:#719e07">def</span> <span style="color:#268bd2">create</span>
+    user <span style="color:#719e07">=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>find_by(<span style="color:#2aa198">email</span>: params<span style="color:#719e07">[</span><span style="color:#2aa198">:session</span><span style="color:#719e07">][</span><span style="color:#2aa198">:email</span><span style="color:#719e07">].</span>downcase)
+    <span style="color:#586e75">#セッション情報に含まれているメールアドレスをもとに、Usersテーブルに保存されているUserオブジェクトを抽出</span>
+
+    <span style="color:#719e07">if</span> user <span style="color:#719e07">&amp;&amp;</span> user<span style="color:#719e07">.</span>authenticate(params<span style="color:#719e07">[</span><span style="color:#2aa198">:session</span><span style="color:#719e07">][</span><span style="color:#2aa198">:password</span><span style="color:#719e07">]</span>)
+      <span style="color:#586e75"># Userオブジェクトが抽出できる（つまり、Usersテーブルに存在している）かつ</span>
+　　　 <span style="color:#586e75"># paramsで送られてきたセッションの中のパスワード（ハッシュ化されている）が</span>
+      <span style="color:#586e75"># DB内のハッシュ化されたpassword_digestカラムの値と一致しているかどうか検証することで、ユーザーを識別</span>
+      log_in user
+      redirect_to <span style="color:#586e75"># ログイン後の遷移先_path</span>
+    <span style="color:#719e07">else</span>
+      flash<span style="color:#719e07">.</span>now<span style="color:#719e07">[</span><span style="color:#2aa198">:danger</span><span style="color:#719e07">]</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;Invalid email/password combination&#39;</span>
+      render <span style="color:#2aa198">&#39;new&#39;</span>
+    <span style="color:#719e07">end</span>
+  <span style="color:#719e07">end</span>
+ 
+  <span style="color:#719e07">def</span> <span style="color:#268bd2">destroy</span>
+    log_out
+    redirect_to root_url
+  <span style="color:#719e07">end</span>
+<span style="color:#719e07">end</span>
+</code></pre></div><p>ヘルパーメソッドに処理を追加</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">module</span> SessionsHelper
+    <span style="color:#586e75"># ユーザーのブラウザ内にある一時cookieに暗号化済みのユーザーIDを作成する</span>
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">log_in</span>(user)
+        session<span style="color:#719e07">[</span><span style="color:#2aa198">:user_id</span><span style="color:#719e07">]</span> <span style="color:#719e07">=</span> user<span style="color:#719e07">.</span>id
+    <span style="color:#719e07">end</span>
+     
+      <span style="color:#586e75"># 現在ログインしているユーザーを返す (ユーザーがログイン中の場合のみ)</span>
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">current_user</span>
+        @current_user <span style="color:#719e07">||=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>find_by(<span style="color:#b58900">id</span>: session<span style="color:#719e07">[</span><span style="color:#2aa198">:user_id</span><span style="color:#719e07">]</span>)
+    <span style="color:#719e07">end</span>
+     
+     
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">logged_in?</span>
+        <span style="color:#719e07">!</span>current_user<span style="color:#719e07">.</span>nil?
+        <span style="color:#586e75"># ログイン中の状態＝セッションにユーザーが存在する＝current_userがnilでない状態。</span>
+    <span style="color:#719e07">end</span>
+     
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">log_out</span>
+        session<span style="color:#719e07">.</span>delete(<span style="color:#2aa198">:user_id</span>)　<span style="color:#586e75">#セッションからユーザーIDを削除</span>
+        @current_user <span style="color:#719e07">=</span> <span style="color:#719e07">nil</span>　　　　<span style="color:#586e75">#現在のユーザーをnilに設定</span>
+    <span style="color:#719e07">end</span>
+<span style="color:#719e07">end</span>
+</code></pre></div><p>ログイン機能の実装完了！</p>
+<h1 id="まとめ">まとめ</h1>
+<p>本当に必要最低限なユーザー認証を実装してみましたが、これらをコマンドひとつで解決してくれるdeviseは本当に便利</p>
+<p>ただ、自分で機能をカスタマイズしたい時はその裏の動きを理解しなければならないので
+gemを使わずに実装してみることの重要さも理解できました！</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
 
 
 
@@ -122,475 +257,6 @@ if (!doNotTrack) {
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
-
-  </head>
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">メニューを切り替え</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://m-88888888.github.io">hachi&#39;s blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="Blog" href="/">Blog</a>
-            </li>
-          
-        
-          
-            <li>
-              <a title="About" href="/page/about/">About</a>
-            </li>
-          
-        
-          
-            <li>
-              <a title="Tags" href="/tags">Tags</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
-
-    
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="hachi&#39;s blog" href="https://m-88888888.github.io">
-            <img class="avatar-img" src="https://m-88888888.github.io/images/dog.png" alt="hachi&#39;s blog" />
-          </a>
-        </div>
-      </div>
-    
-
-  </div>
-</nav>
-
-
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
-    
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>deviseを使わないでログイン機能を実装する</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2019-10-01に投稿
-  
-  
-  
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p>ポートフォリオの作成時にログイン機能を簡単に実装できる<code>devise</code>というgemを利用してみました。<br>
-コマンドを叩くだけで簡単なログイン機能を実装できるという、scaffoldに近い部分があるので、裏の動きを理解するためにRailsチュートリアルの内容を参考に、deviseが担っている処理を学習し直しました。</p>
-<h1 id="やること">やること</h1>
-<h2 id="1-サインアップ機能">1. サインアップ機能</h2>
-<p>ユーザー登録時に最低限必要な情報は次の３つ。</p>
-<ul>
-<li>ユーザー名</li>
-<li>メールアドレス</li>
-<li>パスワード</li>
-</ul>
-<p>サインアップ機能で重要なのは、パスワードを平文の状態で触れないこと。<br>
-そこでパスワードをハッシュ化（規則性のない文字列）に変換してからDBに保存させるようにする。</p>
-<p><code>BCrypt</code>というgemを使ってパスワードのハッシュ化に関する処理を行う。<br>
-主に以下の２つのメソッドが使える様になる。</p>
-<ol>
-<li>
-<p>has_secure_password<br>
-セキュアにハッシュ化した不可逆なパスワードをDBのpassword_digestカラムに保存することができる。<br>
-また、passwordとpassword_confirmationを使える様になる</p>
-</li>
-<li>
-<p>authenticate<br>
-引数の文字列が保存したパスワードと一致するとそれに紐づくUserオブジェクトを、一致しなければfalseを返す</p>
-</li>
-</ol>
-<h3 id="userモデルとテーブルの作成">Userモデルとテーブルの作成</h3>
-<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># create_table.rb</span>
-<span class="k">class</span> <span class="nc">CreateUsers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="o">[</span><span class="mi">5</span><span class="o">.</span><span class="mi">2</span><span class="o">]</span>
-　　<span class="k">def</span> <span class="nf">change</span>
-　　　　<span class="n">create_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
-　　　　　　<span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:username</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span>
-　　　　　　<span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span>
-　　　　　　<span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:password_digest</span>
- 
-　　　　　　<span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
-　　　　<span class="k">end</span>
-　　<span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># User.rb</span>
-<span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
-　　<span class="n">before_save</span> <span class="p">{</span> <span class="nb">self</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">downcase</span> <span class="p">}</span>　<span class="c1">#DB保存前に小文字に変換</span>
- 
-　　<span class="n">validates</span> <span class="ss">:username</span><span class="p">,</span><span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span>
-　　<span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span>
-　　　  　　　　 <span class="ss">presence</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
-  　  　　　    <span class="ss">uniqueness</span><span class="p">:</span> <span class="p">{</span> <span class="ss">case_sensitive</span><span class="p">:</span> <span class="kp">false</span> <span class="p">},</span>　<span class="c1">#大文字・小文字の区別なし</span>
- 　　　　       <span class="nb">format</span><span class="p">:</span> <span class="p">{</span> <span class="ss">with</span><span class="p">:</span> <span class="sr">/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i</span> <span class="p">}</span> <span class="c1">#「/i」は大文字・小文字を区別せずにマッチングさせる正規表現</span>
- 
- 　　<span class="n">has_secure_password</span>
-<span class="k">end</span>
-</code></pre></div><p>メールアドレスの大文字・小文字の区別は、メールサーバーによって変わるので小文字でフォーマットを統一させる。</p>
-<h3 id="userコントローラーの作成">Userコントローラーの作成</h3>
-<p>ひとまずはサインアップとサインインの画面を作るだけなのでnewとcreateアクションを作成する</p>
-<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-　　<span class="k">def</span> <span class="nf">new</span>
-　　  <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
-　  <span class="k">end</span>
- 
-  <span class="k">def</span> <span class="nf">create</span>
-    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span>
-    <span class="k">if</span> <span class="vi">@user</span><span class="o">.</span><span class="n">save</span>
-      <span class="n">redirect_to</span> <span class="n">root_path</span>
-　　 <span class="k">else</span>
-      <span class="n">render</span> <span class="ss">action</span><span class="p">:</span> <span class="s2">&#34;new&#34;</span>
-　　 <span class="k">end</span>
- 　<span class="k">end</span>
- 
-　　<span class="n">privatef</span>
- 
-　　<span class="k">def</span> <span class="nf">user_params</span>
-　　  <span class="n">params</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span><span class="o">.</span><span class="n">permit</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">)</span>
- 　 <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div><h3 id="サインアップ画面の作成">サインアップ画面の作成</h3>
-<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">h1</span> <span class="no">Login</span>
-
-<span class="o">=</span> <span class="n">form_with</span> <span class="ss">model</span><span class="p">:</span> <span class="vi">@user</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
-  <span class="o">.</span><span class="n">form</span><span class="o">-</span><span class="n">group</span>
-    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:name</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span>
-    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span>
-  <span class="o">.</span><span class="n">form</span><span class="o">-</span><span class="n">group</span>
-    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span><span class="p">,</span> <span class="s1">&#39;Email&#39;</span>
-    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span>
-  <span class="o">.</span><span class="n">form</span><span class="o">-</span><span class="n">group</span>
-    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span><span class="p">,</span> <span class="s1">&#39;Password&#39;</span>
-    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span>
-  <span class="o">.</span><span class="n">form</span><span class="o">-</span><span class="n">group</span>
-    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="s1">&#39;Password_Confirmation&#39;</span>
-    <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span>
-  <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span>
-
-</code></pre></div><p>サインアップの機能完了！</p>
-<h2 id="2ログイン機能">2.ログイン機能</h2>
-<p>sessionコントローラーを作成</p>
-<ul>
-<li>new・・・ログインフォームの作成</li>
-<li>create・・・ログイン処理</li>
-<li>destroy・・・ログアウト処理</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># sessions_controller.rb</span>
-<span class="k">class</span> <span class="nc">SessionsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-  <span class="k">def</span> <span class="nf">new</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">create</span>
-    <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by</span><span class="p">(</span><span class="ss">email</span><span class="p">:</span> <span class="n">params</span><span class="o">[</span><span class="ss">:session</span><span class="o">][</span><span class="ss">:email</span><span class="o">].</span><span class="n">downcase</span><span class="p">)</span>
-    <span class="c1">#セッション情報に含まれているメールアドレスをもとに、Usersテーブルに保存されているUserオブジェクトを抽出</span>
-
-    <span class="k">if</span> <span class="n">user</span> <span class="o">&amp;&amp;</span> <span class="n">user</span><span class="o">.</span><span class="n">authenticate</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:session</span><span class="o">][</span><span class="ss">:password</span><span class="o">]</span><span class="p">)</span>
-      <span class="c1"># Userオブジェクトが抽出できる（つまり、Usersテーブルに存在している）かつ</span>
-　　　 <span class="c1"># paramsで送られてきたセッションの中のパスワード（ハッシュ化されている）が</span>
-      <span class="c1"># DB内のハッシュ化されたpassword_digestカラムの値と一致しているかどうか検証することで、ユーザーを識別</span>
-      <span class="n">log_in</span> <span class="n">user</span>
-      <span class="n">redirect_to</span> <span class="c1"># ログイン後の遷移先_path</span>
-    <span class="k">else</span>
-      <span class="n">flash</span><span class="o">.</span><span class="n">now</span><span class="o">[</span><span class="ss">:danger</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;Invalid email/password combination&#39;</span>
-      <span class="n">render</span> <span class="s1">&#39;new&#39;</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
- 
-  <span class="k">def</span> <span class="nf">destroy</span>
-    <span class="n">log_out</span>
-    <span class="n">redirect_to</span> <span class="n">root_url</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div><p>ヘルパーメソッドに処理を追加</p>
-<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">SessionsHelper</span>
-    <span class="c1"># ユーザーのブラウザ内にある一時cookieに暗号化済みのユーザーIDを作成する</span>
-    <span class="k">def</span> <span class="nf">log_in</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-        <span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span>
-    <span class="k">end</span>
-     
-      <span class="c1"># 現在ログインしているユーザーを返す (ユーザーがログイン中の場合のみ)</span>
-    <span class="k">def</span> <span class="nf">current_user</span>
-        <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
-    <span class="k">end</span>
-     
-     
-    <span class="k">def</span> <span class="nf">logged_in?</span>
-        <span class="o">!</span><span class="n">current_user</span><span class="o">.</span><span class="n">nil?</span>
-        <span class="c1"># ログイン中の状態＝セッションにユーザーが存在する＝current_userがnilでない状態。</span>
-    <span class="k">end</span>
-     
-    <span class="k">def</span> <span class="nf">log_out</span>
-        <span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="ss">:user_id</span><span class="p">)</span>　<span class="c1">#セッションからユーザーIDを削除</span>
-        <span class="vi">@current_user</span> <span class="o">=</span> <span class="kp">nil</span>　　　　<span class="c1">#現在のユーザーをnilに設定</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div><p>ログイン機能の実装完了！</p>
-<h1 id="まとめ">まとめ</h1>
-<p>本当に必要最低限なユーザー認証を実装してみましたが、これらをコマンドひとつで解決してくれるdeviseは本当に便利</p>
-<p>ただ、自分で機能をカスタマイズしたい時はその裏の動きを理解しなければならないので<br>
-gemを使わずに実装してみることの重要さも理解できました！</p>
-
-
-        
-
-        
-            <hr/>
-            <section id="social-share">
-              <div class="list-inline footer-links">
-                
-
-<div class="share-box" aria-hidden="true">
-    <ul class="share">
-      
-      <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fdevise%25E3%2582%2592%25E4%25BD%25BF%25E3%2582%258F%25E3%2581%25AA%25E3%2581%2584%25E3%2581%25A7%25E3%2583%25AD%25E3%2582%25B0%25E3%2582%25A4%25E3%2583%25B3%25E6%25A9%259F%25E8%2583%25BD%25E3%2582%2592%25E5%25AE%259F%25E8%25A3%2585%25E3%2581%2599%25E3%2582%258B%2f&amp;text=devise%e3%82%92%e4%bd%bf%e3%82%8f%e3%81%aa%e3%81%84%e3%81%a7%e3%83%ad%e3%82%b0%e3%82%a4%e3%83%b3%e6%a9%9f%e8%83%bd%e3%82%92%e5%ae%9f%e8%a3%85%e3%81%99%e3%82%8b&amp;via=hachi88_10" target="_blank" title="Share on Twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2fdevise%25E3%2582%2592%25E4%25BD%25BF%25E3%2582%258F%25E3%2581%25AA%25E3%2581%2584%25E3%2581%25A7%25E3%2583%25AD%25E3%2582%25B0%25E3%2582%25A4%25E3%2583%25B3%25E6%25A9%259F%25E8%2583%25BD%25E3%2582%2592%25E5%25AE%259F%25E8%25A3%2585%25E3%2581%2599%25E3%2582%258B%2f" target="_blank" title="Share on Facebook">
-          <i class="fab fa-facebook"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fdevise%25E3%2582%2592%25E4%25BD%25BF%25E3%2582%258F%25E3%2581%25AA%25E3%2581%2584%25E3%2581%25A7%25E3%2583%25AD%25E3%2582%25B0%25E3%2582%25A4%25E3%2583%25B3%25E6%25A9%259F%25E8%2583%25BD%25E3%2582%2592%25E5%25AE%259F%25E8%25A3%2585%25E3%2581%2599%25E3%2582%258B%2f&amp;title=devise%e3%82%92%e4%bd%bf%e3%82%8f%e3%81%aa%e3%81%84%e3%81%a7%e3%83%ad%e3%82%b0%e3%82%a4%e3%83%b3%e6%a9%9f%e8%83%bd%e3%82%92%e5%ae%9f%e8%a3%85%e3%81%99%e3%82%8b" target="_blank" title="Share on Reddit">
-          <i class="fab fa-reddit"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fdevise%25E3%2582%2592%25E4%25BD%25BF%25E3%2582%258F%25E3%2581%25AA%25E3%2581%2584%25E3%2581%25A7%25E3%2583%25AD%25E3%2582%25B0%25E3%2582%25A4%25E3%2583%25B3%25E6%25A9%259F%25E8%2583%25BD%25E3%2582%2592%25E5%25AE%259F%25E8%25A3%2585%25E3%2581%2599%25E3%2582%258B%2f&amp;title=devise%e3%82%92%e4%bd%bf%e3%82%8f%e3%81%aa%e3%81%84%e3%81%a7%e3%83%ad%e3%82%b0%e3%82%a4%e3%83%b3%e6%a9%9f%e8%83%bd%e3%82%92%e5%ae%9f%e8%a3%85%e3%81%99%e3%82%8b" target="_blank" title="Share on LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fdevise%25E3%2582%2592%25E4%25BD%25BF%25E3%2582%258F%25E3%2581%25AA%25E3%2581%2584%25E3%2581%25A7%25E3%2583%25AD%25E3%2582%25B0%25E3%2582%25A4%25E3%2583%25B3%25E6%25A9%259F%25E8%2583%25BD%25E3%2582%2592%25E5%25AE%259F%25E8%25A3%2585%25E3%2581%2599%25E3%2582%258B%2f&amp;title=devise%e3%82%92%e4%bd%bf%e3%82%8f%e3%81%aa%e3%81%84%e3%81%a7%e3%83%ad%e3%82%b0%e3%82%a4%e3%83%b3%e6%a9%9f%e8%83%bd%e3%82%92%e5%ae%9f%e8%a3%85%e3%81%99%e3%82%8b" target="_blank" title="Share on StumbleUpon">
-          <i class="fab fa-stumbleupon"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fdevise%25E3%2582%2592%25E4%25BD%25BF%25E3%2582%258F%25E3%2581%25AA%25E3%2581%2584%25E3%2581%25A7%25E3%2583%25AD%25E3%2582%25B0%25E3%2582%25A4%25E3%2583%25B3%25E6%25A9%259F%25E8%2583%25BD%25E3%2582%2592%25E5%25AE%259F%25E8%25A3%2585%25E3%2581%2599%25E3%2582%258B%2f&amp;description=devise%e3%82%92%e4%bd%bf%e3%82%8f%e3%81%aa%e3%81%84%e3%81%a7%e3%83%ad%e3%82%b0%e3%82%a4%e3%83%b3%e6%a9%9f%e8%83%bd%e3%82%92%e5%ae%9f%e8%a3%85%e3%81%99%e3%82%8b" target="_blank" title="Share on Pinterest">
-          <i class="fab fa-pinterest"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-  
-
-              </div>
-            </section>
-        
-
-        
-          
-
-          
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-          
-            <li class="next">
-              <a href="https://m-88888888.github.io/post/1%E3%81%A4%E3%81%AEform%E3%81%A7%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92db%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B/" data-toggle="tooltip" data-placement="top" title="1つのformで複数のモデルをDBに登録する">次ページ &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-        
-        
-      
-
-    </div>
-  </div>
-</div>
-
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://github.com/m-88888888" title="GitHub">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://twitter.com/hachi88_10" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              hachi
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2021
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://m-88888888.github.io">hachi&#39;s blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          起動力に<a href="https://gohugo.io">Hugo v0.83.1</a> &nbsp;&bull;&nbsp; テーマに<a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>に基づいている<a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
-      </div>
-    </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<script src="https://m-88888888.github.io/js/main.js"></script>
-<script src="https://m-88888888.github.io/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://m-88888888.github.io/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
-
-    
-  </body>
+<script>feather.replace()</script>
+</body>
 </html>
-

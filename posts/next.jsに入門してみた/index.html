@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Next.jsに入門してみた - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Next.jsに入門してみた" />
+<meta property="og:description" content="最近入った現場でReact扱っているんですけど、フロントエンドを担当するのは初めてということもあって苦労してます。。。まあ楽しいのでいいんですが
+そのReactでNext.jsっていうフレームワーク使ってるんだけどこれまたよくわからない所がちょくちょく出てきて何度か詰まったりした点があったので、一度体系的に調べてみようと思い、公式のチュートリアルやってみることにしました。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/posts/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-11-04T00:54:53&#43;09:00" />
+<meta property="article:modified_time" content="2020-11-04T00:54:53&#43;09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Next.jsに入門してみた"/>
+<meta name="twitter:description" content="最近入った現場でReact扱っているんですけど、フロントエンドを担当するのは初めてということもあって苦労してます。。。まあ楽しいのでいいんですが
+そのReactでNext.jsっていうフレームワーク使ってるんだけどこれまたよくわからない所がちょくちょく出てきて何度か詰まったりした点があったので、一度体系的に調べてみようと思い、公式のチュートリアルやってみることにしました。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/dark.css"  />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom-dark.css"  />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://m-88888888.github.iojs/main.js"></script>
+	<script src="https://m-88888888.github.iojs/abc.js"></script>
+	<script src="https://m-88888888.github.iojs/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io">
+	<h1 class="site-title"><a href="https://m-88888888.github.io">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">Next.jsに入門してみた</h1>
+			<div class="meta">Posted at &mdash; Nov 4, 2020</div>
+		</div>
+
+		<div class="markdown">
+			<p>最近入った現場でReact扱っているんですけど、フロントエンドを担当するのは初めてということもあって苦労してます。。。まあ楽しいのでいいんですが</p>
+<p>そのReactでNext.jsっていうフレームワーク使ってるんだけどこれまたよくわからない所がちょくちょく出てきて何度か詰まったりした点があったので、一度体系的に調べてみようと思い、公式のチュートリアルやってみることにしました。</p>
+<h1 id="nextjsの特徴">Next.jsの特徴</h1>
+<p><a href="https://nextjs.org/learn/basics/create-nextjs-app">公式によるとこんなこと書いてあった</a></p>
+<blockquote>
+<p>Next.js has the best-in-class &ldquo;Developer Experience&rdquo; and many built-in features; a sample of them are:</p>
+<ul>
+<li>An intuitive page-based routing system (with support for dynamic routes)</li>
+<li>Pre-rendering, both static generation (SSG) and server-side rendering (SSR) are supported on a per-page basis</li>
+<li>Automatic code splitting for faster page loads</li>
+<li>Client-side routing with optimized prefetching</li>
+<li>Built-in CSS and Sass support, and support for any CSS-in-JS library</li>
+<li>Development environment with Fast Refresh support</li>
+<li>API routes to build API endpoints with Serverless Functions</li>
+<li>Fully extendable</li>
+</ul>
+</blockquote>
+<p>サーバーサイドレンダリングの機能がデフォルトであったり、ページごとのルーティングが作られたり、Sassサポートしてたりいろいろと多機能なフレームワークみたいですね。</p>
+<h1 id="そもそもサーバーサイドレンダリングssrって何よ">そもそもサーバーサイドレンダリング（SSR)って何よ</h1>
+<p>フロントエンド開発でよく耳にする単語でSSRってあるけど、その内容については全然知らなかったのでついでに自分なりに調べてみました。
+SSRだけでなくCSRってのもあるらしい。</p>
+<h2 id="server-side-rendering">Server-Side Rendering</h2>
+<ul>
+<li>サーバーサイドでHTMLレンダリングすること</li>
+<li>サーバ側でデータを整形したHTMLを返すため、初期ページの画面レンダリング時間が短縮される</li>
+<li>整形済みのHTMLをブラウザが読み込むからSEO対策になるらしい。SEO対策ってどんなものかあまりわかっていない。。。</li>
+</ul>
+<h2 id="client-side-rendering">Client-Side Rendering</h2>
+<ul>
+<li>ブラウザ側でHTMLレンダリングすること。</li>
+<li>サーバとはデータ（JSON）のみを通信して、そのデータに基づいてページの更新を行う</li>
+<li>画面全体ではなく、部分的なレンダリングができるため高度なUIを構築できる</li>
+<li>SPAの実装に向いている</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://developers.google.com/web/updates/2019/02/rendering-on-the-web?hl=ja">Rendering on the Web</a></li>
+</ul>
+<h1 id="nextjs公式チュートリアルhttpsnextjsorglearnbasicscreate-nextjs-app"><a href="https://nextjs.org/learn/basics/create-nextjs-app">Next.js公式チュートリアル</a></h1>
+<p>内容はかなりシンプルなので個人的に重要だと思った部分のみを整理してみる。
+※2020年11月時点の内容のため、今後内容が変化する可能性アリ</p>
+<h2 id="navigate-between-pages">Navigate Between Pages</h2>
+<ul>
+<li>Next.jsにおいて、<code>pages</code>ディレクトリ配下に置いたJavaScript,Typescriptファイルがブラウザ上に表示されるページの本体となる。</li>
+<li>ページコンポーネントは<code>default</code>としてexportされたReactコンポーネントである必要がある。</li>
+<li><code>pages</code>配下の階層がルーティングとなるから、専用のルーティングライブラリは不要。</li>
+<li>pagesの階層とファイル名が実際のURLパスになる。
+<ul>
+<li><code>pages/posts/first-post.js</code>というファイルの場合、<code>posts/first-post.js</code>でアクセスできる。</li>
+</ul>
+</li>
+<li>クライアントサイド内のページ遷移には<code>next/link</code>という<code>&lt;a&gt;タグ</code>をラップしたコンポーネントを使うこと。
+<ul>
+<li>next/linkの<code>Link</code>は<code>client-side navigation</code>を可能とするから、フロントエンド内のページ遷移には極力この<code>Link</code>を使うほうがいい。</li>
+<li><code>client-side navigation</code>とは、ブラウザの機能ではなくJavaScriptを使ったページ遷移のこと。ブラウザによる遷移よりも高速でページ遷移が可能となる。</li>
+<li>公式チュートリアルにあるようにDeveloper toolで変えたCSSスタイルがページ遷移後にも適用されているのは、ブラウザがページ全体を完全にリロードしていないから。</li>
+</ul>
+</li>
+<li>コード分割や本番環境限定のプリフェッチ機能によって、アプリケーションを最適化してパフォーマンスを向上されてくれる。</li>
+</ul>
+<h2 id="assets-metadata-and-css">Assets, Metadata, and CSS</h2>
+<p>CSSは省略</p>
+<h2 id="pre-rendering-and-data-fetching">Pre-rendering and Data Fetching</h2>
+<ul>
+<li>Next.jsはデフォルトでSSRに対応していて、<code>プリレンダリング</code>されることで各ページのHTMLは最小限のJavaScriptコードを残して紐付いた状態で生成される。
+<ul>
+<li>ブラウザが実際にページを読み込むときに、残されたJavaScriptのコードを実行される。この工程のことを<code>ハイドレーション</code>と呼ぶ。</li>
+</ul>
+</li>
+<li>JavaScriptをオフにした状態でNext.jsによって作られたサイトにアクセスすると、アプリのUIが正しく構築された状態で表示されていることが確認できる。これは、Next.jsによって<code>プリレンダリング</code>されたことで静的なHTMLが生成されているから。</li>
+<li><code>プリレンダリング</code>には次の2つの形式がある。
+<ul>
+<li>static generation：ビルド時にレンダリングされる</li>
+<li>SSR：リクエスト毎にレンダリングされる</li>
+</ul>
+</li>
+<li>つまり、レンダリングされるタイミングが異なるというだけ。なのでページごとにプリレンダリングの形式を選択することができる。</li>
+<li>static genarationに外部データを取り込みたい（fetch）とき、<code>getStaticProps</code>という関数を呼ぶことで外部データを取り込んで遷移先にpropsとして送ることができる。
+<ul>
+<li>getStaticPropsはサーバサイドで実行されるためデータベースにクエリを投げることも可能</li>
+<li>ビルド時に実行される</li>
+</ul>
+</li>
+<li>リクエストごとにfetchしたい時には<code>getServerSideProps</code>を使う。</li>
+</ul>
+<h2 id="dynamic-routes">Dynamic Routes</h2>
+<ul>
+<li>static generate pagesにも<code>動的なルーティング</code>を設定することができる。</li>
+<li><code>/posts/&lt;id&gt;</code>というURLで<code>&lt;id&gt;</code>を動的にしたいという場合、<code>pages/posts/[id].js</code>が対応するページとなる。<code>[]</code>で囲った部分が動的な値となる。
+<ul>
+<li>今回の場合だとページコンポーネントでは<code>getStaticPaths</code>で<code>id</code>の値（ファイル名）を返し、<code>getStaticProps</code>で必要なデータ（ファイル内のデータ）をフェッチする必要がある。</li>
+</ul>
+</li>
+</ul>
+<h2 id="api-routes">API Routes</h2>
+<ul>
+<li>アプリ内にAPIのエンドポイントを作成することもできる。</li>
+<li>APIは関数として定義することができて、サーバレス関数としてデプロイすることができるからAWS Lambdaに似た動きを実現できる。</li>
+<li>getStaticPathsとgetStaticPropsからAPI Routesをフェッチしてはいけない。
+<ul>
+<li>getStaticPathsとgetStaticPropsかクライアントサイドではなく、サーバサイドでのみ実行可能だから。</li>
+<li>代わりに、サーバサイドに直接getStaticPathsとgetStaticPropsを書く、あるいはヘルパー関数を呼び出す必要がある。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="getinitialprops">getInitialProps</h1>
+<p><code>Next.js 9.3</code>以降では<code>getStaticPathsとgetStaticProps</code>を使うことを推奨されている。
+既存のコードも書き直すべき、というほどではないが、今後新しく書き始める場合に特別な理由がなければ使う必要はないというニュアンス？</p>
+<p><code>getInitialProps</code>はレンダリングされる前に実行されるAPI。リクエストが送られるとページに必要なデータを<code>props</code>として渡してくれる。
+CSRとSSRの両方に対応している特徴がある。</p>
+<ul>
+<li>通常のアクセス：サーバー側で実行（SSR)</li>
+<li><code>next/link</code>でルーティング：クライアント側で実行（CSR)</li>
+</ul>
+<h1 id="getstaticprops">getStaticProps</h1>
+<p>getInitialPropsが行っていた処理（ページに必要なデータをpropsに渡す処理）をビルド時に行って静的なファイルを生成するためのAPI。
+クライアント側で実行されることはなく、サーバー側でのみ実行される。→いつアクセスしても同じ結果が表示される
+必須パラメーターとして<code>paths</code>と<code>fallback</code>があり、<code>paths</code>はビルドするパス対象、<code>fallback</code>は事前ビルドしたパス以外にアクセスした時の動作を決めるもの。</p>
+<ul>
+<li>falseの場合
+<ul>
+<li>404 pageとなる</li>
+</ul>
+</li>
+<li>trueの場合
+<ul>
+<li>静的なファイルをサーバー側で生成して返す処理を書く必要がある</li>
+</ul>
+</li>
+</ul>
+<h1 id="getstaticpaths">getStaticPaths</h1>
+<p><code>Dynamic Routes</code>使用時にも静的なファイルを生成するためのAPI。</p>
+<h1 id="getserversideprops">getServerSideProps</h1>
+<p>SSRのためのAPI。<code>next/link</code>でルーティングを行った場合でも、サーバーサイドで実行される。</p>
+<hr>
+<p>なんか内容にまとまりがなくなってきた&hellip;また後日修正しよう。</p>
+<h1 id="参考-1">参考</h1>
+<ul>
+<li><a href="https://nextjs.org/docs/getting-started">https://nextjs.org/docs/getting-started</a></li>
+<li><a href="https://qiita.com/amakawa_/items/e7d0720e1ab8632769bf#spasingle-page-application">https://qiita.com/amakawa_/items/e7d0720e1ab8632769bf#spasingle-page-application</a></li>
+<li><a href="https://qiita.com/matamatanot/items/1735984f40540b8bdf91%E3%80%80#%E5%89%8D%E6%8F%90%E7%9F%A5%E8%AD%98-ssg-%E3%81%A8-getinitialprops-%E3%81%A8-next-export">https://qiita.com/matamatanot/items/1735984f40540b8bdf91%E3%80%80#%E5%89%8D%E6%8F%90%E7%9F%A5%E8%AD%98-ssg-%E3%81%A8-getinitialprops-%E3%81%A8-next-export</a></li>
+</ul>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/next.js">next.js</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

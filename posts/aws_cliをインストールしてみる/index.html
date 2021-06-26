@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>AWS_CLIをインストールしてみる - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="AWS_CLIをインストールしてみる" />
+<meta property="og:description" content="AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにコードをデプロイするためにAWS CLIがあると便利みたいなのでインストール〜設定作業をまとめてみた。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/posts/aws_cli%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-09-26T22:01:43&#43;09:00" />
+<meta property="article:modified_time" content="2020-09-26T22:01:43&#43;09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="AWS_CLIをインストールしてみる"/>
+<meta name="twitter:description" content="AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにコードをデプロイするためにAWS CLIがあると便利みたいなのでインストール〜設定作業をまとめてみた。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/dark.css"  />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom-dark.css"  />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://m-88888888.github.iojs/main.js"></script>
+	<script src="https://m-88888888.github.iojs/abc.js"></script>
+	<script src="https://m-88888888.github.iojs/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io">
+	<h1 class="site-title"><a href="https://m-88888888.github.io">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">AWS_CLIをインストールしてみる</h1>
+			<div class="meta">Posted at &mdash; Sep 26, 2020</div>
+		</div>
+
+		<div class="markdown">
+			<p>AWS Lambdaを使ってLINE Botを作ろうとしたところ、LambdaにコードをデプロイするためにAWS CLIがあると便利みたいなのでインストール〜設定作業をまとめてみた。</p>
+<h2 id="そもそもaws-cliって何">そもそもAWS CLIって何？</h2>
+<p>公式より
+<a href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/cli-chap-welcome.html">AWS Command Line Interface とは - AWS Command Line Interface</a></p>
+<blockquote>
+<p>AWS Command Line Interface (AWS CLI) は、コマンドラインシェルでコマンドを使用して AWS サービスとやり取りするためのオープンソースツールです。AWS CLI は、最小限の設定で、任意のターミナルプログラムのコマンドプロンプトから、ブラウザベースの AWS マネジメントコンソール で提供される機能と同等の機能を実装するコマンドの実行を開始できます。</p>
+</blockquote>
+<p>AWSをコマンドラインで設定、操作するためのツールみたい。
+ソースをLambdaにデプロイするときに毎回圧縮したソースをマネジメントコンソールでアップロードするという作業が要らなくなる！</p>
+<h2 id="インストール">インストール</h2>
+<p>とりあえず最新バージョンをインストール</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl <span style="color:#2aa198">&#34;https://awscli.amazonaws.com/AWSCLIV2.pkg&#34;</span> -o <span style="color:#2aa198">&#34;AWSCLIV2.pkg&#34;</span>
+sudo installer -pkg AWSCLIV2.pkg -target /
+</code></pre></div><p>バージョン確認できればインストール成功</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ which aws
+/usr/local/bin/aws
+$ aws --version
+aws-cli/2.0.52 Python/3.7.4 Darwin/18.7.0 exe/x86_64
+</code></pre></div><h2 id="認証設定">認証設定</h2>
+<p>AWSのアカウント情報とかの設定をする。
+<code>aws configure</code>で基本設定ができるっぽい。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ aws configure
+AWS Access Key ID <span style="color:#719e07">[</span>None<span style="color:#719e07">]</span>: アクセスキー
+AWS Secret Access Key <span style="color:#719e07">[</span>None<span style="color:#719e07">]</span>: シークレットアクセスキー
+Default region name <span style="color:#719e07">[</span>None<span style="color:#719e07">]</span>: リージョン
+Default output format <span style="color:#719e07">[</span>None<span style="color:#719e07">]</span>: 出力形式
+</code></pre></div><p>この認証設定を切り替えたりするために<code>プロファイル</code>ってものがあるらしい。
+複数アカウント使用するときに使いそう。今回は割愛。</p>
+<h2 id="cliでlambdaにコードをデプロイしてみる">CLIでLambdaにコードをデプロイしてみる</h2>
+<p>Lambda関数自体は既に作成済みなので関数を更新するコマンドを叩けばいい。
+コード自体は圧縮してアップロードするだけなので単純。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ zip -r lambda zip main.go
+$ aws lambda update-function-code --function-name hogehoge --zip-file fileb://lambda.zip
+<span style="color:#719e07">{</span>
+  .
+  .
+  .
+  <span style="color:#2aa198">&#34;LastUpdateStatus&#34;</span>: <span style="color:#2aa198">&#34;Successful&#34;</span>
+<span style="color:#719e07">}</span>
+</code></pre></div><p>コマンドの結果がJSON形式で返って、更新結果が<code>Successful</code>となっているのでデプロイに成功。</p>
+<h2 id="まとめ">まとめ</h2>
+<ul>
+<li>いちいちマネジメントコンソール開く手間がなくなるのはかなり大きい。</li>
+<li>CLIを使用する上での最低限の設定はかなり単純なので使用する上での敷居は低い</li>
+<li>けど初見のサービスをCLIで操作するのは大変そう</li>
+<li>ある程度操作になれたらCLIでも操作してみる、って手順を踏んだほうが良さそう</li>
+</ul>
+		</div>
+
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="/tags/aws">aws</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

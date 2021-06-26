@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】 - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】" />
+<meta property="og:description" content="はじめに Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/posts/version_cache__permission_deniedmac/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-02-22T23:24:09&#43;09:00" />
+<meta property="article:modified_time" content="2020-02-22T23:24:09&#43;09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】"/>
+<meta name="twitter:description" content="はじめに Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/dark.css"  />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom-dark.css"  />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://m-88888888.github.iojs/main.js"></script>
+	<script src="https://m-88888888.github.iojs/abc.js"></script>
+	<script src="https://m-88888888.github.iojs/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io">
+	<h1 class="site-title"><a href="https://m-88888888.github.io">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】</h1>
+			<div class="meta">Posted at &mdash; Feb 22, 2020</div>
+		</div>
+
+		<div class="markdown">
+			<h1 id="はじめに">はじめに</h1>
+<p>Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます</p>
+<h1 id="エラー">エラー</h1>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"> $ rails s
+mkdir: /usr/local/bin/../version_cache: Permission denied
+/usr/local/bin/rbenv-communal-gem-home: line 21: /usr/local/bin/../version_cache/2.7.0: No such file or directory
+=&gt; Booting Puma
+=&gt; Rails 6.0.2.1 application starting in development
+=&gt; Run `rails server --help` for more startup options
+..
+</code></pre></div><p><code>rbenv-communal-gem-home</code>というファイルのキャッシュPATHが間違っているとか怒られているみたいですね</p>
+<h1 id="対応">対応</h1>
+<p><code>rbenv-communal-gem-home</code>を開く</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#719e07">#!/usr/bin/env bash
+</span><span style="color:#719e07"></span><span style="color:#586e75">#</span>
+<span style="color:#586e75"># Summary: Show the communal gem home if communal gems are enabled</span>
+<span style="color:#586e75">#</span>
+<span style="color:#586e75"># Usage: rbenv communal-gem-home [&lt;version&gt;]</span>
+
+<span style="color:#586e75"># Provide rbenv completions</span>
+<span style="color:#719e07">if</span> <span style="color:#719e07">[</span> <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$1</span><span style="color:#2aa198">&#34;</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;--complete&#34;</span> <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
+  <span style="color:#b58900">exec</span> rbenv-versions --bare
+<span style="color:#719e07">fi</span>
+
+<span style="color:#268bd2">rbenv_version</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">${</span><span style="color:#268bd2">1</span><span style="color:#719e07">:-$(</span>rbenv-version-name<span style="color:#719e07">)</span><span style="color:#2aa198">}</span><span style="color:#2aa198">&#34;</span>
+<span style="color:#719e07">if</span> <span style="color:#719e07">[</span> -L <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$RBENV_ROOT</span><span style="color:#2aa198">/versions/</span><span style="color:#268bd2">$rbenv_version</span><span style="color:#2aa198">/lib/ruby/gems&#34;</span> <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
+  <span style="color:#268bd2">cachedir</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">${</span><span style="color:#268bd2">BASH_SOURCE</span>%/*<span style="color:#2aa198">}</span><span style="color:#2aa198">/../version_cache&#34;</span>
+  <span style="color:#268bd2">cachefile</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachedir</span><span style="color:#2aa198">/</span><span style="color:#268bd2">$rbenv_version</span><span style="color:#2aa198">&#34;</span>
+  <span style="color:#719e07">if</span> <span style="color:#719e07">[</span> -f <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachefile</span><span style="color:#2aa198">&#34;</span> <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
+    <span style="color:#268bd2">communal_version</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">$(</span>cat <span style="color:#268bd2">$cachefile</span><span style="color:#719e07">)</span><span style="color:#2aa198">&#34;</span>
+  <span style="color:#719e07">else</span>
+    mkdir -p <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachedir</span><span style="color:#2aa198">&#34;</span>
+    <span style="color:#268bd2">communal_version</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">$(</span><span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$RBENV_ROOT</span><span style="color:#2aa198">/versions/</span><span style="color:#268bd2">$rbenv_version</span><span style="color:#2aa198">/bin/ruby&#34;</span> -rrbconfig -e <span style="color:#2aa198">&#39;puts RbConfig::CONFIG[&#34;ruby_version&#34;]&#39;</span><span style="color:#719e07">)</span><span style="color:#2aa198">&#34;</span>
+    <span style="color:#b58900">echo</span> <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$communal_version</span><span style="color:#2aa198">&#34;</span> &gt; <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachefile</span><span style="color:#2aa198">&#34;</span>
+  <span style="color:#719e07">fi</span>
+
+  <span style="color:#b58900">echo</span> <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$RBENV_ROOT</span><span style="color:#2aa198">/gems/</span><span style="color:#268bd2">$communal_version</span><span style="color:#2aa198">&#34;</span>
+<span style="color:#719e07">else</span>
+  <span style="color:#b58900">exit</span> <span style="color:#2aa198">1</span>
+<span style="color:#719e07">fi</span>
+</code></pre></div><p>14~15行目あたりのPATHを変更します</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">- cachedir=&#34;${BASH_SOURCE%/*}/../version_cache&#34;
++ cachedir=&#34;$RBENV_ROOT/.communal-gem-version-cache&#34;
+</code></pre></div><h1 id="結果">結果</h1>
+<p>Railsコマンド叩いてエラーが発生しなくなったかを確認してみる</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ rails s
+=&gt; Booting Puma
+=&gt; Rails 6.0.2.1 application starting in development
+=&gt; Run `rails server --help` for more startup options
+..
+</code></pre></div><p>でなくなったっぽい！</p>
+<p>念の為<code>rbenv doctor</code>コマンドでも確認しておく</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+Checking for `rbenv&#39; in PATH: /usr/local/bin/rbenv
+Checking for rbenv shims in PATH: OK
+Checking `rbenv install&#39; support: /usr/local/bin/rbenv-install (ruby-build 20200214)
+Counting installed Ruby versions: 3 versions
+Checking RubyGems settings: OK
+Auditing installed plugins: OK
+</code></pre></div><p>気持ち悪いログがでなくなってスッキリ！</p>
+<p>今日はここまで</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://qiita.com/sachiotomita/items/3a298bae37835b55ae40">[Mac]Rails コマンドでエラー /usr/local/bin/rbenv-communal-gem-home Permission denied - Qiita</a></li>
+<li><a href="https://github.com/tpope/rbenv-communal-gems/issues/12">Installing via homebrew breaks communal-gem-home command · Issue #12 · tpope/rbenv-communal-gems · GitHub</a></li>
+</ul>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

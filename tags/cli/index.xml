@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cli on hachi&#39;s blog</title>
+    <link>https://m-88888888.github.io/tags/cli/</link>
+    <description>Recent content in cli on hachi&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>© Copyright m-88888888</copyright>
+    <lastBuildDate>Thu, 18 Feb 2021 00:13:57 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/tags/cli/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ディレクトリをブックマークするCLI作ってみた</title>
+      <link>https://m-88888888.github.io/posts/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%81%99%E3%82%8Bcli%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</link>
+      <pubDate>Thu, 18 Feb 2021 00:13:57 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/posts/%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E3%82%92%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%81%99%E3%82%8Bcli%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/</guid>
+      <description>自分が日常的に一番多く叩いているであろうcdを叩く回数を減らすために、よく使うディレクトリをブックマークできるCLIとかあると便利じゃないかなと思って作ってみました。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,116 +1,114 @@
 <!DOCTYPE html>
-<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>MySQL8→MySQL5.7にダウングレード - hachi&#39;s blog</title>
-  <meta name="description" content="MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。
-HomebrewでMySQLをインストールしていたのでbrewコマンド使ってMySQL本体をアンインストール
-brew uninstall mysql MySQLに関連するファイルをすべて削除
-この削除するべきファイルを探し出すのに時間がかかった…
-sudo rm -rf /usr/local/mysql sudo rm -rf /Library/StartupItems/MYSQL sudo rm -rf /Library/PreferencePanes/MySQL.">
-  <meta name="author" content="hachi"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "hachi\u0027s blog",
-    
-    "url": "https:\/\/m-88888888.github.io"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/m-88888888.github.io"
-  
-  
-  
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/m-88888888.github.io",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/m-88888888.github.io\/post\/mysql8mysql5.7%E3%81%AB%E3%83%80%E3%82%A6%E3%83%B3%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89\/",
-          "name": "My sql8 my sql5.7にダウングレード"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "hachi"
-  },
-  "headline": "MySQL8→MySQL5.7にダウングレード",
-  "description" : "MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。\nHomebrewでMySQLをインストールしていたのでbrewコマンド使ってMySQL本体をアンインストール\nbrew uninstall mysql MySQLに関連するファイルをすべて削除\nこの削除するべきファイルを探し出すのに時間がかかった…\nsudo rm -rf \/usr\/local\/mysql sudo rm -rf \/Library\/StartupItems\/MYSQL sudo rm -rf \/Library\/PreferencePanes\/MySQL.",
-  "inLanguage" : "ja",
-  "wordCount":  56 ,
-  "datePublished" : "2019-10-12T23:15:26",
-  "dateModified" : "2019-10-12T23:15:26",
-  "image" : "https:\/\/m-88888888.github.io\/images\/dog.png",
-  "keywords" : [ "" ],
-  "mainEntityOfPage" : "https:\/\/m-88888888.github.io\/post\/mysql8mysql5.7%E3%81%AB%E3%83%80%E3%82%A6%E3%83%B3%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/m-88888888.github.io",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/m-88888888.github.io\/images\/dog.png",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="MySQL8→MySQL5.7にダウングレード" />
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>MySQL8→MySQL5.7にダウングレード - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="MySQL8→MySQL5.7にダウングレード" />
 <meta property="og:description" content="MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。
 HomebrewでMySQLをインストールしていたのでbrewコマンド使ってMySQL本体をアンインストール
 brew uninstall mysql MySQLに関連するファイルをすべて削除
 この削除するべきファイルを探し出すのに時間がかかった…
-sudo rm -rf /usr/local/mysql sudo rm -rf /Library/StartupItems/MYSQL sudo rm -rf /Library/PreferencePanes/MySQL.">
-<meta property="og:image" content="https://m-88888888.github.io/images/dog.png" />
-<meta property="og:url" content="https://m-88888888.github.io/post/mysql8mysql5.7%E3%81%AB%E3%83%80%E3%82%A6%E3%83%B3%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="hachi&#39;s blog" />
+sudo rm -rf /usr/local/mysql sudo rm -rf /Library/StartupItems/MYSQL sudo rm -rf /Library/PreferencePanes/MySQL.prefPane sudo rm -rf /Library/Receipts/mysql-." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/post/mysql8mysql5.7%E3%81%AB%E3%83%80%E3%82%A6%E3%83%B3%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-10-12T23:15:26&#43;09:00" />
+<meta property="article:modified_time" content="2019-10-12T23:15:26&#43;09:00" />
 
-  <meta name="twitter:title" content="MySQL8→MySQL5.7にダウングレード" />
-  <meta name="twitter:description" content="MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL8→MySQL5.7にダウングレード"/>
+<meta name="twitter:description" content="MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。
 HomebrewでMySQLをインストールしていたのでbrewコマンド使ってMySQL本体をアンインストール
 brew uninstall mysql MySQLに関連するファイルをすべて削除
 この削除するべきファイルを探し出すのに時間がかかった…
-sudo rm -rf …">
-  <meta name="twitter:image" content="https://m-88888888.github.io/images/dog.png" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@hachi88_10" />
-  <meta name="twitter:creator" content="@hachi88_10" />
-  <link href='https://m-88888888.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.83.1" />
-  <link rel="alternate" href="https://m-88888888.github.io/index.xml" type="application/rss+xml" title="hachi&#39;s blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://m-88888888.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://m-88888888.github.io/css/highlight.min.css" /><link rel="stylesheet" href="https://m-88888888.github.io/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+sudo rm -rf /usr/local/mysql sudo rm -rf /Library/StartupItems/MYSQL sudo rm -rf /Library/PreferencePanes/MySQL.prefPane sudo rm -rf /Library/Receipts/mysql-."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/dark.css" media="(prefers-color-scheme: dark)" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom-dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://m-88888888.github.iojs/main.js"></script>
+	<script src="https://m-88888888.github.iojs/abc.js"></script>
+	<script src="https://m-88888888.github.iojs/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io">
+	<h1 class="site-title"><a href="https://m-88888888.github.io">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">MySQL8→MySQL5.7にダウングレード</h1>
+			<div class="meta">Posted at &mdash; Oct 12, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<p>MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。</p>
+<p>HomebrewでMySQLをインストールしていたのでbrewコマンド使ってMySQL本体をアンインストール</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">brew uninstall mysql
+</code></pre></div><p>MySQLに関連するファイルをすべて削除</p>
+<p>この削除するべきファイルを探し出すのに時間がかかった…</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">sudo rm -rf /usr/local/mysql
+sudo rm -rf /Library/StartupItems/MYSQL
+sudo rm -rf /Library/PreferencePanes/MySQL.prefPane
+sudo rm -rf /Library/Receipts/mysql-.pkg
+sudo rm -rf /usr/local/Cellar/mysql*
+sudo rm -rf /usr/local/bin/mysql*
+sudo rm -rf /usr/local/var/mysql*
+sudo rm -rf /usr/local/etc/my.cnf
+sudo rm -rf /usr/local/share/mysql*
+sudo rm -rf /usr/local/opt/mysql*
+</code></pre></div><p>削除後、Finderの検索欄にmysqlと入力して関連ファイルがないことを確認</p>
+<p>brew info mysqlでアンインストールされたことを確認してインストール</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">brew install mysql@5.7
+</code></pre></div><p>==&gt; Summaryと表示されたらインストール完了！</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
 
 
 
@@ -125,345 +123,6 @@ if (!doNotTrack) {
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
-
-  </head>
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">メニューを切り替え</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://m-88888888.github.io">hachi&#39;s blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="Blog" href="/">Blog</a>
-            </li>
-          
-        
-          
-            <li>
-              <a title="About" href="/page/about/">About</a>
-            </li>
-          
-        
-          
-            <li>
-              <a title="Tags" href="/tags">Tags</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
-
-    
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="hachi&#39;s blog" href="https://m-88888888.github.io">
-            <img class="avatar-img" src="https://m-88888888.github.io/images/dog.png" alt="hachi&#39;s blog" />
-          </a>
-        </div>
-      </div>
-    
-
-  </div>
-</nav>
-
-
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
-    
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>MySQL8→MySQL5.7にダウングレード</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2019-10-12に投稿
-  
-  
-  
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p>MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。</p>
-<p>HomebrewでMySQLをインストールしていたのでbrewコマンド使ってMySQL本体をアンインストール</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">brew uninstall mysql
-</code></pre></div><p>MySQLに関連するファイルをすべて削除</p>
-<p>この削除するべきファイルを探し出すのに時間がかかった…</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo rm -rf /usr/local/mysql
-sudo rm -rf /Library/StartupItems/MYSQL
-sudo rm -rf /Library/PreferencePanes/MySQL.prefPane
-sudo rm -rf /Library/Receipts/mysql-.pkg
-sudo rm -rf /usr/local/Cellar/mysql*
-sudo rm -rf /usr/local/bin/mysql*
-sudo rm -rf /usr/local/var/mysql*
-sudo rm -rf /usr/local/etc/my.cnf
-sudo rm -rf /usr/local/share/mysql*
-sudo rm -rf /usr/local/opt/mysql*
-</code></pre></div><p>削除後、Finderの検索欄にmysqlと入力して関連ファイルがないことを確認</p>
-<p>brew info mysqlでアンインストールされたことを確認してインストール</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">brew install mysql@5.7
-</code></pre></div><p>==&gt; Summaryと表示されたらインストール完了！</p>
-
-
-        
-
-        
-            <hr/>
-            <section id="social-share">
-              <div class="list-inline footer-links">
-                
-
-<div class="share-box" aria-hidden="true">
-    <ul class="share">
-      
-      <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fmysql8mysql5.7%25E3%2581%25AB%25E3%2583%2580%25E3%2582%25A6%25E3%2583%25B3%25E3%2582%25B0%25E3%2583%25AC%25E3%2583%25BC%25E3%2583%2589%2f&amp;text=MySQL8%e2%86%92MySQL5.7%e3%81%ab%e3%83%80%e3%82%a6%e3%83%b3%e3%82%b0%e3%83%ac%e3%83%bc%e3%83%89&amp;via=hachi88_10" target="_blank" title="Share on Twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fm-88888888.github.io%2fpost%2fmysql8mysql5.7%25E3%2581%25AB%25E3%2583%2580%25E3%2582%25A6%25E3%2583%25B3%25E3%2582%25B0%25E3%2583%25AC%25E3%2583%25BC%25E3%2583%2589%2f" target="_blank" title="Share on Facebook">
-          <i class="fab fa-facebook"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fmysql8mysql5.7%25E3%2581%25AB%25E3%2583%2580%25E3%2582%25A6%25E3%2583%25B3%25E3%2582%25B0%25E3%2583%25AC%25E3%2583%25BC%25E3%2583%2589%2f&amp;title=MySQL8%e2%86%92MySQL5.7%e3%81%ab%e3%83%80%e3%82%a6%e3%83%b3%e3%82%b0%e3%83%ac%e3%83%bc%e3%83%89" target="_blank" title="Share on Reddit">
-          <i class="fab fa-reddit"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fmysql8mysql5.7%25E3%2581%25AB%25E3%2583%2580%25E3%2582%25A6%25E3%2583%25B3%25E3%2582%25B0%25E3%2583%25AC%25E3%2583%25BC%25E3%2583%2589%2f&amp;title=MySQL8%e2%86%92MySQL5.7%e3%81%ab%e3%83%80%e3%82%a6%e3%83%b3%e3%82%b0%e3%83%ac%e3%83%bc%e3%83%89" target="_blank" title="Share on LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fmysql8mysql5.7%25E3%2581%25AB%25E3%2583%2580%25E3%2582%25A6%25E3%2583%25B3%25E3%2582%25B0%25E3%2583%25AC%25E3%2583%25BC%25E3%2583%2589%2f&amp;title=MySQL8%e2%86%92MySQL5.7%e3%81%ab%e3%83%80%e3%82%a6%e3%83%b3%e3%82%b0%e3%83%ac%e3%83%bc%e3%83%89" target="_blank" title="Share on StumbleUpon">
-          <i class="fab fa-stumbleupon"></i>
-        </a>
-      </li>
-  
-      
-      <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fm-88888888.github.io%2fpost%2fmysql8mysql5.7%25E3%2581%25AB%25E3%2583%2580%25E3%2582%25A6%25E3%2583%25B3%25E3%2582%25B0%25E3%2583%25AC%25E3%2583%25BC%25E3%2583%2589%2f&amp;description=MySQL8%e2%86%92MySQL5.7%e3%81%ab%e3%83%80%e3%82%a6%e3%83%b3%e3%82%b0%e3%83%ac%e3%83%bc%e3%83%89" target="_blank" title="Share on Pinterest">
-          <i class="fab fa-pinterest"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-  
-
-              </div>
-            </section>
-        
-
-        
-          
-
-          
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://m-88888888.github.io/post/1%E3%81%A4%E3%81%AEform%E3%81%A7%E8%A4%87%E6%95%B0%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92db%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B/" data-toggle="tooltip" data-placement="top" title="1つのformで複数のモデルをDBに登録する">&larr; 前ページ</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://m-88888888.github.io/post/nested_form_field%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E4%BD%9C%E3%82%8B%E6%99%82%E3%81%AB%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F/" data-toggle="tooltip" data-placement="top" title="nested form fieldを使ったフォームを作る時に詰まった">次ページ &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-        
-        
-      
-
-    </div>
-  </div>
-</div>
-
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://github.com/m-88888888" title="GitHub">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://twitter.com/hachi88_10" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              hachi
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2021
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://m-88888888.github.io">hachi&#39;s blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          起動力に<a href="https://gohugo.io">Hugo v0.83.1</a> &nbsp;&bull;&nbsp; テーマに<a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>に基づいている<a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
-      </div>
-    </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<script src="https://m-88888888.github.io/js/main.js"></script>
-<script src="https://m-88888888.github.io/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://m-88888888.github.io/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
-
-    
-  </body>
+<script>feather.replace()</script>
+</body>
 </html>
-

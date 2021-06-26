@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>【React】メモ化をして無駄なレンダリングを減らしてみた - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="【React】メモ化をして無駄なレンダリングを減らしてみた" />
+<meta property="og:description" content="Reactの知識の定着のため、ポモドーロタイマーとタスクの作業時間の予実管理を組み合わせたオリジナルのアプリを作ってみました。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/posts/%E3%83%9D%E3%83%A2%E3%83%89%E3%83%BC%E3%83%AD%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-31T16:41:50&#43;09:00" />
+<meta property="article:modified_time" content="2021-05-31T16:41:50&#43;09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="【React】メモ化をして無駄なレンダリングを減らしてみた"/>
+<meta name="twitter:description" content="Reactの知識の定着のため、ポモドーロタイマーとタスクの作業時間の予実管理を組み合わせたオリジナルのアプリを作ってみました。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.iocss/main.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom.css" />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/dark.css"  />
+	<link rel="stylesheet" type="text/css" href="https://m-88888888.github.iocss/custom-dark.css"  />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<script src="https://m-88888888.github.iojs/main.js"></script>
+	<script src="https://m-88888888.github.iojs/abc.js"></script>
+	<script src="https://m-88888888.github.iojs/xyz.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io">
+	<h1 class="site-title"><a href="https://m-88888888.github.io">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">【React】メモ化をして無駄なレンダリングを減らしてみた</h1>
+			<div class="meta">Posted at &mdash; May 31, 2021</div>
+		</div>
+
+		<div class="markdown">
+			<p>Reactの知識の定着のため、ポモドーロタイマーとタスクの作業時間の予実管理を組み合わせたオリジナルのアプリを作ってみました。</p>
+<p><code>useState</code>や<code>useEffect</code>の基本的な使い方は大凡わかってきましたが、<code>useCallback</code>や<code>useMemo</code>など<code>メモ化</code>をまったく意識していない実装となってしまいました。
+そこで、今回はこの実装を<code>メモ化</code>を使って無駄なレンダリングを抑えられるようにリファクタリングしていきたいと思います。</p>
+<h2 id="そもそもメモ化とは">そもそもメモ化とは</h2>
+<p><code>メモ化</code>・・・計算結果を保持して、それを再利用する手法のこと。キャッシュみたいなイメージ</p>
+<p>メモ化することで都度計算する必要がなくなり、無駄なレンダリングを抑えることができる＝パフォーマンスの向上が期待できる。</p>
+<p>メモ化に関する関数</p>
+<ul>
+<li>React.memo
+<ul>
+<li>コンポーネントのレンダリング結果をメモ化する</li>
+<li>propsの等価性をチェック</li>
+</ul>
+</li>
+<li>useCallback
+<ul>
+<li>メモ化されたコールバック関数を返すhooks</li>
+<li>コールバック関数の等価性をチェック</li>
+</ul>
+</li>
+<li>useMemo
+<ul>
+<li>メモ化された値を返すhooks</li>
+</ul>
+</li>
+</ul>
+<p>この3種類の関数を使っていきます。</p>
+<h1 id="reactmemo">React.memo</h1>
+<p>概要：コンポーネントのレンダリング結果をメモ化する関数。
+目的：レンダリングコストが高いコンポーネントや、頻繁に再レンダリングされるコンポーネント内の子コンポーネントのレンダリングをスキップさせることで、パフォーマンスを向上させる。通常コンポーネントには使用しても意味がない。</p>
+<h2 id="構文">構文</h2>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">React.memo(&lt;Component /&gt;)
+</code></pre></div><p>コンポーネントのpropsの等価性をチェックして再レンダリングの判断をしている。</p>
+<h2 id="リファクタリング前">リファクタリング前</h2>
+<p><img src="https://user-images.githubusercontent.com/51853475/120193771-c18b3080-c257-11eb-9e41-c699cccf532f.gif" alt="timer"></p>
+<p>現在の状態だと、親コンポーネントのタイマーがレンダリングされる度に子コンポーネントのステータスがレンダリングされてしまいます。
+タイマーは1秒毎に再レンダリングが走るので、ステータスまで1秒毎に再レンダリングされてしまうのは無駄な動きになってしまっています。
+この動きを<code>React.memo</code>を使って修正していきます。</p>
+<p><a href="https://github.com/m-88888888/pomodoro-tracker/blob/7ca6952843cde16dc93e0754c78a8bca5c02ca3d/src/PomodoroTimer.tsx">PomodoroTimer.tsx（親コンポーネント）</a></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#268bd2">const</span> PomodoroTimer: <span style="color:#dc322f">React.FC</span>&lt;<span style="color:#268bd2">PomodoroTimerProps</span>&gt; <span style="color:#719e07">=</span> (
+  props: <span style="color:#dc322f">PomodoroTimerProps</span>
+) <span style="color:#719e07">=&gt;</span> {
+  <span style="color:#268bd2">const</span> { task, handleWorkingTime } <span style="color:#719e07">=</span> props;
+  <span style="color:#268bd2">const</span> classes <span style="color:#719e07">=</span> useStyles();
+  <span style="color:#268bd2">const</span> [counter, setCounter] <span style="color:#719e07">=</span> useState&lt;<span style="color:#268bd2">number</span>&gt;(WORKING_TIME);
+  <span style="color:#268bd2">const</span> [timerId, setTimerId] <span style="color:#719e07">=</span> useState&lt;<span style="color:#268bd2">NodeJS.Timeout</span> | number&gt;(<span style="color:#2aa198">0</span>);
+  <span style="color:#268bd2">const</span> [session, setSession] <span style="color:#719e07">=</span> useState&lt;<span style="color:#268bd2">boolean</span>&gt;(<span style="color:#cb4b16">false</span>); <span style="color:#586e75">// ボタン管理用
+</span><span style="color:#586e75"></span>  <span style="color:#268bd2">const</span> [working, setWorking] <span style="color:#719e07">=</span> useState&lt;<span style="color:#268bd2">boolean</span>&gt;(<span style="color:#cb4b16">true</span>); <span style="color:#586e75">// 作業中
+</span><span style="color:#586e75"></span>
+  useEffect(() <span style="color:#719e07">=&gt;</span> {
+    <span style="color:#719e07">if</span> (counter <span style="color:#719e07">===</span> <span style="color:#2aa198">0</span>) {
+      clearInterval(timerId <span style="color:#268bd2">as</span> <span style="color:#dc322f">number</span>);
+      audio.play();
+      working <span style="color:#719e07">?</span> setCounter(BREAK_TIME) <span style="color:#719e07">:</span> setCounter(WORKING_TIME);
+      setTimerId(
+        setInterval(() <span style="color:#719e07">=&gt;</span> {
+          setCounter((c) <span style="color:#719e07">=&gt;</span> c <span style="color:#719e07">-</span> <span style="color:#2aa198">1</span>);
+        }, <span style="color:#2aa198">1000</span>)
+      );
+      setWorking((w) <span style="color:#719e07">=&gt;</span> <span style="color:#719e07">!</span>w);
+      handleWorkingTime();
+    }
+  <span style="color:#586e75">// eslint-disable-next-line react-hooks/exhaustive-deps
+</span><span style="color:#586e75"></span>  }, [counter, timerId, working]);
+
+  <span style="color:#268bd2">const</span> start <span style="color:#719e07">=</span> () <span style="color:#719e07">=&gt;</span> {
+    setTimerId(
+      setInterval(() <span style="color:#719e07">=&gt;</span> {
+        setCounter((c) <span style="color:#719e07">=&gt;</span> c <span style="color:#719e07">-</span> <span style="color:#2aa198">1</span>);
+      }, <span style="color:#2aa198">1000</span>)
+    );
+    setSession(<span style="color:#cb4b16">true</span>);
+  };
+  <span style="color:#268bd2">const</span> stop <span style="color:#719e07">=</span> () <span style="color:#719e07">=&gt;</span> {
+    clearInterval(timerId <span style="color:#268bd2">as</span> <span style="color:#dc322f">number</span>);
+    setSession(<span style="color:#cb4b16">false</span>);
+  };
+  <span style="color:#268bd2">const</span> reset <span style="color:#719e07">=</span> () <span style="color:#719e07">=&gt;</span> {
+    clearInterval(timerId <span style="color:#268bd2">as</span> <span style="color:#dc322f">number</span>);
+    setCounter(WORKING_TIME);
+    setSession(<span style="color:#cb4b16">false</span>);
+    setWorking(<span style="color:#cb4b16">true</span>);
+  };
+
+    <span style="color:#719e07">return</span> (
+        .
+        .
+        &lt;<span style="color:#268bd2">StatusMessage</span> working<span style="color:#719e07">=</span>{working} session<span style="color:#719e07">=</span>{session} /&gt;
+        .
+        .
+    )
+}
+</code></pre></div><p><a href="https://github.com/m-88888888/pomodoro-tracker/blob/7ca6952843/src/StatusMessage.tsx">StatusMessage.tsx（子コンポーネント）</a></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#268bd2">import</span> React <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;react&#39;</span>;
+<span style="color:#268bd2">import</span> { Typography } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;@material-ui/core&#39;</span>;
+
+<span style="color:#268bd2">type</span> StatusMessageProps <span style="color:#719e07">=</span> {
+  working: <span style="color:#dc322f">boolean</span>;
+  session: <span style="color:#dc322f">boolean</span>;
+};
+
+<span style="color:#268bd2">export</span> <span style="color:#268bd2">const</span> StatusMessage: <span style="color:#dc322f">React.FC</span>&lt;<span style="color:#268bd2">StatusMessageProps</span>&gt; <span style="color:#719e07">=</span> (
+  props: <span style="color:#dc322f">StatusMessageProps</span>
+) <span style="color:#719e07">=&gt;</span> {
+  <span style="color:#268bd2">const</span> { working, session } <span style="color:#719e07">=</span> props;
+  <span style="color:#719e07">if</span> (session <span style="color:#719e07">===</span> <span style="color:#cb4b16">false</span>) <span style="color:#719e07">return</span> &lt;<span style="color:#268bd2">React.Fragment</span> /&gt;;
+  <span style="color:#719e07">return</span> (
+    &lt;&gt;
+      {working <span style="color:#719e07">?</span> (
+        &lt;<span style="color:#268bd2">Typography</span> variant<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;h5&#34;</span>&gt;作業中&lt;/<span style="color:#268bd2">Typography</span>&gt;
+      ) <span style="color:#719e07">:</span> (
+        &lt;<span style="color:#268bd2">Typography</span> variant<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;h5&#34;</span> color<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;secondary&#34;</span>&gt;
+          休憩中
+        &lt;/<span style="color:#268bd2">Typography</span>&gt;
+      )}
+    &lt;/&gt;
+  );
+};
+
+<span style="color:#268bd2">export</span> <span style="color:#719e07">default</span> StatusMessage;
+</code></pre></div><h2 id="リファクタリング後">リファクタリング後</h2>
+<p>メモ後
+<img src="https://user-images.githubusercontent.com/51853475/120193781-c354f400-c257-11eb-944c-18a16cfb412b.gif" alt="timer-memoed"></p>
+<p>子コンポーネントにReact.memoを使用することで、親コンポーネントのタイマーの再レンダリングに子コンポーネントが追従しなくなりました。
+今回はかなり単純なケースでしたので、React.memoを使用せずとも然程パフォーマンスに影響が出ることはないでしょうが&hellip;</p>
+<p><a href="https://github.com/m-88888888/pomodoro-tracker/blob/95751ca06e8b5a3780bd9dedeb800f9b0aa6f824/src/StatusMessage.tsx">StatusMessage.tsx（子コンポーネント）</a></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">import React from &#39;react&#39;;
+import { Typography } from &#39;@material-ui/core&#39;;
+
+type StatusMessageProps = {
+  working: boolean;
+  session: boolean;
+};
+
+export const StatusMessage: React.FC&lt;StatusMessageProps&gt; = (
+  props: StatusMessageProps
+) =&gt; {
+    .
+    .
+    .
+};
+
+<span style="color:#dc322f">- export default StatusMessage;
+</span><span style="color:#dc322f"></span><span style="color:#719e07">+ export default React.memo(StatusMessage);
+</span></code></pre></div><h1 id="usecallback">useCallback</h1>
+<p>概要：メモ化されたコールバック関数を返すhooks
+目的：関数をメモ化することで再レンダリング時の関数インスタンスの再生成を防ぎ、再利用を行う。</p>
+<h2 id="構文-1">構文</h2>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">useCallback(コールバック関数, 依存配列)
+</code></pre></div><h2 id="リファクタリング前-1">リファクタリング前</h2>
+<p><img src="https://user-images.githubusercontent.com/51853475/120209276-711cce80-c269-11eb-90b2-a24362d62491.gif" alt="before-usecallback"></p>
+<p>PomodoroTimerの親コンポーネントである<code>App</code>が再レンダリングされることで、子のPomodoroTimerも再レンダリングされてしまっています。
+前述したReact.memoだけではpropsとして関数インスタンスを渡している場合に再レンダリングを防ぐことができません。
+そこで使用するのが<code>useCallback</code>関数で、ここでは<code>PomodoroTimer</code>コンポーネントのpropsである<code>handleWorkingTime</code>が該当します。
+このPomodoroTimerコンポーネントをメモ化してみます。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#268bd2">import</span> React, { useState } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;react&#39;</span>;
+<span style="color:#268bd2">import</span> { Divider } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;@material-ui/core&#39;</span>;
+<span style="color:#268bd2">import</span> PomodoroTimer <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;./PomodoroTimer&#39;</span>;
+<span style="color:#268bd2">import</span> Task <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;./Task&#39;</span>;
+<span style="color:#268bd2">import</span> TimeChart <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;./TimeChart&#39;</span>;
+
+<span style="color:#268bd2">const</span> App: <span style="color:#dc322f">React.FC</span> <span style="color:#719e07">=</span> () <span style="color:#719e07">=&gt;</span> {
+  <span style="color:#268bd2">const</span> [task, setTask] <span style="color:#719e07">=</span> useState&lt;<span style="color:#268bd2">string</span>&gt;(<span style="color:#2aa198">&#39;&#39;</span>);
+  <span style="color:#268bd2">const</span> [hours, setHours] <span style="color:#719e07">=</span> useState&lt;<span style="color:#268bd2">number</span>&gt;(<span style="color:#2aa198">0</span>);
+  <span style="color:#268bd2">const</span> [minutes, setMinutes] <span style="color:#719e07">=</span> useState&lt;<span style="color:#268bd2">number</span>&gt;(<span style="color:#2aa198">0</span>);
+  <span style="color:#268bd2">const</span> [workingTime, setWorkingTime] <span style="color:#719e07">=</span> useState&lt;<span style="color:#268bd2">number</span>&gt;(<span style="color:#2aa198">0</span>);
+
+  <span style="color:#719e07">return</span> (
+    &lt;&gt;
+      &lt;<span style="color:#268bd2">PomodoroTimer</span>
+        task<span style="color:#719e07">=</span>{task}
+        handleWorkingTime<span style="color:#719e07">=</span>{() <span style="color:#719e07">=&gt;</span> setWorkingTime((value) <span style="color:#719e07">=&gt;</span> value <span style="color:#719e07">+</span> <span style="color:#2aa198">25</span> <span style="color:#719e07">/</span> <span style="color:#2aa198">60</span>)}
+      /&gt;
+      &lt;<span style="color:#268bd2">Divider</span> /&gt;
+      &lt;<span style="color:#268bd2">Task</span>
+        handleTaskChange<span style="color:#719e07">=</span>{setTask}
+        handleHoursChange<span style="color:#719e07">=</span>{setHours}
+        handleMinutesChange<span style="color:#719e07">=</span>{setMinutes}
+      /&gt;
+      &lt;<span style="color:#268bd2">TimeChart</span> hours<span style="color:#719e07">=</span>{hours} minutes<span style="color:#719e07">=</span>{minutes} workingTime<span style="color:#719e07">=</span>{workingTime} /&gt;
+    &lt;/&gt;
+  );
+};
+
+<span style="color:#268bd2">export</span> <span style="color:#719e07">default</span> App;
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#268bd2">type</span> PomodoroTimerProps <span style="color:#719e07">=</span> {
+  task: <span style="color:#dc322f">string</span>;
+  handleWorkingTime<span style="color:#719e07">:</span> () <span style="color:#719e07">=&gt;</span> <span style="color:#719e07">void</span>;
+};
+
+<span style="color:#268bd2">const</span> PomodoroTimer: <span style="color:#dc322f">React.FC</span>&lt;<span style="color:#268bd2">PomodoroTimerProps</span>&gt; <span style="color:#719e07">=</span> (
+  props: <span style="color:#dc322f">PomodoroTimerProps</span>
+) <span style="color:#719e07">=&gt;</span> {
+  <span style="color:#268bd2">const</span> { task, handleWorkingTime } <span style="color:#719e07">=</span> props;
+
+  console.log(<span style="color:#2aa198">&#34;render PomodoroTimer&#34;</span>)
+
+  .
+  .
+  <span style="color:#719e07">return</span> (
+      .
+      .
+  );
+};
+
+<span style="color:#268bd2">export</span> <span style="color:#719e07">default</span> PomodoroTimer;
+
+</code></pre></div><h2 id="リファクタリング後-1">リファクタリング後</h2>
+<p><img src="https://user-images.githubusercontent.com/51853475/120209267-6feba180-c269-11eb-8167-3db67a51ea76.gif" alt="after-usecallback"></p>
+<p>まずはReact.memoでPomodoroTimerコンポーネントをメモ化しました。
+そしてそのpropsである<code>handleWorkingTime</code>を<code>useCallback</code>を使ってメモ化することで、不要な再レンダリングを防ぐことができるようになりました。</p>
+<p>メモ化の性質上、メモ化したコンポーネントでなければメモ化したコールバック関数を渡しても意味がないので、注意が必要そうです。</p>
+<p><a href="https://github.com/m-88888888/pomodoro-tracker/blob/0030a0f02cfd853c2d6b4d37c21782374acd5c8a/src/App.tsx">App.tsx</a></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">import React, { useState, useCallback } from &#39;react&#39;;
+import { Divider } from &#39;@material-ui/core&#39;;
+import PomodoroTimer from &#39;./PomodoroTimer&#39;;
+import Task from &#39;./Task&#39;;
+import TimeChart from &#39;./TimeChart&#39;;
+
+const App: React.FC = () =&gt; {
+  const [task, setTask] = useState&lt;string&gt;(&#39;&#39;);
+  const [hours, setHours] = useState&lt;number&gt;(0);
+  const [minutes, setMinutes] = useState&lt;number&gt;(0);
+  const [workingTime, setWorkingTime] = useState&lt;number&gt;(0);
+
+<span style="color:#719e07">+  const handleWorkingTime = useCallback(() =&gt; {
+</span><span style="color:#719e07">+    setWorkingTime((value) =&gt; value + 25 / 60)
+</span><span style="color:#719e07">+  }, [])
+</span><span style="color:#719e07"></span>
+  return (
+    &lt;&gt;
+      &lt;PomodoroTimer
+        task={task}
+<span style="color:#719e07">+       handleWorkingTime={handleWorkingTime}
+</span><span style="color:#719e07"></span><span style="color:#dc322f">-       handleWorkingTime={() =&gt; setWorkingTime((value) =&gt; value + 25 / 60)}
+</span><span style="color:#dc322f"></span>      /&gt;
+      &lt;Divider /&gt;
+      &lt;Task
+        handleTaskChange={setTask}
+        handleHoursChange={setHours}
+        handleMinutesChange={setMinutes}
+      /&gt;
+      &lt;TimeChart hours={hours} minutes={minutes} workingTime={workingTime} /&gt;
+    &lt;/&gt;
+  );
+};
+
+export default App;
+
+</code></pre></div><p><a href="https://github.com/m-88888888/pomodoro-tracker/blob/0030a0f02c/src/PomodoroTimer.tsx">PomodoroTimer.tsx</a></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">type PomodoroTimerProps = {
+  task: string;
+  handleWorkingTime: () =&gt; void;
+};
+
+const PomodoroTimer: React.FC&lt;PomodoroTimerProps&gt; = (
+  props: PomodoroTimerProps
+) =&gt; {
+  const { task, handleWorkingTime } = props;
+  .
+  .
+  return (
+      .
+      .
+  );
+};
+
+<span style="color:#719e07">+ export default React.memo(PomodoroTimer);
+</span><span style="color:#719e07"></span><span style="color:#dc322f">- export default PomodoroTimer;
+</span></code></pre></div><h1 id="usememo">useMemo</h1>
+<p>後日対応予定</p>
+<h1 id="まとめ">まとめ</h1>
+<ul>
+<li>React.memoは再レンダリングされる頻度が高かったり、レンダリングコストが高いものに対して利用する。通常のコンポーネントに対しては不要。</li>
+<li>useCallbackはReact.memoしたコンポーネントに対して、propsとして関数インスタンスを渡している場合に使用する。</li>
+</ul>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>
