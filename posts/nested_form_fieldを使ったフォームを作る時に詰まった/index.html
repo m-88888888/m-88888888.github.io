@@ -7,8 +7,8 @@
 <meta property="og:description" content="前回の投稿から2ヶ月も空きましたが、再度アウトプットしていきます。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://m-88888888.github.io/posts/nested_form_field%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E4%BD%9C%E3%82%8B%E6%99%82%E3%81%AB%E8%A9%B0%E3%81%BE%E3%81%A3%E3%81%9F/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-12-01T17:02:02&#43;09:00" />
-<meta property="article:modified_time" content="2019-12-01T17:02:02&#43;09:00" />
+<meta property="article:published_time" content="2019-12-01T17:02:02+09:00" />
+<meta property="article:modified_time" content="2019-12-01T17:02:02+09:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="nested form fieldを使ったフォームを作る時に詰まった"/>
@@ -73,13 +73,13 @@ githubのスター数から見てあまりメジャーなgemとは言えない�
 <p>1対多にある関係の親モデルに<code>accepts_nested_attributes_for :子モデル</code>という宣言を加えます。</p>
 <p><code>allow_destroy: true</code>とはフォームを削除した時にモデルも共に削除させることを許可するための宣言です。<br>
 これが抜けているとPOSTした時にフォームは削除していても複製されたモデルが削除されずにPOSTされてしまい、エラーの原因となります。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">Article</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">Article</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
   mount_uploader <span style="color:#2aa198">:photo</span>, <span style="color:#cb4b16">PhotoUploader</span>
   has_many <span style="color:#2aa198">:gears</span>
   accepts_nested_attributes_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">allow_destroy</span>: <span style="color:#719e07">true</span>
 <span style="color:#719e07">.</span>
 <span style="color:#719e07">.</span>
-</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">Gear</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">Gear</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
   mount_uploader <span style="color:#2aa198">:gear_image</span>, <span style="color:#cb4b16">GearImageUploader</span>
   belongs_to <span style="color:#2aa198">:article</span>, <span style="color:#2aa198">optional</span>: <span style="color:#719e07">true</span>
 <span style="color:#719e07">.</span>
@@ -87,7 +87,7 @@ githubのスター数から見てあまりメジャーなgemとは言えない�
 </code></pre></div><p>この時に、必ずStrong Parameterに<code>:_destroy</code>というパラメータを追加させることです。</p>
 <p>私はこれを追加しそびれたせいでフォームを追加しても削除することができず、詰まりました。
 公式にはちゃんと書いてあるのに見逃してましたね。公式ちゃんと読みましょう</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">.</span>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">.</span>
 <span style="color:#719e07">.</span>
   <span style="color:#719e07">private</span>
 
@@ -111,7 +111,7 @@ githubのスター数から見てあまりメジャーなgemとは言えない�
 </code></pre></div><h1 id="詰まった点その２">詰まった点その２</h1>
 <p>次にViewです。<br>
 追加するformについてはREADMEを参照してください。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">.</span>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">.</span>
 <span style="color:#719e07">.</span>
 <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>nested_fields_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">wrapper_tag</span>: <span style="color:#2aa198">:div</span> <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>g<span style="color:#719e07">|</span>
   <span style="color:#719e07">.</span>row

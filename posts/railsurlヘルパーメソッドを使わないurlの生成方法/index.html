@@ -7,8 +7,8 @@
 <meta property="og:description" content="URLを得る方法 RailsでルーティングのURLを得る方法はURLヘルパーメソッドを使うしかないと思っていたんだけど 他にも方法があったみたいなので、サンプルとして下記のルーティングを使って、その方法を試してみた。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://m-88888888.github.io/posts/railsurl%E3%83%98%E3%83%AB%E3%83%91%E3%83%BC%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89%E3%82%92%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84url%E3%81%AE%E7%94%9F%E6%88%90%E6%96%B9%E6%B3%95/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-04-18T10:57:59&#43;09:00" />
-<meta property="article:modified_time" content="2020-04-18T10:57:59&#43;09:00" />
+<meta property="article:published_time" content="2020-04-18T10:57:59+09:00" />
+<meta property="article:modified_time" content="2020-04-18T10:57:59+09:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="【Rails】URLヘルパーメソッドを使わないURLの生成方法について"/>
@@ -66,18 +66,18 @@
 			<h1 id="urlを得る方法">URLを得る方法</h1>
 <p>RailsでルーティングのURLを得る方法はURLヘルパーメソッドを使うしかないと思っていたんだけど
 他にも方法があったみたいなので、サンプルとして下記のルーティングを使って、その方法を試してみた。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># routes.rb</span>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># routes.rb</span>
   namespace <span style="color:#2aa198">:admin</span> <span style="color:#719e07">do</span>
     resources <span style="color:#2aa198">:users</span>
   <span style="color:#719e07">end</span>
 
-</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># rails routes</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># rails routes</span>
 <span style="color:#cb4b16">Prefix</span> <span style="color:#cb4b16">Verb</span>   <span style="color:#cb4b16">URI</span> <span style="color:#cb4b16">Pattern</span>                                                                              <span style="color:#cb4b16">Controller</span><span style="color:#586e75">#Action</span>
 admin_user <span style="color:#cb4b16">GET</span>    <span style="color:#dc322f">/admin/use</span>rs(<span style="color:#719e07">.</span><span style="color:#2aa198">:format</span>)                                                                   admin<span style="color:#719e07">/</span>users<span style="color:#586e75">#show</span>
 </code></pre></div><h2 id="1urlヘルパーメソッド">1.URLヘルパーメソッド</h2>
 <p>rails routesで<code>Prefix</code>に表示されるパスのこと。</p>
 <p><code>admin_user_path(user)</code>で呼び出せる。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">h1 ユーザー一覧
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">h1 ユーザー一覧
 .
 .
 .
@@ -99,7 +99,7 @@ admin_user <span style="color:#cb4b16">GET</span>    <span style="color:#dc322f"
 2.を使う場面があまりよくわからない。<code>method: :delete</code>とかはよく使うんだけど…
 <!-- raw HTML omitted -->分かり次第また更新します。<!-- raw HTML omitted --></p>
 <p>同じ書き方で別々のコントローラーやアクションを呼び出したいという時に使えるみたい。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">&lt;</span><span style="color:#2aa198">% %i[users </span> posts<span style="color:#719e07">].</span>each <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>controller<span style="color:#719e07">|</span> <span style="color:#2aa198">%&gt;
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">&lt;</span><span style="color:#2aa198">% %i[users </span> posts<span style="color:#719e07">].</span>each <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>controller<span style="color:#719e07">|</span> <span style="color:#2aa198">%&gt;
 </span><span style="color:#2aa198">  &lt;% %i[index new].each do |action| %&gt;</span>
     <span style="color:#719e07">&lt;%=</span> link_to <span style="color:#2aa198">&#34;</span><span style="color:#2aa198">#{</span>controller<span style="color:#2aa198">}</span><span style="color:#2aa198">#</span><span style="color:#2aa198">#{</span>action<span style="color:#2aa198">}</span><span style="color:#2aa198">&#34;</span>, <span style="color:#2aa198">controller</span>: controller, <span style="color:#2aa198">action</span>: action <span style="color:#2aa198">%&gt;
 </span><span style="color:#2aa198">  &lt;% end %&gt;</span>

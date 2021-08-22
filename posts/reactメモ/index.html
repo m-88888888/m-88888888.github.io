@@ -7,8 +7,8 @@
 <meta property="og:description" content="React&#43;Typescriptのプロジェクトの始め方、React hooksなど自分なりに整理してみる。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://m-88888888.github.io/posts/react%E3%83%A1%E3%83%A2/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-11-08T23:01:22&#43;09:00" />
-<meta property="article:modified_time" content="2020-11-08T23:01:22&#43;09:00" />
+<meta property="article:published_time" content="2020-11-08T23:01:22+09:00" />
+<meta property="article:modified_time" content="2020-11-08T23:01:22+09:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="React&#43;Typescriptいろいろメモ"/>
@@ -74,7 +74,7 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn create react-app &lt;アプリ名&gt; --template typescript
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn create react-app &lt;アプリ名&gt; --template typescript
 </code></pre></div><p>まだまだ本格的に設定からカスタマイズできるレベルに達していないので<code>create-react-app</code>を使っているが、<code>lint</code>の独自ルールがデフォルトで組み込まれているので、今後いろいろとカスタマイズする必要性が出てきたら<code>create-react-app</code>に頼らずにゼロからreact-appを構築できるようになりたい。</p>
 <h1 id="参考">参考</h1>
 <ul>
@@ -84,7 +84,7 @@
 <h1 id="コンポーネントの定義">コンポーネントの定義</h1>
 <h2 id="関数コンポーネント">関数コンポーネント</h2>
 <p><code>React.FC&lt;Props&gt;</code>で定義する。FC=FunctionComponent</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#268bd2">type</span> AppProps <span style="color:#719e07">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#268bd2">type</span> AppProps <span style="color:#719e07">=</span> {
   hoge: <span style="color:#dc322f">String</span>;
 };
 
@@ -94,7 +94,7 @@
 
 <span style="color:#268bd2">export</span> <span style="color:#719e07">default</span> App;
 </code></pre></div><h2 id="クラスコンポーネント">クラスコンポーネント</h2>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#268bd2">type</span> AppProps <span style="color:#719e07">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#268bd2">type</span> AppProps <span style="color:#719e07">=</span> {
   hoge: <span style="color:#dc322f">String</span>;
 };
 

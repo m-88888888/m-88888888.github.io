@@ -7,8 +7,8 @@
 <meta property="og:description" content="はじめに RSpecのexampleでデータのcreateをDRYにするためにbeforeメソッドでデータ作成の処理をしていたんだけど" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://m-88888888.github.io/posts/_rspec%E3%81%A7let%E3%82%92%E4%BD%BF%E3%81%86%E7%90%86%E7%94%B1/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-12-17T23:25:21&#43;09:00" />
-<meta property="article:modified_time" content="2019-12-17T23:25:21&#43;09:00" />
+<meta property="article:published_time" content="2019-12-17T23:25:21+09:00" />
+<meta property="article:modified_time" content="2019-12-17T23:25:21+09:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content=" RSpecでletを使う理由"/>
@@ -68,7 +68,7 @@
 <p>そういえばletとかいうメソッドあったよな〜と思い出して</p>
 <p>beforeと役割被ってね？letってなんのために使うの？と疑問に思ったので調べてみました。</p>
 <p>たとえば、次のようなModel Specはletを使ってリファクタリングできる</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#cb4b16">RSpec</span><span style="color:#719e07">.</span>describe <span style="color:#cb4b16">Article</span>, <span style="color:#2aa198">type</span>: <span style="color:#2aa198">:model</span> <span style="color:#719e07">do</span>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#cb4b16">RSpec</span><span style="color:#719e07">.</span>describe <span style="color:#cb4b16">Article</span>, <span style="color:#2aa198">type</span>: <span style="color:#2aa198">:model</span> <span style="color:#719e07">do</span>
 
   before <span style="color:#719e07">do</span>
     @user <span style="color:#719e07">=</span> create(<span style="color:#2aa198">:user</span>)
@@ -94,7 +94,7 @@
 <p>そんな時に使うのが<code>let</code>。これは<code>遅延読み込み</code>を実現するメソッドで、必要になったときだけ実行される。<br>
 また、beforeブロックで作成したデータを使用するためにインスタンス変数に格納していたが、letはその必要はない<br>
 リファクタリング前のコードでは@userを使っていたが、リファクタリング後のコードではuserで呼び出している。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#cb4b16">RSpec</span><span style="color:#719e07">.</span>describe <span style="color:#cb4b16">Article</span>, <span style="color:#2aa198">type</span>: <span style="color:#2aa198">:model</span> <span style="color:#719e07">do</span>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#cb4b16">RSpec</span><span style="color:#719e07">.</span>describe <span style="color:#cb4b16">Article</span>, <span style="color:#2aa198">type</span>: <span style="color:#2aa198">:model</span> <span style="color:#719e07">do</span>
 
   let(<span style="color:#2aa198">:user</span>) { create(<span style="color:#2aa198">:user</span>) }
 
@@ -122,7 +122,7 @@
 <h3 id="3-typo対策">3. typo対策</h3>
 <p>beforeで作成したデータをインスタンス変数に格納しちゃうと、typo起こった時に気づきにくいよねってこと。<br>
 letだと<code>メソッドを作るからtypoするとNameErrorが発生する</code>から便利〜</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#2aa198">NameError</span>:
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#2aa198">NameError</span>:
   undefined local variable <span style="color:#719e07">or</span> <span style="color:#b58900">method</span> <span style="color:#586e75">`user&#39; for #&lt;RSpec::ExampleGroups::Article::Validation:0x00007f8dfdd09250&gt;
 </span><span style="color:#586e75">  Did you mean?  uer
 </span><span style="color:#586e75">  # ./spec/models/article_spec.rb:26:in `</span>block (<span style="color:#2aa198">3</span> levels) <span style="color:#719e07">in</span> <span style="color:#719e07">&lt;</span>top (required)<span style="color:#719e07">&gt;</span>&#39;

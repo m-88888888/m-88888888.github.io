@@ -7,8 +7,8 @@
 <meta property="og:description" content="はじめに Herokuに設定するデータベース情報について、勘違いしていて詰まったので備忘録として残します。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://m-88888888.github.io/posts/heroku%E3%81%AEdb%E3%82%92mysql%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-01-15T23:12:59&#43;09:00" />
-<meta property="article:modified_time" content="2020-01-15T23:12:59&#43;09:00" />
+<meta property="article:published_time" content="2020-01-15T23:12:59+09:00" />
+<meta property="article:modified_time" content="2020-01-15T23:12:59+09:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="HerokuのDBをMySQLに設定する"/>
@@ -66,7 +66,7 @@
 			<h1 id="はじめに">はじめに</h1>
 <p>Herokuに設定するデータベース情報について、勘違いしていて詰まったので備忘録として残します。</p>
 <p>以下の項目について設定する必要があるのですが</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">heroku config:add DB_NAME=&#39;&lt;データベース名&gt;&#39;
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">heroku config:add DB_NAME=&#39;&lt;データベース名&gt;&#39;
 heroku config:add DB_USERNAME=&#39;&lt;ユーザー名&gt;&#39;
 heroku config:add DB_PASSWORD=&#39;&lt;パスワード&gt;&#39;
 heroku config:add DB_HOSTNAME=&#39;&lt;ホスト名&gt;&#39;
@@ -77,17 +77,17 @@ heroku config:add DATABASE_URL=&#39;mysql2://&lt;ユーザー名&gt;:&lt;パス�
 <h1 id="正しい設定方法">正しい設定方法</h1>
 <p>CLEARDBアドオン追加までの流れは大体同じなので省略します。</p>
 <p>1.<code>heroku config</code>で<code>CLEARDB_DATABASE_URL</code>を確認します。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ heroku config
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ heroku config
 CLEARDB_DATABASE_URL:mysql://&lt;ユーザー名&gt;:&lt;パスワード&gt;@&lt;ホスト名&gt;/&lt;データベース名&gt;?reconnect=true
 </code></pre></div><p>2.このURLからデータベース名などをそれぞれ設定していきます。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ heroku config:add DB_NAME=&#39;&lt;データベース名&gt;&#39;
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ heroku config:add DB_NAME=&#39;&lt;データベース名&gt;&#39;
 $ heroku config:add DB_USERNAME=&#39;&lt;ユーザー名&gt;&#39;
 $ heroku config:add DB_PASSWORD=&#39;&lt;パスワード&gt;&#39;
 $ heroku config:add DB_HOSTNAME=&#39;&lt;ホスト名&gt;&#39;
 $ heroku config:add DB_PORT=&#39;3306&#39;
 $ heroku config:add DATABASE_URL=&#39;mysql2://&lt;ユーザー名&gt;:&lt;パスワード&gt;@&lt;ホスト名&gt;/&lt;データベース名&gt;?reconnect=true&#39;
 </code></pre></div><p>3.database.ymlへの設定も忘れずに！</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#2aa198">production</span>:
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#2aa198">production</span>:
   <span style="color:#719e07">&lt;&lt;</span>: <span style="color:#719e07">*</span>default
   <span style="color:#2aa198">adapter</span>: mysql2
   <span style="color:#2aa198">encoding</span>: utf8
@@ -98,7 +98,7 @@ $ heroku config:add DATABASE_URL=&#39;mysql2://&lt;ユーザー名&gt;:&lt;パ�
 </code></pre></div><p>4.最終的に<code>CLEARDB_DATABASE_URL</code>と<code>DATABASE_URL</code>が同じ値になる。</p>
 <p>※注意
 <code>DATABASE_URL</code>は<code>mysql2</code>であること。GemのDBのバージョンと同じにする必要があるため。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ heroku config
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ heroku config
 CLEARDB_DATABASE_URL:     mysql://&lt;ユーザー名&gt;:&lt;パスワード&gt;@&lt;ホスト名&gt;/&lt;データベース名&gt;?reconnect=true
 DATABASE_URL:             mysql2://&lt;ユーザー名&gt;:&lt;パスワード&gt;@&lt;ホスト名&gt;/&lt;データベース名&gt;?reconnect=true
 .

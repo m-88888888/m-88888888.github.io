@@ -8,8 +8,8 @@
 キャッチアップしやすかったGraphQLから整理していこうと思う。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://m-88888888.github.io/posts/graphql%E3%81%AE%E8%B6%85%E5%9F%BA%E7%A4%8E%E3%81%AE%E6%95%B4%E7%90%86/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-02-07T00:00:10&#43;09:00" />
-<meta property="article:modified_time" content="2021-02-07T00:00:10&#43;09:00" />
+<meta property="article:published_time" content="2021-02-07T00:00:10+09:00" />
+<meta property="article:modified_time" content="2021-02-07T00:00:10+09:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="GraphQL整理"/>
@@ -89,19 +89,19 @@
 </ul>
 <h1 id="graphqlのクエリの定義">GraphQLのクエリの定義</h1>
 <p>GraphQLはエンティティを次のような型で定義できる。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphql" data-lang="graphql"><span style="color:#268bd2">type</span> <span style="color:#268bd2">User</span> {
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphql" data-lang="graphql"><span style="color:#268bd2">type</span> <span style="color:#268bd2">User</span> {
     id Int!
     name String!
 }
 </code></pre></div><p>この定義された型を<code>Query型</code>を使って参照することができる。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphql" data-lang="graphql"><span style="color:#268bd2">type</span> <span style="color:#268bd2">Query</span> {
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphql" data-lang="graphql"><span style="color:#268bd2">type</span> <span style="color:#268bd2">Query</span> {
     users: [<span style="color:#268bd2">User</span>!]!
     user(id: <span style="color:#268bd2">Int</span>!): <span style="color:#268bd2">User</span>!
 }
 </code></pre></div><p>これで参照するポイントは定義されたので、次は実際にDBからデータを取得する処理がまだ実装する。
 GraphQLが提供する<code>resolvers</code>と呼ばれる関数を定義することで実現することができる。
 クライアントがリクエストしたプロパティだけを返す処理についてはGraphQLがよしなにしてくれる。すごい。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#586e75">// 実際はもっと色々な情報が必要。
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#586e75">// 実際はもっと色々な情報が必要。
 </span><span style="color:#586e75"></span><span style="color:#268bd2">function</span> users() {
     <span style="color:#719e07">return</span> usersArray;
 }
@@ -111,7 +111,7 @@ GraphQLが提供する<code>resolvers</code>と呼ばれる関数を定義する
 }
 
 </code></pre></div><p>こうすることによって、次のようなQueryを実行できるようになる。</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphql" data-lang="graphql">{
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphql" data-lang="graphql">{
     <span style="color:#586e75"># userのコレクションを取得</span>
     users {
         id

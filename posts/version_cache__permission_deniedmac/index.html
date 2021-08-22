@@ -7,8 +7,8 @@
 <meta property="og:description" content="はじめに Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://m-88888888.github.io/posts/version_cache__permission_deniedmac/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-02-22T23:24:09&#43;09:00" />
-<meta property="article:modified_time" content="2020-02-22T23:24:09&#43;09:00" />
+<meta property="article:published_time" content="2020-02-22T23:24:09+09:00" />
+<meta property="article:modified_time" content="2020-02-22T23:24:09+09:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="【rbenv】mkdir: /usr/local/bin/../version_cache: Permission denied【Mac】"/>
@@ -66,7 +66,7 @@
 			<h1 id="はじめに">はじめに</h1>
 <p>Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます</p>
 <h1 id="エラー">エラー</h1>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"> $ rails s
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"> $ rails s
 mkdir: /usr/local/bin/../version_cache: Permission denied
 /usr/local/bin/rbenv-communal-gem-home: line 21: /usr/local/bin/../version_cache/2.7.0: No such file or directory
 =&gt; Booting Puma
@@ -76,7 +76,7 @@ mkdir: /usr/local/bin/../version_cache: Permission denied
 </code></pre></div><p><code>rbenv-communal-gem-home</code>というファイルのキャッシュPATHが間違っているとか怒られているみたいですね</p>
 <h1 id="対応">対応</h1>
 <p><code>rbenv-communal-gem-home</code>を開く</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#719e07">#!/usr/bin/env bash
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#719e07">#!/usr/bin/env bash
 </span><span style="color:#719e07"></span><span style="color:#586e75">#</span>
 <span style="color:#586e75"># Summary: Show the communal gem home if communal gems are enabled</span>
 <span style="color:#586e75">#</span>
@@ -104,18 +104,18 @@ mkdir: /usr/local/bin/../version_cache: Permission denied
   <span style="color:#b58900">exit</span> <span style="color:#2aa198">1</span>
 <span style="color:#719e07">fi</span>
 </code></pre></div><p>14~15行目あたりのPATHを変更します</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">- cachedir=&#34;${BASH_SOURCE%/*}/../version_cache&#34;
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">- cachedir=&#34;${BASH_SOURCE%/*}/../version_cache&#34;
 + cachedir=&#34;$RBENV_ROOT/.communal-gem-version-cache&#34;
 </code></pre></div><h1 id="結果">結果</h1>
 <p>Railsコマンド叩いてエラーが発生しなくなったかを確認してみる</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ rails s
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ rails s
 =&gt; Booting Puma
 =&gt; Rails 6.0.2.1 application starting in development
 =&gt; Run `rails server --help` for more startup options
 ..
 </code></pre></div><p>でなくなったっぽい！</p>
 <p>念の為<code>rbenv doctor</code>コマンドでも確認しておく</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
 Checking for `rbenv&#39; in PATH: /usr/local/bin/rbenv
 Checking for rbenv shims in PATH: OK
 Checking `rbenv install&#39; support: /usr/local/bin/rbenv-install (ruby-build 20200214)

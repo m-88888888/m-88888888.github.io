@@ -7,8 +7,8 @@
 <meta property="og:description" content="MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://m-88888888.github.io/posts/mysql8mysql5.7%E3%81%AB%E3%83%80%E3%82%A6%E3%83%B3%E3%82%B0%E3%83%AC%E3%83%BC%E3%83%89/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-10-12T23:15:26&#43;09:00" />
-<meta property="article:modified_time" content="2019-10-12T23:15:26&#43;09:00" />
+<meta property="article:published_time" content="2019-10-12T23:15:26+09:00" />
+<meta property="article:modified_time" content="2019-10-12T23:15:26+09:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MySQL8→MySQL5.7にダウングレード"/>
@@ -65,10 +65,10 @@
 		<div class="markdown">
 			<p>MySQL8を5.7にダウングレードする際に盛大にハマったのでその対処を備忘録として残します。</p>
 <p>HomebrewでMySQLをインストールしていたのでbrewコマンド使ってMySQL本体をアンインストール</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">brew uninstall mysql
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">brew uninstall mysql
 </code></pre></div><p>MySQLに関連するファイルをすべて削除</p>
 <p>この削除するべきファイルを探し出すのに時間がかかった…</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">sudo rm -rf /usr/local/mysql
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">sudo rm -rf /usr/local/mysql
 sudo rm -rf /Library/StartupItems/MYSQL
 sudo rm -rf /Library/PreferencePanes/MySQL.prefPane
 sudo rm -rf /Library/Receipts/mysql-.pkg
@@ -80,7 +80,7 @@ sudo rm -rf /usr/local/share/mysql*
 sudo rm -rf /usr/local/opt/mysql*
 </code></pre></div><p>削除後、Finderの検索欄にmysqlと入力して関連ファイルがないことを確認</p>
 <p>brew info mysqlでアンインストールされたことを確認してインストール</p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">brew install mysql@5.7
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">brew install mysql@5.7
 </code></pre></div><p>==&gt; Summaryと表示されたらインストール完了！</p>
 
 		</div>
