@@ -89,72 +89,71 @@
 </li>
 </ol>
 <h3 id="userモデルとテーブルの作成">Userモデルとテーブルの作成</h3>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># create_table.rb</span>
-<span style="color:#719e07">class</span> <span style="color:#268bd2">CreateUsers</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ActiveRecord</span><span style="color:#719e07">::</span><span style="color:#cb4b16">Migration</span><span style="color:#719e07">[</span><span style="color:#2aa198">5</span><span style="color:#719e07">.</span><span style="color:#2aa198">2</span><span style="color:#719e07">]</span>
-　　<span style="color:#719e07">def</span> <span style="color:#268bd2">change</span>
-　　　　create_table <span style="color:#2aa198">:users</span> <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>t<span style="color:#719e07">|</span>
-　　　　　　t<span style="color:#719e07">.</span>string <span style="color:#2aa198">:username</span>, <span style="color:#2aa198">null</span>: <span style="color:#719e07">false</span>
-　　　　　　t<span style="color:#719e07">.</span>string <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">null</span>: <span style="color:#719e07">false</span>
-　　　　　　t<span style="color:#719e07">.</span>string <span style="color:#2aa198">:password_digest</span>
- 
-　　　　　　t<span style="color:#719e07">.</span>timestamps
-　　　　<span style="color:#719e07">end</span>
-　　<span style="color:#719e07">end</span>
-<span style="color:#719e07">end</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># User.rb</span>
-<span style="color:#719e07">class</span> <span style="color:#268bd2">User</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
-　　before_save { <span style="color:#b58900">self</span><span style="color:#719e07">.</span>email <span style="color:#719e07">=</span> email<span style="color:#719e07">.</span>downcase }　<span style="color:#586e75">#DB保存前に小文字に変換</span>
- 
-　　validates <span style="color:#2aa198">:username</span>,<span style="color:#2aa198">presence</span>: <span style="color:#719e07">true</span>
-　　validates <span style="color:#2aa198">:email</span>,
-　　　  　　　　 <span style="color:#2aa198">presence</span>: <span style="color:#719e07">true</span>,
-  　  　　　    <span style="color:#2aa198">uniqueness</span>: { <span style="color:#2aa198">case_sensitive</span>: <span style="color:#719e07">false</span> },　<span style="color:#586e75">#大文字・小文字の区別なし</span>
- 　　　　       <span style="color:#b58900">format</span>: { <span style="color:#2aa198">with</span>: <span style="color:#dc322f">/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i</span> } <span style="color:#586e75">#「/i」は大文字・小文字を区別せずにマッチングさせる正規表現</span>
- 
- 　　has_secure_password
-<span style="color:#719e07">end</span>
-</code></pre></div><p>メールアドレスの大文字・小文字の区別は、メールサーバーによって変わるので小文字でフォーマットを統一させる。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#586e75"># create_table.rb</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">CreateUsers</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ActiveRecord</span><span style="color:#719e07">::</span><span style="color:#cb4b16">Migration</span><span style="color:#719e07">[</span><span style="color:#2aa198">5</span><span style="color:#719e07">.</span><span style="color:#2aa198">2</span><span style="color:#719e07">]</span>
+</span></span><span style="display:flex;"><span>　　<span style="color:#719e07">def</span> <span style="color:#268bd2">change</span>
+</span></span><span style="display:flex;"><span>　　　　create_table <span style="color:#2aa198">:users</span> <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>t<span style="color:#719e07">|</span>
+</span></span><span style="display:flex;"><span>　　　　　　t<span style="color:#719e07">.</span>string <span style="color:#2aa198">:username</span>, <span style="color:#2aa198">null</span>: <span style="color:#719e07">false</span>
+</span></span><span style="display:flex;"><span>　　　　　　t<span style="color:#719e07">.</span>string <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">null</span>: <span style="color:#719e07">false</span>
+</span></span><span style="display:flex;"><span>　　　　　　t<span style="color:#719e07">.</span>string <span style="color:#2aa198">:password_digest</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>　　　　　　t<span style="color:#719e07">.</span>timestamps
+</span></span><span style="display:flex;"><span>　　　　<span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span>　　<span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">end</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#586e75"># User.rb</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">User</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+</span></span><span style="display:flex;"><span>　　before_save { <span style="color:#b58900">self</span><span style="color:#719e07">.</span>email <span style="color:#719e07">=</span> email<span style="color:#719e07">.</span>downcase }　<span style="color:#586e75">#DB保存前に小文字に変換</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>　　validates <span style="color:#2aa198">:username</span>,<span style="color:#2aa198">presence</span>: <span style="color:#719e07">true</span>
+</span></span><span style="display:flex;"><span>　　validates <span style="color:#2aa198">:email</span>,
+</span></span><span style="display:flex;"><span>　　　  　　　　 <span style="color:#2aa198">presence</span>: <span style="color:#719e07">true</span>,
+</span></span><span style="display:flex;"><span>  　  　　　    <span style="color:#2aa198">uniqueness</span>: { <span style="color:#2aa198">case_sensitive</span>: <span style="color:#719e07">false</span> },　<span style="color:#586e75">#大文字・小文字の区別なし</span>
+</span></span><span style="display:flex;"><span> 　　　　       <span style="color:#b58900">format</span>: { <span style="color:#2aa198">with</span>: <span style="color:#dc322f">/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i</span> } <span style="color:#586e75">#「/i」は大文字・小文字を区別せずにマッチングさせる正規表現</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> 　　has_secure_password
+</span></span><span style="display:flex;"><span><span style="color:#719e07">end</span>
+</span></span></code></pre></div><p>メールアドレスの大文字・小文字の区別は、メールサーバーによって変わるので小文字でフォーマットを統一させる。</p>
 <h3 id="userコントローラーの作成">Userコントローラーの作成</h3>
 <p>ひとまずはサインアップとサインインの画面を作るだけなのでnewとcreateアクションを作成する</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">UsersController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
-　　<span style="color:#719e07">def</span> <span style="color:#268bd2">new</span>
-　　  @user <span style="color:#719e07">=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>new
-　  <span style="color:#719e07">end</span>
- 
-  <span style="color:#719e07">def</span> <span style="color:#268bd2">create</span>
-    @user <span style="color:#719e07">=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>new(user_params)
-    <span style="color:#719e07">if</span> @user<span style="color:#719e07">.</span>save
-      redirect_to root_path
-　　 <span style="color:#719e07">else</span>
-      render <span style="color:#2aa198">action</span>: <span style="color:#2aa198">&#34;new&#34;</span>
-　　 <span style="color:#719e07">end</span>
- 　<span style="color:#719e07">end</span>
- 
-　　privatef
- 
-　　<span style="color:#719e07">def</span> <span style="color:#268bd2">user_params</span>
-　　  params<span style="color:#719e07">.</span>require(<span style="color:#2aa198">:user</span>)<span style="color:#719e07">.</span>permit(<span style="color:#2aa198">:username</span>, <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">:password</span>, <span style="color:#2aa198">:password_confirmation</span>)
- 　 <span style="color:#719e07">end</span>
-<span style="color:#719e07">end</span>
-</code></pre></div><h3 id="サインアップ画面の作成">サインアップ画面の作成</h3>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">h1 <span style="color:#cb4b16">Login</span>
-
-<span style="color:#719e07">=</span> form_with <span style="color:#2aa198">model</span>: @user <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>f<span style="color:#719e07">|</span>
-  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
-    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:name</span>, <span style="color:#2aa198">&#39;Name&#39;</span>
-    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:name</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
-  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
-    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">&#39;Email&#39;</span>
-    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
-  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
-    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:password</span>, <span style="color:#2aa198">&#39;Password&#39;</span>
-    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>password_field <span style="color:#2aa198">:password</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
-  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
-    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:password_confirmation</span>, <span style="color:#2aa198">&#39;Password_Confirmation&#39;</span>
-    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>password_field <span style="color:#2aa198">:password_confirmation</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
-  <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>submit
-
-</code></pre></div><p>サインアップの機能完了！</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">UsersController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
+</span></span><span style="display:flex;"><span>　　<span style="color:#719e07">def</span> <span style="color:#268bd2">new</span>
+</span></span><span style="display:flex;"><span>　　  @user <span style="color:#719e07">=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>new
+</span></span><span style="display:flex;"><span>　  <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">def</span> <span style="color:#268bd2">create</span>
+</span></span><span style="display:flex;"><span>    @user <span style="color:#719e07">=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>new(user_params)
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">if</span> @user<span style="color:#719e07">.</span>save
+</span></span><span style="display:flex;"><span>      redirect_to root_path
+</span></span><span style="display:flex;"><span>　　 <span style="color:#719e07">else</span>
+</span></span><span style="display:flex;"><span>      render <span style="color:#2aa198">action</span>: <span style="color:#2aa198">&#34;new&#34;</span>
+</span></span><span style="display:flex;"><span>　　 <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span> 　<span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>　　privatef
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>　　<span style="color:#719e07">def</span> <span style="color:#268bd2">user_params</span>
+</span></span><span style="display:flex;"><span>　　  params<span style="color:#719e07">.</span>require(<span style="color:#2aa198">:user</span>)<span style="color:#719e07">.</span>permit(<span style="color:#2aa198">:username</span>, <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">:password</span>, <span style="color:#2aa198">:password_confirmation</span>)
+</span></span><span style="display:flex;"><span> 　 <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">end</span>
+</span></span></code></pre></div><h3 id="サインアップ画面の作成">サインアップ画面の作成</h3>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>h1 <span style="color:#cb4b16">Login</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">=</span> form_with <span style="color:#2aa198">model</span>: @user <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>f<span style="color:#719e07">|</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:name</span>, <span style="color:#2aa198">&#39;Name&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:name</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">&#39;Email&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:email</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:password</span>, <span style="color:#2aa198">&#39;Password&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>password_field <span style="color:#2aa198">:password</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>label <span style="color:#2aa198">:password_confirmation</span>, <span style="color:#2aa198">&#39;Password_Confirmation&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>password_field <span style="color:#2aa198">:password_confirmation</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;form-control&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>submit
+</span></span></code></pre></div><p>サインアップの機能完了！</p>
 <h2 id="2ログイン機能">2.ログイン機能</h2>
 <p>sessionコントローラーを作成</p>
 <ul>
@@ -162,56 +161,56 @@
 <li>create・・・ログイン処理</li>
 <li>destroy・・・ログアウト処理</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#586e75"># sessions_controller.rb</span>
-<span style="color:#719e07">class</span> <span style="color:#268bd2">SessionsController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
-  <span style="color:#719e07">def</span> <span style="color:#268bd2">new</span>
-  <span style="color:#719e07">end</span>
-
-  <span style="color:#719e07">def</span> <span style="color:#268bd2">create</span>
-    user <span style="color:#719e07">=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>find_by(<span style="color:#2aa198">email</span>: params<span style="color:#719e07">[</span><span style="color:#2aa198">:session</span><span style="color:#719e07">][</span><span style="color:#2aa198">:email</span><span style="color:#719e07">].</span>downcase)
-    <span style="color:#586e75">#セッション情報に含まれているメールアドレスをもとに、Usersテーブルに保存されているUserオブジェクトを抽出</span>
-
-    <span style="color:#719e07">if</span> user <span style="color:#719e07">&amp;&amp;</span> user<span style="color:#719e07">.</span>authenticate(params<span style="color:#719e07">[</span><span style="color:#2aa198">:session</span><span style="color:#719e07">][</span><span style="color:#2aa198">:password</span><span style="color:#719e07">]</span>)
-      <span style="color:#586e75"># Userオブジェクトが抽出できる（つまり、Usersテーブルに存在している）かつ</span>
-　　　 <span style="color:#586e75"># paramsで送られてきたセッションの中のパスワード（ハッシュ化されている）が</span>
-      <span style="color:#586e75"># DB内のハッシュ化されたpassword_digestカラムの値と一致しているかどうか検証することで、ユーザーを識別</span>
-      log_in user
-      redirect_to <span style="color:#586e75"># ログイン後の遷移先_path</span>
-    <span style="color:#719e07">else</span>
-      flash<span style="color:#719e07">.</span>now<span style="color:#719e07">[</span><span style="color:#2aa198">:danger</span><span style="color:#719e07">]</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;Invalid email/password combination&#39;</span>
-      render <span style="color:#2aa198">&#39;new&#39;</span>
-    <span style="color:#719e07">end</span>
-  <span style="color:#719e07">end</span>
- 
-  <span style="color:#719e07">def</span> <span style="color:#268bd2">destroy</span>
-    log_out
-    redirect_to root_url
-  <span style="color:#719e07">end</span>
-<span style="color:#719e07">end</span>
-</code></pre></div><p>ヘルパーメソッドに処理を追加</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">module</span> SessionsHelper
-    <span style="color:#586e75"># ユーザーのブラウザ内にある一時cookieに暗号化済みのユーザーIDを作成する</span>
-    <span style="color:#719e07">def</span> <span style="color:#268bd2">log_in</span>(user)
-        session<span style="color:#719e07">[</span><span style="color:#2aa198">:user_id</span><span style="color:#719e07">]</span> <span style="color:#719e07">=</span> user<span style="color:#719e07">.</span>id
-    <span style="color:#719e07">end</span>
-     
-      <span style="color:#586e75"># 現在ログインしているユーザーを返す (ユーザーがログイン中の場合のみ)</span>
-    <span style="color:#719e07">def</span> <span style="color:#268bd2">current_user</span>
-        @current_user <span style="color:#719e07">||=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>find_by(<span style="color:#b58900">id</span>: session<span style="color:#719e07">[</span><span style="color:#2aa198">:user_id</span><span style="color:#719e07">]</span>)
-    <span style="color:#719e07">end</span>
-     
-     
-    <span style="color:#719e07">def</span> <span style="color:#268bd2">logged_in?</span>
-        <span style="color:#719e07">!</span>current_user<span style="color:#719e07">.</span>nil?
-        <span style="color:#586e75"># ログイン中の状態＝セッションにユーザーが存在する＝current_userがnilでない状態。</span>
-    <span style="color:#719e07">end</span>
-     
-    <span style="color:#719e07">def</span> <span style="color:#268bd2">log_out</span>
-        session<span style="color:#719e07">.</span>delete(<span style="color:#2aa198">:user_id</span>)　<span style="color:#586e75">#セッションからユーザーIDを削除</span>
-        @current_user <span style="color:#719e07">=</span> <span style="color:#719e07">nil</span>　　　　<span style="color:#586e75">#現在のユーザーをnilに設定</span>
-    <span style="color:#719e07">end</span>
-<span style="color:#719e07">end</span>
-</code></pre></div><p>ログイン機能の実装完了！</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#586e75"># sessions_controller.rb</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">SessionsController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">def</span> <span style="color:#268bd2">new</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">def</span> <span style="color:#268bd2">create</span>
+</span></span><span style="display:flex;"><span>    user <span style="color:#719e07">=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>find_by(<span style="color:#2aa198">email</span>: params<span style="color:#719e07">[</span><span style="color:#2aa198">:session</span><span style="color:#719e07">][</span><span style="color:#2aa198">:email</span><span style="color:#719e07">].</span>downcase)
+</span></span><span style="display:flex;"><span>    <span style="color:#586e75">#セッション情報に含まれているメールアドレスをもとに、Usersテーブルに保存されているUserオブジェクトを抽出</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">if</span> user <span style="color:#719e07">&amp;&amp;</span> user<span style="color:#719e07">.</span>authenticate(params<span style="color:#719e07">[</span><span style="color:#2aa198">:session</span><span style="color:#719e07">][</span><span style="color:#2aa198">:password</span><span style="color:#719e07">]</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#586e75"># Userオブジェクトが抽出できる（つまり、Usersテーブルに存在している）かつ</span>
+</span></span><span style="display:flex;"><span>　　　 <span style="color:#586e75"># paramsで送られてきたセッションの中のパスワード（ハッシュ化されている）が</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#586e75"># DB内のハッシュ化されたpassword_digestカラムの値と一致しているかどうか検証することで、ユーザーを識別</span>
+</span></span><span style="display:flex;"><span>      log_in user
+</span></span><span style="display:flex;"><span>      redirect_to <span style="color:#586e75"># ログイン後の遷移先_path</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">else</span>
+</span></span><span style="display:flex;"><span>      flash<span style="color:#719e07">.</span>now<span style="color:#719e07">[</span><span style="color:#2aa198">:danger</span><span style="color:#719e07">]</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;Invalid email/password combination&#39;</span>
+</span></span><span style="display:flex;"><span>      render <span style="color:#2aa198">&#39;new&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">def</span> <span style="color:#268bd2">destroy</span>
+</span></span><span style="display:flex;"><span>    log_out
+</span></span><span style="display:flex;"><span>    redirect_to root_url
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">end</span>
+</span></span></code></pre></div><p>ヘルパーメソッドに処理を追加</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#719e07">module</span> SessionsHelper
+</span></span><span style="display:flex;"><span>    <span style="color:#586e75"># ユーザーのブラウザ内にある一時cookieに暗号化済みのユーザーIDを作成する</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> <span style="color:#268bd2">log_in</span>(user)
+</span></span><span style="display:flex;"><span>        session<span style="color:#719e07">[</span><span style="color:#2aa198">:user_id</span><span style="color:#719e07">]</span> <span style="color:#719e07">=</span> user<span style="color:#719e07">.</span>id
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>      <span style="color:#586e75"># 現在ログインしているユーザーを返す (ユーザーがログイン中の場合のみ)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> <span style="color:#268bd2">current_user</span>
+</span></span><span style="display:flex;"><span>        @current_user <span style="color:#719e07">||=</span> <span style="color:#cb4b16">User</span><span style="color:#719e07">.</span>find_by(<span style="color:#b58900">id</span>: session<span style="color:#719e07">[</span><span style="color:#2aa198">:user_id</span><span style="color:#719e07">]</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> <span style="color:#268bd2">logged_in?</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">!</span>current_user<span style="color:#719e07">.</span>nil?
+</span></span><span style="display:flex;"><span>        <span style="color:#586e75"># ログイン中の状態＝セッションにユーザーが存在する＝current_userがnilでない状態。</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> <span style="color:#268bd2">log_out</span>
+</span></span><span style="display:flex;"><span>        session<span style="color:#719e07">.</span>delete(<span style="color:#2aa198">:user_id</span>)　<span style="color:#586e75">#セッションからユーザーIDを削除</span>
+</span></span><span style="display:flex;"><span>        @current_user <span style="color:#719e07">=</span> <span style="color:#719e07">nil</span>　　　　<span style="color:#586e75">#現在のユーザーをnilに設定</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">end</span>
+</span></span></code></pre></div><p>ログイン機能の実装完了！</p>
 <h1 id="まとめ">まとめ</h1>
 <p>本当に必要最低限なユーザー認証を実装してみましたが、これらをコマンドひとつで解決してくれるdeviseは本当に便利</p>
 <p>ただ、自分で機能をカスタマイズしたい時はその裏の動きを理解しなければならないので

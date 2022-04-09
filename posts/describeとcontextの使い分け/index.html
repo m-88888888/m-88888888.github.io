@@ -70,31 +70,31 @@
 <h2 id="具体例">具体例</h2>
 <p>次のようなdescribeとcontextがない場合のRSpecの実行結果を見てみましょう</p>
 <p>before</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bin/rspec
-Running via Spring preloader in process <span style="color:#2aa198">2242</span>
-
-Note
-  <span style="color:#719e07">return</span> notes that match the search term
-  returns an empry collection when no results are dound
-
-Finished in 0.47442 seconds <span style="color:#719e07">(</span>files took 0.48964 seconds to load<span style="color:#719e07">)</span>
-<span style="color:#2aa198">2</span> examples, <span style="color:#2aa198">0</span> failures
-</code></pre></div><p>うーん。もうひと押し説明が欲しいよね</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ bin/rspec
+</span></span><span style="display:flex;"><span>Running via Spring preloader in process <span style="color:#2aa198">2242</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Note
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">return</span> notes that match the search term
+</span></span><span style="display:flex;"><span>  returns an empry collection when no results are dound
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Finished in 0.47442 seconds <span style="color:#719e07">(</span>files took 0.48964 seconds to load<span style="color:#719e07">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#2aa198">2</span> examples, <span style="color:#2aa198">0</span> failures
+</span></span></code></pre></div><p>うーん。もうひと押し説明が欲しいよね</p>
 <p>ということでdescribeとcontextを使ってアウトラインを作成すると</p>
 <p>after</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bin/rspec
-Running via Spring preloader in process <span style="color:#2aa198">2608</span>
-
-Note
-  search message <span style="color:#719e07">for</span> a term
-    when a match is found
-      <span style="color:#719e07">return</span> notes that match the search term
-      when no match is foumd
-        returns an empry collection when no results are dound
-
-Finished in 0.52984 seconds <span style="color:#719e07">(</span>files took 0.41586 seconds to load<span style="color:#719e07">)</span>
-<span style="color:#2aa198">2</span> examples, <span style="color:#2aa198">0</span> failures
-</code></pre></div><p>もはやドキュメントですね。文章として読める。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ bin/rspec
+</span></span><span style="display:flex;"><span>Running via Spring preloader in process <span style="color:#2aa198">2608</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Note
+</span></span><span style="display:flex;"><span>  search message <span style="color:#719e07">for</span> a term
+</span></span><span style="display:flex;"><span>    when a match is found
+</span></span><span style="display:flex;"><span>      <span style="color:#719e07">return</span> notes that match the search term
+</span></span><span style="display:flex;"><span>      when no match is foumd
+</span></span><span style="display:flex;"><span>        returns an empry collection when no results are dound
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Finished in 0.52984 seconds <span style="color:#719e07">(</span>files took 0.41586 seconds to load<span style="color:#719e07">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#2aa198">2</span> examples, <span style="color:#2aa198">0</span> failures
+</span></span></code></pre></div><p>もはやドキュメントですね。文章として読める。</p>
 <p>これこそRSpecの醍醐味なのでしょう。</p>
 <p>文章になるように意識して組み立てていけばいい感じになりますね〜</p>
 <h2 id="まとめ">まとめ</h2>

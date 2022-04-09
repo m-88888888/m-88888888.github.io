@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>CircleCIのJobの結果をいい感じにSlackに通知するOrbsを作ってみた - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="CircleCIのJobの結果をいい感じにSlackに通知するOrbsを作ってみた" />
+<meta property="og:description" content="はじめに 所属している会社のプロジェクトは CI/CD に CircleCI を利用しており、ビルドやデプロイの結果を Slack に通知させています。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/posts/create-circleci-orb/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-09T21:11:47+09:00" />
+<meta property="article:modified_time" content="2022-04-09T21:11:47+09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CircleCIのJobの結果をいい感じにSlackに通知するOrbsを作ってみた"/>
+<meta name="twitter:description" content="はじめに 所属している会社のプロジェクトは CI/CD に CircleCI を利用しており、ビルドやデプロイの結果を Slack に通知させています。"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://m-88888888.github.io/css/dark.css"  />
+
+	<script src="https://m-88888888.github.io/js/feather.min.js"></script>
+	
+	<script src="https://m-88888888.github.io/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io/">
+	<h1 class="site-title"><a href="https://m-88888888.github.io/">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">CircleCIのJobの結果をいい感じにSlackに通知するOrbsを作ってみた</h1>
+			<div class="meta">Posted at &mdash; Apr 9, 2022</div>
+		</div>
+
+		<div class="markdown">
+			<h2 id="はじめに">はじめに</h2>
+<p>所属している会社のプロジェクトは CI/CD に CircleCI を利用しており、ビルドやデプロイの結果を Slack に通知させています。<br>
+CircleCI Official の Orbs を利用しており、ある程度メッセージのカスタマイズはできるのですが、通知にコミットメッセージを含ませたり、コミットの Author に対してメンションを飛ばすというようなことができません。
+<a href="https://circleci.com/developer/ja/orbs/orb/circleci/slack">https://circleci.com/developer/ja/orbs/orb/circleci/slack</a></p>
+<p>そこで、この Orbs をベースにカスタマイズした Orbs を作ってみました。</p>
+<h2 id="成果物">成果物</h2>
+<p>repository</p>
+<ul>
+<li><a href="https://github.com/m-88888888/slack-notify-orb">m-88888888/slack-notify-orb</a></li>
+</ul>
+<h3 id="ビルド成功">ビルド成功</h3>
+<p><img src="https://user-images.githubusercontent.com/51853475/162575988-8c623d39-a43f-430a-ac29-5f52d5105b17.png" alt="スクリーンショット 2022-04-09 22 23 24"></p>
+<h3 id="ビルド失敗">ビルド失敗</h3>
+<p><img src="https://user-images.githubusercontent.com/51853475/162575989-368b087d-d289-47a9-8cc3-228355ce5a6e.png" alt="スクリーンショット 2022-04-09 22 23 33"></p>
+<h3 id="デプロイ成功">デプロイ成功</h3>
+<p><img src="https://user-images.githubusercontent.com/51853475/162576137-3248c42b-0779-4f69-90b0-635249b44dac.png" alt="スクリーンショット 2022-04-09 22 28 13"></p>
+<h3 id="デプロイ失敗">デプロイ失敗</h3>
+<p><img src="https://user-images.githubusercontent.com/51853475/162575990-1407411f-5d4a-484d-be35-c42d046b9ec9.png" alt="スクリーンショット 2022-04-09 22 23 40"></p>
+<h2 id="how-to-use">how to use</h2>
+<p>CircleCI version</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#268bd2">version</span>: <span style="color:#2aa198">2.1</span>
+</span></span></code></pre></div><p>orbs の読み込み</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#268bd2">orbs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#268bd2">slack</span>: m-88888888/slack-notify-orb@1.0.3
+</span></span></code></pre></div><p>steps への組み込み</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span>- <span style="color:#268bd2">slack/notify</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">slack_name_mappings</span>: <span style="color:#2aa198">&#39;{ &#34;&lt;@Uxxxxxxxx&gt;&#34;: &#34;m-88888888&#34; }&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">deploy_flag</span>: <span style="color:#cb4b16">true</span>
+</span></span></code></pre></div><h3 id="説明">説明</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">PARAMETER</th>
+<th style="text-align:left">DESCRIPTION</th>
+<th>REQUIRED</th>
+<th>DEFAULT</th>
+<th>TYPE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">slack_name_mappings</td>
+<td style="text-align:left">通知先の Slack のメンバー ID と Github の username の対応関係。コミットの Author に対応する Slack 上のメンバーにメンションが飛ぶようになります。</td>
+<td>No</td>
+<td>-</td>
+<td>string</td>
+</tr>
+<tr>
+<td style="text-align:left">deploy_flag</td>
+<td style="text-align:left">送信するメッセージの種類（build or deploy）</td>
+<td>No</td>
+<td>false</td>
+<td>boolean</td>
+</tr>
+</tbody>
+</table>
+<h2 id="感想">感想</h2>
+<p>Orbs の作成自体は非常に簡単でした。公式 Docs を読みつつ、<code>CircleCI Orbs 入門</code>あたりワードでググって出てきた記事を参考にすれば特に詰まることもなく作業できました。</p>
+<p>メンションを飛ばすために、Author と Slack 上のメンバー ID を紐付ける部分が厄介でした。単純にシェルスクリプト力が足りておらず、やりたいロジックをどう書けばよいか知らなかっただけでしたが&hellip;</p>
+<p>JSON 形式のパラメータを String として受け取るようにして、シェルと jq を駆使してパラメータからメンバー ID を取り出すことで対処することができました。</p>
+<p>また何らかの課題を見つけたら作って公開してみたいと思います。</p>
+<h2 id="参考リンク">参考リンク</h2>
+<ul>
+<li><a href="https://circleci.com/docs/ja/2.0/orb-intro/">Orb の概要</a></li>
+<li><a href="https://www.kaizenprogrammer.com/entry/2018/12/01/111145#Orb-%E3%81%AE%E5%85%AC%E9%96%8B">CircleCI Orbs 入門 - 生産性向上ブログ</a></li>
+<li><a href="https://circleci.com/developer/ja/orbs/orb/circleci/slack">circleci/slack@4.9.3</a></li>
+</ul>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+			
+		</div>
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'localhost';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>

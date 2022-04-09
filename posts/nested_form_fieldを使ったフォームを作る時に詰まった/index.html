@@ -73,74 +73,74 @@ githubのスター数から見てあまりメジャーなgemとは言えない�
 <p>1対多にある関係の親モデルに<code>accepts_nested_attributes_for :子モデル</code>という宣言を加えます。</p>
 <p><code>allow_destroy: true</code>とはフォームを削除した時にモデルも共に削除させることを許可するための宣言です。<br>
 これが抜けているとPOSTした時にフォームは削除していても複製されたモデルが削除されずにPOSTされてしまい、エラーの原因となります。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">Article</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
-  mount_uploader <span style="color:#2aa198">:photo</span>, <span style="color:#cb4b16">PhotoUploader</span>
-  has_many <span style="color:#2aa198">:gears</span>
-  accepts_nested_attributes_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">allow_destroy</span>: <span style="color:#719e07">true</span>
-<span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">Gear</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
-  mount_uploader <span style="color:#2aa198">:gear_image</span>, <span style="color:#cb4b16">GearImageUploader</span>
-  belongs_to <span style="color:#2aa198">:article</span>, <span style="color:#2aa198">optional</span>: <span style="color:#719e07">true</span>
-<span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-</code></pre></div><p>この時に、必ずStrong Parameterに<code>:_destroy</code>というパラメータを追加させることです。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">Article</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+</span></span><span style="display:flex;"><span>  mount_uploader <span style="color:#2aa198">:photo</span>, <span style="color:#cb4b16">PhotoUploader</span>
+</span></span><span style="display:flex;"><span>  has_many <span style="color:#2aa198">:gears</span>
+</span></span><span style="display:flex;"><span>  accepts_nested_attributes_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">allow_destroy</span>: <span style="color:#719e07">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">Gear</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+</span></span><span style="display:flex;"><span>  mount_uploader <span style="color:#2aa198">:gear_image</span>, <span style="color:#cb4b16">GearImageUploader</span>
+</span></span><span style="display:flex;"><span>  belongs_to <span style="color:#2aa198">:article</span>, <span style="color:#2aa198">optional</span>: <span style="color:#719e07">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span></code></pre></div><p>この時に、必ずStrong Parameterに<code>:_destroy</code>というパラメータを追加させることです。</p>
 <p>私はこれを追加しそびれたせいでフォームを追加しても削除することができず、詰まりました。
 公式にはちゃんと書いてあるのに見逃してましたね。公式ちゃんと読みましょう</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-  <span style="color:#719e07">private</span>
-
-    <span style="color:#719e07">def</span> <span style="color:#268bd2">article_params</span>
-      params<span style="color:#719e07">.</span>require(<span style="color:#2aa198">:article</span>)<span style="color:#719e07">.</span>permit(
-                                      <span style="color:#2aa198">:photo</span>,
-                                      <span style="color:#2aa198">:comment</span>,
-                                        <span style="color:#2aa198">gears_attributes</span>:<span style="color:#719e07">[</span>
-                                                          <span style="color:#2aa198">:id</span>,
-                                                          <span style="color:#2aa198">:gear_image</span>,
-                                                          <span style="color:#2aa198">:name</span>,
-                                                          <span style="color:#2aa198">:brand</span>,
-                                                          <span style="color:#2aa198">:kind</span>,
-                                                          <span style="color:#2aa198">:model_year</span>,
-                                                          <span style="color:#2aa198">:_destroy</span><span style="color:#719e07">]</span>
-                                      )
-        <span style="color:#719e07">end</span>
-
-<span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-</code></pre></div><h1 id="詰まった点その２">詰まった点その２</h1>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">private</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">def</span> <span style="color:#268bd2">article_params</span>
+</span></span><span style="display:flex;"><span>      params<span style="color:#719e07">.</span>require(<span style="color:#2aa198">:article</span>)<span style="color:#719e07">.</span>permit(
+</span></span><span style="display:flex;"><span>                                      <span style="color:#2aa198">:photo</span>,
+</span></span><span style="display:flex;"><span>                                      <span style="color:#2aa198">:comment</span>,
+</span></span><span style="display:flex;"><span>                                        <span style="color:#2aa198">gears_attributes</span>:<span style="color:#719e07">[</span>
+</span></span><span style="display:flex;"><span>                                                          <span style="color:#2aa198">:id</span>,
+</span></span><span style="display:flex;"><span>                                                          <span style="color:#2aa198">:gear_image</span>,
+</span></span><span style="display:flex;"><span>                                                          <span style="color:#2aa198">:name</span>,
+</span></span><span style="display:flex;"><span>                                                          <span style="color:#2aa198">:brand</span>,
+</span></span><span style="display:flex;"><span>                                                          <span style="color:#2aa198">:kind</span>,
+</span></span><span style="display:flex;"><span>                                                          <span style="color:#2aa198">:model_year</span>,
+</span></span><span style="display:flex;"><span>                                                          <span style="color:#2aa198">:_destroy</span><span style="color:#719e07">]</span>
+</span></span><span style="display:flex;"><span>                                      )
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span></code></pre></div><h1 id="詰まった点その２">詰まった点その２</h1>
 <p>次にViewです。<br>
 追加するformについてはREADMEを参照してください。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-<span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>nested_fields_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">wrapper_tag</span>: <span style="color:#2aa198">:div</span> <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>g<span style="color:#719e07">|</span>
-  <span style="color:#719e07">.</span>row
-    <span style="color:#719e07">.</span>col<span style="color:#719e07">-</span><span style="color:#2aa198">6</span>
-      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:gear_image</span>
-        <span style="color:#719e07">-</span> <span style="color:#719e07">if</span> g<span style="color:#719e07">.</span>object<span style="color:#719e07">.</span>gear_image?
-          <span style="color:#719e07">=</span> image_tag(g<span style="color:#719e07">.</span>object<span style="color:#719e07">.</span>gear_image<span style="color:#719e07">.</span>url, <span style="color:#b58900">id</span>: <span style="color:#2aa198">&#39;preview__nested_field_for_replace_with_index__&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;gear_image&#39;</span>)
-        <span style="color:#719e07">-</span> <span style="color:#719e07">else</span>
-          <span style="color:#719e07">=</span> image_tag(<span style="color:#2aa198">&#39;nofile.jpg&#39;</span>, <span style="color:#b58900">id</span>: <span style="color:#2aa198">&#39;preview__nested_field_for_replace_with_index__&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;gear_image&#39;</span>)
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>file_field <span style="color:#2aa198">:gear_image</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-contro-file&#34;</span>, <span style="color:#2aa198">onChange</span>: <span style="color:#2aa198">&#34;imgPreView(event, &#39;pre__nested_field_for_replace_with_index__&#39;)&#34;</span>
-    <span style="color:#719e07">.</span>col<span style="color:#719e07">-</span><span style="color:#2aa198">6</span>
-      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:name</span>
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:name</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
-      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:brand</span>
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:brand</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
-      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:kind</span>
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>select <span style="color:#2aa198">:kind</span>, gear_type_list, { <span style="color:#2aa198">include_blank</span>: <span style="color:#719e07">true</span> }, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
-      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:model_year</span>
-        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:model_year</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
-      <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>remove_nested_fields_link <span style="color:#2aa198">&#39;削除&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;btn btn-danger&#39;</span>, <span style="color:#2aa198">role</span>: <span style="color:#2aa198">&#39;button&#39;</span>
-<span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>add_nested_fields_link <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">&#39;＋&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;btn btn-primary&#39;</span>, <span style="color:#2aa198">role</span>: <span style="color:#2aa198">&#39;button&#39;</span>, <span style="color:#b58900">id</span>: <span style="color:#2aa198">&#39;add-form&#39;</span>
-<span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-</code></pre></div><p>ここで詰まった事が、editアクションの時に画像を表示させるためのimage_tagにnested objectのattributeにアクセスする方法です。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>nested_fields_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">wrapper_tag</span>: <span style="color:#2aa198">:div</span> <span style="color:#719e07">do</span> <span style="color:#719e07">|</span>g<span style="color:#719e07">|</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">.</span>row
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">.</span>col<span style="color:#719e07">-</span><span style="color:#2aa198">6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:gear_image</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">-</span> <span style="color:#719e07">if</span> g<span style="color:#719e07">.</span>object<span style="color:#719e07">.</span>gear_image?
+</span></span><span style="display:flex;"><span>          <span style="color:#719e07">=</span> image_tag(g<span style="color:#719e07">.</span>object<span style="color:#719e07">.</span>gear_image<span style="color:#719e07">.</span>url, <span style="color:#b58900">id</span>: <span style="color:#2aa198">&#39;preview__nested_field_for_replace_with_index__&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;gear_image&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">-</span> <span style="color:#719e07">else</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#719e07">=</span> image_tag(<span style="color:#2aa198">&#39;nofile.jpg&#39;</span>, <span style="color:#b58900">id</span>: <span style="color:#2aa198">&#39;preview__nested_field_for_replace_with_index__&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;gear_image&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>file_field <span style="color:#2aa198">:gear_image</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-contro-file&#34;</span>, <span style="color:#2aa198">onChange</span>: <span style="color:#2aa198">&#34;imgPreView(event, &#39;pre__nested_field_for_replace_with_index__&#39;)&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">.</span>col<span style="color:#719e07">-</span><span style="color:#2aa198">6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:name</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:name</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:brand</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:brand</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:kind</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>select <span style="color:#2aa198">:kind</span>, gear_type_list, { <span style="color:#2aa198">include_blank</span>: <span style="color:#719e07">true</span> }, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#719e07">.</span>form<span style="color:#719e07">-</span>group
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>label <span style="color:#2aa198">:model_year</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>text_field <span style="color:#2aa198">:model_year</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#34;form-control&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#719e07">=</span> g<span style="color:#719e07">.</span>remove_nested_fields_link <span style="color:#2aa198">&#39;削除&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;btn btn-danger&#39;</span>, <span style="color:#2aa198">role</span>: <span style="color:#2aa198">&#39;button&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">=</span> f<span style="color:#719e07">.</span>add_nested_fields_link <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">&#39;＋&#39;</span>, <span style="color:#2aa198">class</span>: <span style="color:#2aa198">&#39;btn btn-primary&#39;</span>, <span style="color:#2aa198">role</span>: <span style="color:#2aa198">&#39;button&#39;</span>, <span style="color:#b58900">id</span>: <span style="color:#2aa198">&#39;add-form&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span></code></pre></div><p>ここで詰まった事が、editアクションの時に画像を表示させるためのimage_tagにnested objectのattributeにアクセスする方法です。</p>
 <p>単純に<code>g.gear_image.url</code>&lsquo;でアクセスできるかと思いきや、<code>undefined method </code>gear_image&rsquo; for&hellip;`というエラーに。</p>
 <p>そこでissueを覗いてみたら答え載ってました。（もう↑に正解のコードのせていますが）
 <code>g.object.gear_image.url</code>という風にobjectを噛ませてあげればいいだけでした。</p>

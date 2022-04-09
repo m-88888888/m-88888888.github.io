@@ -89,41 +89,40 @@
 </ul>
 <h1 id="graphqlのクエリの定義">GraphQLのクエリの定義</h1>
 <p>GraphQLはエンティティを次のような型で定義できる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphql" data-lang="graphql"><span style="color:#268bd2">type</span> <span style="color:#268bd2">User</span> {
-    id Int!
-    name String!
-}
-</code></pre></div><p>この定義された型を<code>Query型</code>を使って参照することができる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphql" data-lang="graphql"><span style="color:#268bd2">type</span> <span style="color:#268bd2">Query</span> {
-    users: [<span style="color:#268bd2">User</span>!]!
-    user(id: <span style="color:#268bd2">Int</span>!): <span style="color:#268bd2">User</span>!
-}
-</code></pre></div><p>これで参照するポイントは定義されたので、次は実際にDBからデータを取得する処理がまだ実装する。
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-graphql" data-lang="graphql"><span style="display:flex;"><span><span style="color:#268bd2">type</span> <span style="color:#268bd2">User</span> {
+</span></span><span style="display:flex;"><span>    id Int!
+</span></span><span style="display:flex;"><span>    name String!
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>この定義された型を<code>Query型</code>を使って参照することができる。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-graphql" data-lang="graphql"><span style="display:flex;"><span><span style="color:#268bd2">type</span> <span style="color:#268bd2">Query</span> {
+</span></span><span style="display:flex;"><span>    users: [<span style="color:#268bd2">User</span>!]!
+</span></span><span style="display:flex;"><span>    user(id: <span style="color:#268bd2">Int</span>!): <span style="color:#268bd2">User</span>!
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>これで参照するポイントは定義されたので、次は実際にDBからデータを取得する処理がまだ実装する。
 GraphQLが提供する<code>resolvers</code>と呼ばれる関数を定義することで実現することができる。
 クライアントがリクエストしたプロパティだけを返す処理についてはGraphQLがよしなにしてくれる。すごい。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#586e75">// 実際はもっと色々な情報が必要。
-</span><span style="color:#586e75"></span><span style="color:#268bd2">function</span> users() {
-    <span style="color:#719e07">return</span> usersArray;
-}
-
-<span style="color:#268bd2">function</span> user({id}) {
-    <span style="color:#719e07">return</span> usersArray.find((user) =&gt; user.id <span style="color:#719e07">==</span> id)
-}
-
-</code></pre></div><p>こうすることによって、次のようなQueryを実行できるようになる。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphql" data-lang="graphql">{
-    <span style="color:#586e75"># userのコレクションを取得</span>
-    users {
-        id
-        name
-    }
-
-    <span style="color:#586e75"># id=001のユーザーのnameを取得</span>
-    user(id: <span style="color:#268bd2">001</span>) {
-        name
-    }
-}
-</code></pre></div><p>その他の詳細なQueryやMutation、他の機能については追々まとめるつもり&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#586e75">// 実際はもっと色々な情報が必要。
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">function</span> users() {
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">return</span> usersArray;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">function</span> user({id}) {
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">return</span> usersArray.find((user) =&gt; user.id <span style="color:#719e07">==</span> id)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>こうすることによって、次のようなQueryを実行できるようになる。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-graphql" data-lang="graphql"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#586e75"># userのコレクションを取得</span>
+</span></span><span style="display:flex;"><span>    users {
+</span></span><span style="display:flex;"><span>        id
+</span></span><span style="display:flex;"><span>        name
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#586e75"># id=001のユーザーのnameを取得</span>
+</span></span><span style="display:flex;"><span>    user(id: <span style="color:#268bd2">001</span>) {
+</span></span><span style="display:flex;"><span>        name
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>その他の詳細なQueryやMutation、他の機能については追々まとめるつもり&hellip;</p>
 		</div>
 
 		<div class="post-tags">

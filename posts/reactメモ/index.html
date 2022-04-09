@@ -74,8 +74,8 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yarn create react-app &lt;アプリ名&gt; --template typescript
-</code></pre></div><p>まだまだ本格的に設定からカスタマイズできるレベルに達していないので<code>create-react-app</code>を使っているが、<code>lint</code>の独自ルールがデフォルトで組み込まれているので、今後いろいろとカスタマイズする必要性が出てきたら<code>create-react-app</code>に頼らずにゼロからreact-appを構築できるようになりたい。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>yarn create react-app &lt;アプリ名&gt; --template typescript
+</span></span></code></pre></div><p>まだまだ本格的に設定からカスタマイズできるレベルに達していないので<code>create-react-app</code>を使っているが、<code>lint</code>の独自ルールがデフォルトで組み込まれているので、今後いろいろとカスタマイズする必要性が出てきたら<code>create-react-app</code>に頼らずにゼロからreact-appを構築できるようになりたい。</p>
 <h1 id="参考">参考</h1>
 <ul>
 <li><a href="https://qiita.com/Hai-dozo/items/90b852ac29b79a7ea02b">https://qiita.com/Hai-dozo/items/90b852ac29b79a7ea02b</a></li>
@@ -84,28 +84,28 @@
 <h1 id="コンポーネントの定義">コンポーネントの定義</h1>
 <h2 id="関数コンポーネント">関数コンポーネント</h2>
 <p><code>React.FC&lt;Props&gt;</code>で定義する。FC=FunctionComponent</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#268bd2">type</span> AppProps <span style="color:#719e07">=</span> {
-  hoge: <span style="color:#dc322f">String</span>;
-};
-
-<span style="color:#268bd2">const</span> App: <span style="color:#dc322f">React.FC</span>&lt;<span style="color:#268bd2">AppProps</span>&gt; <span style="color:#719e07">=</span> (props) <span style="color:#719e07">=&gt;</span> {
-  <span style="color:#719e07">return</span> &lt;<span style="color:#268bd2">h1</span>&gt;Hello, {props.hoge}&lt;/<span style="color:#268bd2">h1</span>&gt;;
-};
-
-<span style="color:#268bd2">export</span> <span style="color:#719e07">default</span> App;
-</code></pre></div><h2 id="クラスコンポーネント">クラスコンポーネント</h2>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#268bd2">type</span> AppProps <span style="color:#719e07">=</span> {
-  hoge: <span style="color:#dc322f">String</span>;
-};
-
-<span style="color:#268bd2">class</span> App <span style="color:#268bd2">extends</span> React.Component&lt;<span style="color:#268bd2">AppProps</span>, {}&gt; {
-  render() {
-    <span style="color:#719e07">return</span> &lt;<span style="color:#268bd2">h1</span>&gt;Hello, {<span style="color:#719e07">this</span>.props.hoge}&lt;/<span style="color:#268bd2">h1</span>&gt;;
-  }
-}
-
-<span style="color:#268bd2">export</span> <span style="color:#719e07">default</span> App;
-</code></pre></div><h2 id="両者の違い">両者の違い</h2>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#268bd2">type</span> AppProps <span style="color:#719e07">=</span> {
+</span></span><span style="display:flex;"><span>  hoge: <span style="color:#dc322f">String</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">const</span> App: <span style="color:#dc322f">React.FC</span>&lt;<span style="color:#268bd2">AppProps</span>&gt; <span style="color:#719e07">=</span> (props) <span style="color:#719e07">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">return</span> &lt;<span style="color:#268bd2">h1</span>&gt;Hello, {props.hoge}&lt;/<span style="color:#268bd2">h1</span>&gt;;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#719e07">default</span> App;
+</span></span></code></pre></div><h2 id="クラスコンポーネント">クラスコンポーネント</h2>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#268bd2">type</span> AppProps <span style="color:#719e07">=</span> {
+</span></span><span style="display:flex;"><span>  hoge: <span style="color:#dc322f">String</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">class</span> App <span style="color:#268bd2">extends</span> React.Component&lt;<span style="color:#268bd2">AppProps</span>, {}&gt; {
+</span></span><span style="display:flex;"><span>  render() {
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">return</span> &lt;<span style="color:#268bd2">h1</span>&gt;Hello, {<span style="color:#719e07">this</span>.props.hoge}&lt;/<span style="color:#268bd2">h1</span>&gt;;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#719e07">default</span> App;
+</span></span></code></pre></div><h2 id="両者の違い">両者の違い</h2>
 <p><code>hooks</code>導入前までは、状態管理やライフサイクルイベントの機能を使うことができるのはクラスコンポーネントのみだった。
 しかし、<code>hooks</code>の登場で関数コンポーネントでもそれらの機能を使うことができるようになったため、クラスコンポーネントよりも簡潔に書くことができるようになった。</p>
 <h1 id="propsとstate">propsとstate</h1>

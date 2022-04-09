@@ -78,11 +78,11 @@
 <h2 id="gopathの構成">GOPATHの構成</h2>
 <p>GOPATH配下には3つのディレクトリが存在する。
 自分で書いたコードは<code>src</code>配下に置く。<code>src/ProjectName</code>みたいな感じ。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">├── go <span style="color:#586e75"># $GOPATH</span>
-│   ├── bin <span style="color:#586e75"># バイナリファイルが保存される</span>
-│   ├── pkg <span style="color:#586e75"># コンパイル後に生成されるファイル（*.a)</span>
-│   └── src <span style="color:#586e75"># ソースコード(.go)</span>
-</code></pre></div><p><code>go get</code>したパッケージもすべて<code>src</code>配下に置かれることになるから、プロジェクトごとに特定のパッケージのバージョンを分けたいというような場合に困る。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>├── go <span style="color:#586e75"># $GOPATH</span>
+</span></span><span style="display:flex;"><span>│   ├── bin <span style="color:#586e75"># バイナリファイルが保存される</span>
+</span></span><span style="display:flex;"><span>│   ├── pkg <span style="color:#586e75"># コンパイル後に生成されるファイル（*.a)</span>
+</span></span><span style="display:flex;"><span>│   └── src <span style="color:#586e75"># ソースコード(.go)</span>
+</span></span></code></pre></div><p><code>go get</code>したパッケージもすべて<code>src</code>配下に置かれることになるから、プロジェクトごとに特定のパッケージのバージョンを分けたいというような場合に困る。</p>
 <h1 id="go-modules">Go Modules</h1>
 <p>そこでこのパッケージ依存関係を管理する仕組みとして<code>Go Modules</code>が<code>Go 1.11</code>から追加された。
 他言語のパッケージ管理で例えるとRubyの<code>Bundle</code>、Node.jsの<code>npm</code>にあたる機能。</p>
@@ -90,14 +90,14 @@
 <p>つまり、パッケージ依存関係の情報を<code>go.mod</code>ファイルが保持してくれるから、<code>$GOPATH</code>の外で作業できるようになったということ！</p>
 <h1 id="結局どうやってはじめればいいの">結局、どうやってはじめればいいの？</h1>
 <p>完全新規のGoプロジェクトを作成するときは下記コマンドを実行すればいい</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fish" data-lang="fish"><span style="color:#268bd2">$ </span>cd プロジェクトを作成したい場所
-<span style="color:#268bd2">$ </span>mkdir PROJECT_NAME
-% cd PROJECT_NAME
-<span style="color:#268bd2">$ </span>go mod init github.com/username/repository名
-<span style="color:#586e75"># どんどんファイルを作成
-</span><span style="color:#586e75"></span><span style="color:#268bd2">$ </span>touch main.go
-<span style="color:#268bd2">$ </span>go build <span style="color:#586e75"># 依存モジュールを自動インストール
-</span></code></pre></div><p><code>go build</code>すると依存モジュールを<code>$GOPATH/pkg/mod</code>に自動インストールされて、<code>go.mod</code>に依存モジュールの情報が記載されていく。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fish" data-lang="fish"><span style="display:flex;"><span><span style="color:#268bd2">$ </span>cd プロジェクトを作成したい場所
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">$ </span>mkdir PROJECT_NAME
+</span></span><span style="display:flex;"><span>% cd PROJECT_NAME
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">$ </span>go mod init github.com/username/repository名
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># どんどんファイルを作成
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">$ </span>touch main.go
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">$ </span>go build <span style="color:#586e75"># 依存モジュールを自動インストール
+</span></span></span></code></pre></div><p><code>go build</code>すると依存モジュールを<code>$GOPATH/pkg/mod</code>に自動インストールされて、<code>go.mod</code>に依存モジュールの情報が記載されていく。</p>
 <h2 id="参考記事">参考記事</h2>
 <ul>
 <li><a href="https://blog.golang.org/using-go-modules">https://blog.golang.org/using-go-modules</a></li>

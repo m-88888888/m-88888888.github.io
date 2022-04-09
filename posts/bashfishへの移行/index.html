@@ -67,14 +67,14 @@
 <p>ターミナルの画面が味気なくて物足りなさを感じる。</p>
 <p>テーマの導入がてら、ログインシェルをbashからfishに乗り換えてみる！</p>
 <h2 id="homebrewでfishのインストール">Homebrewでfishのインストール</h2>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">brew update
-brew install fish
-</code></pre></div><h2 id="fishをshellに追加する">fishをshellに追加する</h2>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>brew update
+</span></span><span style="display:flex;"><span>brew install fish
+</span></span></code></pre></div><h2 id="fishをshellに追加する">fishをshellに追加する</h2>
 <p>シェルファイルにfishの情報を書き込む</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">sudo -s
-echo /usr/local/bin/fish &gt;&gt; /etc/shells
-exit
-</code></pre></div><p><del>ログインシェルをfishに変更する</del><br>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>sudo -s
+</span></span><span style="display:flex;"><span>echo /usr/local/bin/fish &gt;&gt; /etc/shells
+</span></span><span style="display:flex;"><span>exit
+</span></span></code></pre></div><p><del>ログインシェルをfishに変更する</del><br>
 ここで一つ問題が。fishは<code>POSIX非互換</code>のシェルらしい。</p>
 <p>※<code>POSIX</code>とは、<code>シェルスクリプトの標準仕様</code>のこと。</p>
 <p>なので<code>sh</code>で書かれたシェルスクリプトには対応していないらしく（別途Bash互換のスクリプトを動かすプラグインがあるらしい？？）</p>
@@ -84,45 +84,45 @@ exit
 <!-- raw HTML omitted -->
 <h2 id="path設定">PATH設定</h2>
 <p><code>~/.config/fish/config.fish</code>を作る</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">touch ~/.config/fish/config.fish
-</code></pre></div><p>PATHを書き込む<br>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>touch ~/.config/fish/config.fish
+</span></span></code></pre></div><p>PATHを書き込む<br>
 あとaliasも設定しておく</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># rbenv
-set -x PATH $HOME/.rbenv/bin:$PATH
-set -x PATH $HOME/.rbenv/shims $PATH
-status --is-interactive; and source (rbenv init -|psub
-
-# MySQL
-set -x PATH /usr/local/opt/mysql@5.7/bin:$PATH)
-
-# alias
-alias be=&#39;bundle exec&#39;
-alias gs=&#39;git status&#39;
-alias ga=&#39;git add&#39;
-alias gc=&#39;git commit&#39;
-</code></pre></div><h1 id="fishプラグイン">fishプラグイン</h1>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># rbenv
+</span></span><span style="display:flex;"><span>set -x PATH $HOME/.rbenv/bin:$PATH
+</span></span><span style="display:flex;"><span>set -x PATH $HOME/.rbenv/shims $PATH
+</span></span><span style="display:flex;"><span>status --is-interactive; and source (rbenv init -|psub
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># MySQL
+</span></span><span style="display:flex;"><span>set -x PATH /usr/local/opt/mysql@5.7/bin:$PATH)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># alias
+</span></span><span style="display:flex;"><span>alias be=&#39;bundle exec&#39;
+</span></span><span style="display:flex;"><span>alias gs=&#39;git status&#39;
+</span></span><span style="display:flex;"><span>alias ga=&#39;git add&#39;
+</span></span><span style="display:flex;"><span>alias gc=&#39;git commit&#39;
+</span></span></code></pre></div><h1 id="fishプラグイン">fishプラグイン</h1>
 <h2 id="プラグイン管理ツールfisheをインストール">プラグイン管理ツールfisheをインストール</h2>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
-</code></pre></div><h2 id="bobthefishをインストール">bobthefishをインストール</h2>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+</span></span></code></pre></div><h2 id="bobthefishをインストール">bobthefishをインストール</h2>
 <p>gitのブランチやらステータスを表示してくれる優秀なやつ</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">fisher add oh-my-fish/theme-bobthefish
-</code></pre></div><h2 id="power-line-fontsをインストール">Power-line-fontsをインストール</h2>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>fisher add oh-my-fish/theme-bobthefish
+</span></span></code></pre></div><h2 id="power-line-fontsをインストール">Power-line-fontsをインストール</h2>
 <p>デフォルトでtheme-bobthefishを使うと、文字化けしてしまう</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git clone https://github.com/powerline/fonts.git
-cd fonts
-./install.sh
-cd ../
-rm -rf ./fonts
-</code></pre></div><p>iTerm2 &gt; Preferences &gt; Profiles &gt; Text &gt; Change Fontから、Literation Mono Powerlineを選択</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>git clone https://github.com/powerline/fonts.git
+</span></span><span style="display:flex;"><span>cd fonts
+</span></span><span style="display:flex;"><span>./install.sh
+</span></span><span style="display:flex;"><span>cd ../
+</span></span><span style="display:flex;"><span>rm -rf ./fonts
+</span></span></code></pre></div><p>iTerm2 &gt; Preferences &gt; Profiles &gt; Text &gt; Change Fontから、Literation Mono Powerlineを選択</p>
 <p>これでOK</p>
 <h2 id="fisherのconfig">fisherのconfig</h2>
 <p>とりあえずの設定。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># theme-bobthefish
-set -g fish_prompt_pwd_dir_length 0  # ディレクトリ省略しない
-set -g theme_display_git_master_branch yes # git branch名を表示
-set -g theme_display_date no  # 時刻を表示しないように設定
-set -g theme_display_cmd_duration no  # コマンド実行時間の非表示
-</code></pre></div><p>最終的にこんな感じになった。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># theme-bobthefish
+</span></span><span style="display:flex;"><span>set -g fish_prompt_pwd_dir_length 0  # ディレクトリ省略しない
+</span></span><span style="display:flex;"><span>set -g theme_display_git_master_branch yes # git branch名を表示
+</span></span><span style="display:flex;"><span>set -g theme_display_date no  # 時刻を表示しないように設定
+</span></span><span style="display:flex;"><span>set -g theme_display_cmd_duration no  # コマンド実行時間の非表示
+</span></span></code></pre></div><p>最終的にこんな感じになった。</p>
 <!-- raw HTML omitted -->
 <p>今日はここまで。</p>
 

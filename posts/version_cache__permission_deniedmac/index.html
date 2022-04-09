@@ -66,63 +66,63 @@
 			<h1 id="はじめに">はじめに</h1>
 <p>Railsコマンドを叩くたびに発生していた以下のエラーが解決できたので、記事に残しておきます</p>
 <h1 id="エラー">エラー</h1>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"> $ rails s
-mkdir: /usr/local/bin/../version_cache: Permission denied
-/usr/local/bin/rbenv-communal-gem-home: line 21: /usr/local/bin/../version_cache/2.7.0: No such file or directory
-=&gt; Booting Puma
-=&gt; Rails 6.0.2.1 application starting in development
-=&gt; Run `rails server --help` for more startup options
-..
-</code></pre></div><p><code>rbenv-communal-gem-home</code>というファイルのキャッシュPATHが間違っているとか怒られているみたいですね</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> $ rails s
+</span></span><span style="display:flex;"><span>mkdir: /usr/local/bin/../version_cache: Permission denied
+</span></span><span style="display:flex;"><span>/usr/local/bin/rbenv-communal-gem-home: line 21: /usr/local/bin/../version_cache/2.7.0: No such file or directory
+</span></span><span style="display:flex;"><span>=&gt; Booting Puma
+</span></span><span style="display:flex;"><span>=&gt; Rails 6.0.2.1 application starting in development
+</span></span><span style="display:flex;"><span>=&gt; Run `rails server --help` for more startup options
+</span></span><span style="display:flex;"><span>..
+</span></span></code></pre></div><p><code>rbenv-communal-gem-home</code>というファイルのキャッシュPATHが間違っているとか怒られているみたいですね</p>
 <h1 id="対応">対応</h1>
 <p><code>rbenv-communal-gem-home</code>を開く</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#719e07">#!/usr/bin/env bash
-</span><span style="color:#719e07"></span><span style="color:#586e75">#</span>
-<span style="color:#586e75"># Summary: Show the communal gem home if communal gems are enabled</span>
-<span style="color:#586e75">#</span>
-<span style="color:#586e75"># Usage: rbenv communal-gem-home [&lt;version&gt;]</span>
-
-<span style="color:#586e75"># Provide rbenv completions</span>
-<span style="color:#719e07">if</span> <span style="color:#719e07">[</span> <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$1</span><span style="color:#2aa198">&#34;</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;--complete&#34;</span> <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
-  <span style="color:#b58900">exec</span> rbenv-versions --bare
-<span style="color:#719e07">fi</span>
-
-<span style="color:#268bd2">rbenv_version</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">${</span><span style="color:#268bd2">1</span><span style="color:#719e07">:-$(</span>rbenv-version-name<span style="color:#719e07">)</span><span style="color:#2aa198">}</span><span style="color:#2aa198">&#34;</span>
-<span style="color:#719e07">if</span> <span style="color:#719e07">[</span> -L <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$RBENV_ROOT</span><span style="color:#2aa198">/versions/</span><span style="color:#268bd2">$rbenv_version</span><span style="color:#2aa198">/lib/ruby/gems&#34;</span> <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
-  <span style="color:#268bd2">cachedir</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">${</span><span style="color:#268bd2">BASH_SOURCE</span>%/*<span style="color:#2aa198">}</span><span style="color:#2aa198">/../version_cache&#34;</span>
-  <span style="color:#268bd2">cachefile</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachedir</span><span style="color:#2aa198">/</span><span style="color:#268bd2">$rbenv_version</span><span style="color:#2aa198">&#34;</span>
-  <span style="color:#719e07">if</span> <span style="color:#719e07">[</span> -f <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachefile</span><span style="color:#2aa198">&#34;</span> <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
-    <span style="color:#268bd2">communal_version</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">$(</span>cat <span style="color:#268bd2">$cachefile</span><span style="color:#719e07">)</span><span style="color:#2aa198">&#34;</span>
-  <span style="color:#719e07">else</span>
-    mkdir -p <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachedir</span><span style="color:#2aa198">&#34;</span>
-    <span style="color:#268bd2">communal_version</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">$(</span><span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$RBENV_ROOT</span><span style="color:#2aa198">/versions/</span><span style="color:#268bd2">$rbenv_version</span><span style="color:#2aa198">/bin/ruby&#34;</span> -rrbconfig -e <span style="color:#2aa198">&#39;puts RbConfig::CONFIG[&#34;ruby_version&#34;]&#39;</span><span style="color:#719e07">)</span><span style="color:#2aa198">&#34;</span>
-    <span style="color:#b58900">echo</span> <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$communal_version</span><span style="color:#2aa198">&#34;</span> &gt; <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachefile</span><span style="color:#2aa198">&#34;</span>
-  <span style="color:#719e07">fi</span>
-
-  <span style="color:#b58900">echo</span> <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$RBENV_ROOT</span><span style="color:#2aa198">/gems/</span><span style="color:#268bd2">$communal_version</span><span style="color:#2aa198">&#34;</span>
-<span style="color:#719e07">else</span>
-  <span style="color:#b58900">exit</span> <span style="color:#2aa198">1</span>
-<span style="color:#719e07">fi</span>
-</code></pre></div><p>14~15行目あたりのPATHを変更します</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">- cachedir=&#34;${BASH_SOURCE%/*}/../version_cache&#34;
-+ cachedir=&#34;$RBENV_ROOT/.communal-gem-version-cache&#34;
-</code></pre></div><h1 id="結果">結果</h1>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#719e07">#!/usr/bin/env bash
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07"></span><span style="color:#586e75">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># Summary: Show the communal gem home if communal gems are enabled</span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># Usage: rbenv communal-gem-home [&lt;version&gt;]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75"># Provide rbenv completions</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">if</span> <span style="color:#719e07">[</span> <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$1</span><span style="color:#2aa198">&#34;</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;--complete&#34;</span> <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#b58900">exec</span> rbenv-versions --bare
+</span></span><span style="display:flex;"><span><span style="color:#719e07">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">rbenv_version</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">${</span><span style="color:#268bd2">1</span><span style="color:#719e07">:-$(</span>rbenv-version-name<span style="color:#719e07">)</span><span style="color:#2aa198">}</span><span style="color:#2aa198">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">if</span> <span style="color:#719e07">[</span> -L <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$RBENV_ROOT</span><span style="color:#2aa198">/versions/</span><span style="color:#268bd2">$rbenv_version</span><span style="color:#2aa198">/lib/ruby/gems&#34;</span> <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#268bd2">cachedir</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#2aa198">${</span><span style="color:#268bd2">BASH_SOURCE</span>%/*<span style="color:#2aa198">}</span><span style="color:#2aa198">/../version_cache&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#268bd2">cachefile</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachedir</span><span style="color:#2aa198">/</span><span style="color:#268bd2">$rbenv_version</span><span style="color:#2aa198">&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">if</span> <span style="color:#719e07">[</span> -f <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachefile</span><span style="color:#2aa198">&#34;</span> <span style="color:#719e07">]</span>; <span style="color:#719e07">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">communal_version</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">$(</span>cat <span style="color:#268bd2">$cachefile</span><span style="color:#719e07">)</span><span style="color:#2aa198">&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">else</span>
+</span></span><span style="display:flex;"><span>    mkdir -p <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachedir</span><span style="color:#2aa198">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">communal_version</span><span style="color:#719e07">=</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">$(</span><span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$RBENV_ROOT</span><span style="color:#2aa198">/versions/</span><span style="color:#268bd2">$rbenv_version</span><span style="color:#2aa198">/bin/ruby&#34;</span> -rrbconfig -e <span style="color:#2aa198">&#39;puts RbConfig::CONFIG[&#34;ruby_version&#34;]&#39;</span><span style="color:#719e07">)</span><span style="color:#2aa198">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#b58900">echo</span> <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$communal_version</span><span style="color:#2aa198">&#34;</span> &gt; <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$cachefile</span><span style="color:#2aa198">&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#b58900">echo</span> <span style="color:#2aa198">&#34;</span><span style="color:#268bd2">$RBENV_ROOT</span><span style="color:#2aa198">/gems/</span><span style="color:#268bd2">$communal_version</span><span style="color:#2aa198">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">else</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#b58900">exit</span> <span style="color:#2aa198">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">fi</span>
+</span></span></code></pre></div><p>14~15行目あたりのPATHを変更します</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>- cachedir=&#34;${BASH_SOURCE%/*}/../version_cache&#34;
+</span></span><span style="display:flex;"><span>+ cachedir=&#34;$RBENV_ROOT/.communal-gem-version-cache&#34;
+</span></span></code></pre></div><h1 id="結果">結果</h1>
 <p>Railsコマンド叩いてエラーが発生しなくなったかを確認してみる</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ rails s
-=&gt; Booting Puma
-=&gt; Rails 6.0.2.1 application starting in development
-=&gt; Run `rails server --help` for more startup options
-..
-</code></pre></div><p>でなくなったっぽい！</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ rails s
+</span></span><span style="display:flex;"><span>=&gt; Booting Puma
+</span></span><span style="display:flex;"><span>=&gt; Rails 6.0.2.1 application starting in development
+</span></span><span style="display:flex;"><span>=&gt; Run `rails server --help` for more startup options
+</span></span><span style="display:flex;"><span>..
+</span></span></code></pre></div><p>でなくなったっぽい！</p>
 <p>念の為<code>rbenv doctor</code>コマンドでも確認しておく</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">$ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
-Checking for `rbenv&#39; in PATH: /usr/local/bin/rbenv
-Checking for rbenv shims in PATH: OK
-Checking `rbenv install&#39; support: /usr/local/bin/rbenv-install (ruby-build 20200214)
-Counting installed Ruby versions: 3 versions
-Checking RubyGems settings: OK
-Auditing installed plugins: OK
-</code></pre></div><p>気持ち悪いログがでなくなってスッキリ！</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+</span></span><span style="display:flex;"><span>Checking for `rbenv&#39; in PATH: /usr/local/bin/rbenv
+</span></span><span style="display:flex;"><span>Checking for rbenv shims in PATH: OK
+</span></span><span style="display:flex;"><span>Checking `rbenv install&#39; support: /usr/local/bin/rbenv-install (ruby-build 20200214)
+</span></span><span style="display:flex;"><span>Counting installed Ruby versions: 3 versions
+</span></span><span style="display:flex;"><span>Checking RubyGems settings: OK
+</span></span><span style="display:flex;"><span>Auditing installed plugins: OK
+</span></span></code></pre></div><p>気持ち悪いログがでなくなってスッキリ！</p>
 <p>今日はここまで</p>
 <h2 id="参考">参考</h2>
 <ul>

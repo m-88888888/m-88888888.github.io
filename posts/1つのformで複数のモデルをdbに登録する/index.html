@@ -73,71 +73,71 @@
 <p>まず、前提としてモデルは関連付けされていることですね。
 今回は<code>article</code>という親モデルと<code>gear</code>という子モデルの１：Nの関係のモデルのケースで使用します。</p>
 <h2 id="1親モデルにネストされた子モデルの更新させることを許可させる">1.親モデルにネストされた子モデルの更新させることを許可させる。</h2>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">Article</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
-  has_many <span style="color:#2aa198">:gears</span>
-
-  accepts_nested_attributes_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">allow_destroy</span>: <span style="color:#719e07">true</span>
-<span style="color:#719e07">end</span>
-</code></pre></div><p><code>allow_destroy: true</code>はarticleモデルを削除したときにgearモデルも一緒に削除することを許可するというオプションですね。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">Article</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+</span></span><span style="display:flex;"><span>  has_many <span style="color:#2aa198">:gears</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  accepts_nested_attributes_for <span style="color:#2aa198">:gears</span>, <span style="color:#2aa198">allow_destroy</span>: <span style="color:#719e07">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">end</span>
+</span></span></code></pre></div><p><code>allow_destroy: true</code>はarticleモデルを削除したときにgearモデルも一緒に削除することを許可するというオプションですね。</p>
 <h2 id="2formにインスタンスを親モデルと子モデル両方を渡す">2.formにインスタンスを親モデルと子モデル両方を渡す</h2>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">ArticlesController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
-<span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-
-  <span style="color:#719e07">def</span> <span style="color:#268bd2">new</span>
-    @article <span style="color:#719e07">=</span> <span style="color:#cb4b16">Article</span><span style="color:#719e07">.</span>new
-    @article<span style="color:#719e07">.</span>gears<span style="color:#719e07">.</span>build
-  <span style="color:#719e07">end</span>
-<span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-</code></pre></div><p>これ実装する時はコピペでやってしまったんですけど、この記事書くときに改めて調べたら
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">ArticlesController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">def</span> <span style="color:#268bd2">new</span>
+</span></span><span style="display:flex;"><span>    @article <span style="color:#719e07">=</span> <span style="color:#cb4b16">Article</span><span style="color:#719e07">.</span>new
+</span></span><span style="display:flex;"><span>    @article<span style="color:#719e07">.</span>gears<span style="color:#719e07">.</span>build
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span></code></pre></div><p>これ実装する時はコピペでやってしまったんですけど、この記事書くときに改めて調べたら
 モデルオブジェクトを生成する方法って<code>new</code>と<code>build</code>と２種類あるんですね。</p>
 <p>最近のRailsのバージョンでは機能的に両者に違いはないらしいですけど、昔のバージョンでは関連付けられたモデルを生成する時に使われたメソッドらしいです。
 その名残で、関連付けられたモデルを生成するときはbuildを使われる慣習があるみたいですね〜</p>
 <h2 id="3formから受け取ったパラメータを保存する">3.formから受け取ったパラメータを保存する</h2>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#2aa198">Parameters</span>: 
-    {<span style="color:#2aa198">&#34;utf8&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;✓&#34;</span>,              
-    <span style="color:#2aa198">&#34;authenticity_token&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;kuNbqST7Jb8DU3ggnC4jOTkNS68tdUMBn3tabSDkTxyirsRNK6ZpcbAaBpYApChoIhofrpfkMR9AFmLzW/zdLg==&#34;</span>,
-    <span style="color:#2aa198">&#34;article&#34;</span><span style="color:#719e07">=&gt;</span>
-        {<span style="color:#2aa198">&#34;photo&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#586e75">#&lt;ActionDispatch::Http::UploadedFile:*************</span>
-        @tempfile<span style="color:#719e07">=</span><span style="color:#586e75">#&lt;Tempfile:/var/folders/**************,</span>
-        @original_filename<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;IMG_7968.JPG&#34;</span>, 
-        @content_type<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;image/jpeg&#34;</span>, 
-        @headers<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;Content-Disposition: form-data; name=</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">article[photo]</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">; filename=</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">IMG_7968.JPG</span><span style="color:#cb4b16">\&#34;\r\n</span><span style="color:#2aa198">Content-Type: image/jpeg</span><span style="color:#cb4b16">\r\n</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">&gt;</span>, 
-        <span style="color:#2aa198">&#34;comment&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;テストコメント&#34;</span>, 
-        <span style="color:#2aa198">&#34;gears_attributes&#34;</span><span style="color:#719e07">=&gt;</span>{<span style="color:#2aa198">&#34;0&#34;</span><span style="color:#719e07">=&gt;</span>
-            {<span style="color:#2aa198">&#34;gear_image&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#586e75">#&lt;ActionDispatch::Http::UploadedFile:********,       </span>
-                @original_filename<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;20150205174601179_1000.jpg&#34;</span>, 
-                @content_type<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;image/jpeg&#34;</span>, 
-                @headers<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;Content-Disposition: form-data; name=</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">article[gears_attributes][0][gear_image]</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">; filename=</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">20150205174601179_1000.jpg</span><span style="color:#cb4b16">\&#34;\r\n</span><span style="color:#2aa198">Content-Type: image/jpeg</span><span style="color:#cb4b16">\r\n</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">&gt;</span>, 
-            <span style="color:#2aa198">&#34;url&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;http://localhost:3000/articles/new&#34;</span>}}}, <span style="color:#2aa198">&#34;commit&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;登録する&#34;</span>}
-</code></pre></div><p>実際のパラメータです。<code>gears_attributes</code>が入っていますね！</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#2aa198">Parameters</span>: 
+</span></span><span style="display:flex;"><span>    {<span style="color:#2aa198">&#34;utf8&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;✓&#34;</span>,              
+</span></span><span style="display:flex;"><span>    <span style="color:#2aa198">&#34;authenticity_token&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;kuNbqST7Jb8DU3ggnC4jOTkNS68tdUMBn3tabSDkTxyirsRNK6ZpcbAaBpYApChoIhofrpfkMR9AFmLzW/zdLg==&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#2aa198">&#34;article&#34;</span><span style="color:#719e07">=&gt;</span>
+</span></span><span style="display:flex;"><span>        {<span style="color:#2aa198">&#34;photo&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#586e75">#&lt;ActionDispatch::Http::UploadedFile:*************</span>
+</span></span><span style="display:flex;"><span>        @tempfile<span style="color:#719e07">=</span><span style="color:#586e75">#&lt;Tempfile:/var/folders/**************,</span>
+</span></span><span style="display:flex;"><span>        @original_filename<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;IMG_7968.JPG&#34;</span>, 
+</span></span><span style="display:flex;"><span>        @content_type<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;image/jpeg&#34;</span>, 
+</span></span><span style="display:flex;"><span>        @headers<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;Content-Disposition: form-data; name=</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">article[photo]</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">; filename=</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">IMG_7968.JPG</span><span style="color:#cb4b16">\&#34;\r\n</span><span style="color:#2aa198">Content-Type: image/jpeg</span><span style="color:#cb4b16">\r\n</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">&gt;</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#2aa198">&#34;comment&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;テストコメント&#34;</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#2aa198">&#34;gears_attributes&#34;</span><span style="color:#719e07">=&gt;</span>{<span style="color:#2aa198">&#34;0&#34;</span><span style="color:#719e07">=&gt;</span>
+</span></span><span style="display:flex;"><span>            {<span style="color:#2aa198">&#34;gear_image&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#586e75">#&lt;ActionDispatch::Http::UploadedFile:********,       </span>
+</span></span><span style="display:flex;"><span>                @original_filename<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;20150205174601179_1000.jpg&#34;</span>, 
+</span></span><span style="display:flex;"><span>                @content_type<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;image/jpeg&#34;</span>, 
+</span></span><span style="display:flex;"><span>                @headers<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;Content-Disposition: form-data; name=</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">article[gears_attributes][0][gear_image]</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">; filename=</span><span style="color:#cb4b16">\&#34;</span><span style="color:#2aa198">20150205174601179_1000.jpg</span><span style="color:#cb4b16">\&#34;\r\n</span><span style="color:#2aa198">Content-Type: image/jpeg</span><span style="color:#cb4b16">\r\n</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">&gt;</span>, 
+</span></span><span style="display:flex;"><span>            <span style="color:#2aa198">&#34;url&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;http://localhost:3000/articles/new&#34;</span>}}}, <span style="color:#2aa198">&#34;commit&#34;</span><span style="color:#719e07">=&gt;</span><span style="color:#2aa198">&#34;登録する&#34;</span>}
+</span></span></code></pre></div><p>実際のパラメータです。<code>gears_attributes</code>が入っていますね！</p>
 <p>あとはコントローラーで処理するだけです。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#719e07">class</span> <span style="color:#268bd2">ArticlesController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
-<span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-
-  <span style="color:#719e07">def</span> <span style="color:#268bd2">create</span>
-    @article <span style="color:#719e07">=</span> <span style="color:#cb4b16">Article</span><span style="color:#719e07">.</span>new(article_params)
-    @article<span style="color:#719e07">.</span>user_id <span style="color:#719e07">=</span> current_user<span style="color:#719e07">.</span>id
-    <span style="color:#719e07">if</span> @article<span style="color:#719e07">.</span>save
-      redirect_to articles_path, <span style="color:#2aa198">notice</span>: <span style="color:#2aa198">&#34;記事を登録しました。&#34;</span>
-    <span style="color:#719e07">else</span>
-      render <span style="color:#2aa198">:new</span>
-    <span style="color:#719e07">end</span>
-
-  <span style="color:#719e07">end</span>
-<span style="color:#719e07">.</span>
-<span style="color:#719e07">.</span>
-</code></pre></div><p>ログを確認してみると。。。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">  <span style="color:#cb4b16">User</span> <span style="color:#cb4b16">Load</span> (<span style="color:#2aa198">0</span><span style="color:#719e07">.</span><span style="color:#2aa198">5</span>ms)  <span style="color:#cb4b16">SELECT</span>  <span style="color:#586e75">`users`</span><span style="color:#719e07">.</span>* <span style="color:#cb4b16">FROM</span> <span style="color:#586e75">`users`</span> <span style="color:#cb4b16">WHERE</span> <span style="color:#586e75">`users`</span><span style="color:#719e07">.</span>`<span style="color:#b58900">id</span><span style="color:#586e75">` = 9 LIMIT 1
-</span><span style="color:#586e75">  ↳ app/controllers/articles_controller.rb:21
-</span><span style="color:#586e75">  Article Create (0.4ms)  INSERT INTO `</span>articles<span style="color:#586e75">` (`</span>photo<span style="color:#586e75">`, `</span>comment<span style="color:#586e75">`, `</span>created_at<span style="color:#586e75">`, `</span>updated_at<span style="color:#586e75">`, `</span>user_id<span style="color:#586e75">`) VALUES (&#39;IMG_7968.JPG&#39;, &#39;テストコメント&#39;, &#39;2019-10-10 15:06:55&#39;, &#39;2019-10-10 15:06:55&#39;, 9)
-</span><span style="color:#586e75">  ↳ app/controllers/articles_controller.rb:21
-</span><span style="color:#586e75">  Gear Create (0.4ms)  INSERT INTO `</span>gears<span style="color:#586e75">` (`</span>url<span style="color:#586e75">`, `</span>created_at<span style="color:#586e75">`, `</span>updated_at<span style="color:#586e75">`, `</span>article_id<span style="color:#586e75">`, `</span>gear_image<span style="color:#586e75">`) VALUES (&#39;http://localhost:3000/articles/new&#39;, &#39;2019-10-10 15:06:55&#39;, &#39;2019-10-10 15:06:55&#39;, 14, &#39;20150205174601179_1000.jpg&#39;)
-</span><span style="color:#586e75">  ↳ app/controllers/articles_controller.rb:21
-</span><span style="color:#586e75">   (1.5ms)  COMMIT
-</span></code></pre></div><p>無事登録できました〜</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#719e07">class</span> <span style="color:#268bd2">ArticlesController</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationController</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">def</span> <span style="color:#268bd2">create</span>
+</span></span><span style="display:flex;"><span>    @article <span style="color:#719e07">=</span> <span style="color:#cb4b16">Article</span><span style="color:#719e07">.</span>new(article_params)
+</span></span><span style="display:flex;"><span>    @article<span style="color:#719e07">.</span>user_id <span style="color:#719e07">=</span> current_user<span style="color:#719e07">.</span>id
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">if</span> @article<span style="color:#719e07">.</span>save
+</span></span><span style="display:flex;"><span>      redirect_to articles_path, <span style="color:#2aa198">notice</span>: <span style="color:#2aa198">&#34;記事を登録しました。&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">else</span>
+</span></span><span style="display:flex;"><span>      render <span style="color:#2aa198">:new</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">.</span>
+</span></span></code></pre></div><p>ログを確認してみると。。。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>  <span style="color:#cb4b16">User</span> <span style="color:#cb4b16">Load</span> (<span style="color:#2aa198">0</span><span style="color:#719e07">.</span><span style="color:#2aa198">5</span>ms)  <span style="color:#cb4b16">SELECT</span>  <span style="color:#586e75">`users`</span><span style="color:#719e07">.</span>* <span style="color:#cb4b16">FROM</span> <span style="color:#586e75">`users`</span> <span style="color:#cb4b16">WHERE</span> <span style="color:#586e75">`users`</span><span style="color:#719e07">.</span>`<span style="color:#b58900">id</span><span style="color:#586e75">` = 9 LIMIT 1
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75">  ↳ app/controllers/articles_controller.rb:21
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75">  Article Create (0.4ms)  INSERT INTO `</span>articles<span style="color:#586e75">` (`</span>photo<span style="color:#586e75">`, `</span>comment<span style="color:#586e75">`, `</span>created_at<span style="color:#586e75">`, `</span>updated_at<span style="color:#586e75">`, `</span>user_id<span style="color:#586e75">`) VALUES (&#39;IMG_7968.JPG&#39;, &#39;テストコメント&#39;, &#39;2019-10-10 15:06:55&#39;, &#39;2019-10-10 15:06:55&#39;, 9)
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75">  ↳ app/controllers/articles_controller.rb:21
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75">  Gear Create (0.4ms)  INSERT INTO `</span>gears<span style="color:#586e75">` (`</span>url<span style="color:#586e75">`, `</span>created_at<span style="color:#586e75">`, `</span>updated_at<span style="color:#586e75">`, `</span>article_id<span style="color:#586e75">`, `</span>gear_image<span style="color:#586e75">`) VALUES (&#39;http://localhost:3000/articles/new&#39;, &#39;2019-10-10 15:06:55&#39;, &#39;2019-10-10 15:06:55&#39;, 14, &#39;20150205174601179_1000.jpg&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75">  ↳ app/controllers/articles_controller.rb:21
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75">   (1.5ms)  COMMIT
+</span></span></span></code></pre></div><p>無事登録できました〜</p>
 <p>このメソッド便利なんですけど、どうやらActive Recordを汚染する原因になりやすいだとかなんとか？らしいのであまり使われないらしいですね（実装してから知った）
 何で汚染の原因となるのかがよくわからないので、今後色々な機能を追加していく中で身を持って経験していきたいと思います！</p>
 <p>参考にさせて頂いた記事：</p>
