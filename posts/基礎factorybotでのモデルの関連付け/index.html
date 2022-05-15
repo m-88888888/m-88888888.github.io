@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>【基礎】factorybotでのモデルの関連付け - hachi&#39;s blog</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="【基礎】factorybotでのモデルの関連付け" />
+<meta property="og:description" content="factorybotでのモデルの関連付け メモ代わりにもならないけど&hellip;一応アウトプット" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://m-88888888.github.io/posts/%E5%9F%BA%E7%A4%8Efactorybot%E3%81%A7%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-12-17T00:39:06+09:00" />
+<meta property="article:modified_time" content="2019-12-17T00:39:06+09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="【基礎】factorybotでのモデルの関連付け"/>
+<meta name="twitter:description" content="factorybotでのモデルの関連付け メモ代わりにもならないけど&hellip;一応アウトプット"/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.io/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://m-88888888.github.io/css/main.css" /><link rel="stylesheet" type="text/css" href="https://m-88888888.github.io/css/dark.css" media="(prefers-color-scheme: dark)" />
+
+	<script src="https://m-88888888.github.io/js/feather.min.js"></script>
+	
+	<script src="https://m-88888888.github.io/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="https://m-88888888.github.io/">
+	<h1 class="site-title"><a href="https://m-88888888.github.io/">hachi&#39;s blog</a></h1>
+	<div class="site-description"><h2>いろいろアウトプット</h2><nav class="nav social">
+			<ul class="flat"><a href="https://github.com/m-88888888" title="Github"><i data-feather="github"></i></a><a href="https://twitter.com/hachi88_10" title="Twitter"><i data-feather="twitter"></i></a></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			
+			<li>
+				<a href="/posts">All posts</a>
+			</li>
+			
+			<li>
+				<a href="/about">About</a>
+			</li>
+			
+			<li>
+				<a href="/tags">Tags</a>
+			</li>
+			
+		</ul>
+	</nav>
+</div>
+
+
+		<div class="post-header">
+			<h1 class="title">【基礎】factorybotでのモデルの関連付け</h1>
+			<div class="meta">Posted at &mdash; Dec 17, 2019</div>
+		</div>
+
+		<div class="markdown">
+			<h1 id="factorybotでのモデルの関連付け">factorybotでのモデルの関連付け</h1>
+<p>メモ代わりにもならないけど&hellip;一応アウトプット</p>
+<p>簡素だけど以下のモデルのような1対Nの関係の場合</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby:article.rb" data-lang="ruby:article.rb"><span style="color:#719e07">class</span> <span style="color:#268bd2">Article</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+  belong_to <span style="color:#2aa198">:user</span>
+<span style="color:#719e07">end</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby:user.rb" data-lang="ruby:user.rb"><span style="color:#719e07">class</span> <span style="color:#268bd2">User</span> <span style="color:#719e07">&lt;</span> <span style="color:#cb4b16">ApplicationRecord</span>
+  has_many <span style="color:#2aa198">:articles</span>
+<span style="color:#719e07">end</span>
+
+</code></pre></div><p>1のモデルは特に関連付けを宣言する必要なし</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby:users.rb" data-lang="ruby:users.rb">factory <span style="color:#2aa198">:user</span> <span style="color:#719e07">do</span>
+  email { <span style="color:#2aa198">&#39;test@test.com&#39;</span>}
+  password { <span style="color:#2aa198">&#39;password&#39;</span> }
+  password_confirmation { <span style="color:#2aa198">&#39;password&#39;</span>}
+  <span style="color:#b58900">name</span> { <span style="color:#cb4b16">Faker</span><span style="color:#719e07">::</span><span style="color:#cb4b16">Name</span><span style="color:#719e07">.</span>unique<span style="color:#719e07">.</span>name }
+  gender { <span style="color:#2aa198">1</span> }
+  height { <span style="color:#2aa198">170</span> }
+<span style="color:#719e07">end</span>
+</code></pre></div><p>Nのモデルはassociationを宣言する必要あり</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby:articles.rb" data-lang="ruby:articles.rb"><span style="color:#cb4b16">FactoryBot</span><span style="color:#719e07">.</span>define <span style="color:#719e07">do</span>
+  factory <span style="color:#2aa198">:article</span>, <span style="color:#2aa198">class</span>: <span style="color:#cb4b16">Article</span> <span style="color:#719e07">do</span>
+    photo { <span style="color:#cb4b16">File</span><span style="color:#719e07">.</span>new(<span style="color:#2aa198">&#34;</span><span style="color:#2aa198">#{</span><span style="color:#cb4b16">Rails</span><span style="color:#719e07">.</span>root<span style="color:#2aa198">}</span><span style="color:#2aa198">/spec/fixtures/nofile.jpg&#34;</span>) }
+    comment { <span style="color:#2aa198">&#34;テストコメント&#34;</span> }
+    association <span style="color:#2aa198">:user</span> <span style="color:#586e75">#Userモデルと関連があることを宣言</span>
+  <span style="color:#719e07">end</span>
+<span style="color:#719e07">end</span>
+</code></pre></div><p>あとはSystem SpecなりModel Specで使用するarticleのfactoryを使用するときに、引数にUserモデルを渡してやるだけ</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby:article_spec.rb" data-lang="ruby:article_spec.rb"><span style="color:#b58900">require</span> <span style="color:#2aa198">&#39;rails_helper&#39;</span>
+
+<span style="color:#cb4b16">RSpec</span><span style="color:#719e07">.</span>describe <span style="color:#cb4b16">Article</span>, <span style="color:#2aa198">type</span>: <span style="color:#2aa198">:model</span> <span style="color:#719e07">do</span>
+
+  before <span style="color:#719e07">do</span>
+    @user <span style="color:#719e07">=</span> create(<span style="color:#2aa198">:user</span>)
+  <span style="color:#719e07">end</span>
+
+  describe <span style="color:#2aa198">&#34;#create&#34;</span> <span style="color:#719e07">do</span>
+    it <span style="color:#2aa198">&#39;コーディネート画像、コーディネート紹介文があれば有効な状態であること&#39;</span> <span style="color:#719e07">do</span>
+      article <span style="color:#719e07">=</span> create(<span style="color:#2aa198">:article</span>, <span style="color:#2aa198">user</span>: @user)　<span style="color:#586e75">#ここでUserモデルを渡さないとnilだって怒られる</span>
+      article<span style="color:#719e07">.</span>valid?
+      expect(article)<span style="color:#719e07">.</span>to be_valid
+    <span style="color:#719e07">end</span>
+<span style="color:#719e07">.</span>
+<span style="color:#719e07">.</span>
+<span style="color:#719e07">.</span>
+<span style="color:#719e07">end</span>
+</code></pre></div><p>超簡単</p>
+
+		</div>
+
+		<div class="post-tags">
+			
+				
+			
+		</div>
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+	(function () {
+		
+		
+		if (window.location.hostname == "localhost")
+			return;
+
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		var disqus_shortname = 'localhost';
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+		Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> © Copyright m-88888888 |  <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-192108063-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script>feather.replace()</script>
+</body>
+</html>
