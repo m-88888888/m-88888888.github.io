@@ -1,2 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>next.js on hachi's blog</title><link>https://m-88888888.github.io/tags/next.js/</link><description>Recent content in next.js on hachi's blog</description><generator>Hugo -- gohugo.io</generator><language>jp</language><copyright>© Copyright m-88888888</copyright><lastBuildDate>Sat, 27 Feb 2021 23:11:26 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/tags/next.js/index.xml" rel="self" type="application/rss+xml"/><item><title>Next.js9.3で追加されたAPIについて</title><link>https://m-88888888.github.io/posts/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link><pubDate>Sat, 27 Feb 2021 23:11:26 +0900</pubDate><guid>https://m-88888888.github.io/posts/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid><description>現在の案件ではNext.js9.6を使用しているのですが、ページのAPIにgetInitialPropsを使用しており これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので ページのAPIに関して少し整理してみました。</description></item><item><title>Next.jsに入門してみた</title><link>https://m-88888888.github.io/posts/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/</link><pubDate>Wed, 04 Nov 2020 00:54:53 +0900</pubDate><guid>https://m-88888888.github.io/posts/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/</guid><description>&lt;p>最近入った現場でReact扱っているんですけど、フロントエンドを担当するのは初めてということもあって苦労してます。。。まあ楽しいのでいいんですが&lt;/p>
-&lt;p>そのReactでNext.jsっていうフレームワーク使ってるんだけどこれまたよくわからない所がちょくちょく出てきて何度か詰まったりした点があったので、一度体系的に調べてみようと思い、公式のチュートリアルやってみることにしました。&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>next.js on hachi&#39;s blog</title>
+    <link>https://m-88888888.github.io/tags/next.js/</link>
+    <description>Recent content in next.js on hachi&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>jp</language>
+    <copyright>© Copyright m-88888888</copyright>
+    <lastBuildDate>Sat, 27 Feb 2021 23:11:26 +0900</lastBuildDate><atom:link href="https://m-88888888.github.io/tags/next.js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Next.js9.3で追加されたAPIについて</title>
+      <link>https://m-88888888.github.io/posts/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</link>
+      <pubDate>Sat, 27 Feb 2021 23:11:26 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/posts/next.js9.3%E3%81%A7%E8%BF%BD%E5%8A%A0%E3%81%95%E3%82%8C%E3%81%9Fapi%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</guid>
+      <description>現在の案件ではNext.js9.6を使用しているのですが、ページのAPIにgetInitialPropsを使用しており これを新規追加されたAPIに置き換えた方が良いのではないかという話が出ていたので ページのAPIに関して少し整理してみました。</description>
+    </item>
+    
+    <item>
+      <title>Next.jsに入門してみた</title>
+      <link>https://m-88888888.github.io/posts/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/</link>
+      <pubDate>Wed, 04 Nov 2020 00:54:53 +0900</pubDate>
+      
+      <guid>https://m-88888888.github.io/posts/next.js%E3%81%AB%E5%85%A5%E9%96%80%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/</guid>
+      <description>&lt;p&gt;最近入った現場でReact扱っているんですけど、フロントエンドを担当するのは初めてということもあって苦労してます。。。まあ楽しいのでいいんですが&lt;/p&gt;
+&lt;p&gt;そのReactでNext.jsっていうフレームワーク使ってるんだけどこれまたよくわからない所がちょくちょく出てきて何度か詰まったりした点があったので、一度体系的に調べてみようと思い、公式のチュートリアルやってみることにしました。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
